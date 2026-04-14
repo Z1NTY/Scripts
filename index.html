@@ -448,4 +448,441 @@
         }
     </script>
 </body>
-                                         </html>
+</html>
+~ $ echo "" > ~/scripts_site/index.html && nano ~/scripts_site/index.html
+~ $ cat ~/scripts_site/index.html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Z1NTY // Scripts Library</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: #000;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: #0af;
+            min-height: 100vh;
+            padding: 20px;
+            background-image:
+                linear-gradient(rgba(0, 170, 255, 0.15) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 170, 255, 0.15) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: bgMove 30s linear infinite;
+        }
+        @keyframes bgMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 40px 40px; }
+        }
+        .container { max-width: 800px; margin: 0 auto; position: relative; }
+
+        /* Заголовок Z1NTY SCRIPTS в правом верхнем углу */
+        .site-title {
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-size: 18px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            color: #0af;
+            text-shadow: 0 0 15px #0af, 0 0 30px #0af;
+            z-index: 100;
+            animation: titleGlow 2s infinite alternate;
+        }
+        @keyframes titleGlow {
+            from { text-shadow: 0 0 10px #0af, 0 0 20px #0af; }
+            to { text-shadow: 0 0 20px #0af, 0 0 40px #0af, 0 0 60px #0af; }
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 15px 20px;
+            background: #111;
+            border: 2px solid #0af;
+            border-radius: 40px;
+            color: #0af;
+            font-size: 18px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 20px #0af;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .search-box:focus {
+            box-shadow: 0 0 30px #0af, 0 0 60px #0af;
+            transform: scale(1.02);
+        }
+        .search-box::placeholder { color: #0af; opacity: 0.5; }
+
+        .game-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        .game-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border: 1px solid #0af;
+            border-radius: 20px;
+            background: rgba(0,170,255,0.05);
+            backdrop-filter: blur(5px);
+            text-decoration: none;
+            color: #0af;
+            font-size: 20px;
+            font-weight: bold;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 0 10px #0af;
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+        .game-row:nth-child(1) { animation-delay: 0.05s; }
+        .game-row:nth-child(2) { animation-delay: 0.10s; }
+        .game-row:nth-child(3) { animation-delay: 0.15s; }
+        .game-row:nth-child(4) { animation-delay: 0.20s; }
+        .game-row:nth-child(5) { animation-delay: 0.25s; }
+        .game-row:nth-child(6) { animation-delay: 0.30s; }
+        .game-row:nth-child(7) { animation-delay: 0.35s; }
+        .game-row:nth-child(8) { animation-delay: 0.40s; }
+        .game-row:nth-child(9) { animation-delay: 0.45s; }
+        .game-row:nth-child(10) { animation-delay: 0.50s; }
+        .game-row:nth-child(11) { animation-delay: 0.55s; }
+        .game-row:nth-child(12) { animation-delay: 0.60s; }
+        .game-row:nth-child(13) { animation-delay: 0.65s; }
+        .game-row:nth-child(14) { animation-delay: 0.70s; }
+        .game-row:nth-child(15) { animation-delay: 0.75s; }
+        .game-row:nth-child(16) { animation-delay: 0.80s; }
+        .game-row:nth-child(17) { animation-delay: 0.85s; }
+        .game-row:nth-child(18) { animation-delay: 0.90s; }
+        .game-row:nth-child(19) { animation-delay: 0.95s; }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .game-row:hover {
+            background: #0af;
+            color: #000;
+            transform: scale(1.03) translateY(-3px);
+            box-shadow: 0 0 30px #0af, 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        h1, h2 {
+            text-shadow: 0 0 15px #0af;
+            margin: 30px 0 20px;
+            border-left: 5px solid #0af;
+            padding-left: 15px;
+            animation: glowPulse 2s infinite alternate;
+        }
+        @keyframes glowPulse {
+            from { text-shadow: 0 0 10px #0af; border-left-color: #0af; }
+            to { text-shadow: 0 0 20px #0af, 0 0 30px #0af; border-left-color: #fff; }
+        }
+
+        .script-card {
+            background: #0a0a0a;
+            border: 1px solid #0af;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 0 15px rgba(0,170,255,0.3);
+            transition: all 0.3s ease;
+            animation: cardFadeIn 0.6s ease forwards;
+            opacity: 0;
+        }
+        .script-card:nth-child(2) { animation-delay: 0.1s; }
+        .script-card:nth-child(3) { animation-delay: 0.2s; }
+        .script-card:nth-child(4) { animation-delay: 0.3s; }
+        .script-card:nth-child(5) { animation-delay: 0.4s; }
+        .script-card:nth-child(6) { animation-delay: 0.5s; }
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .script-card:hover {
+            box-shadow: 0 0 30px #0af, 0 10px 20px rgba(0,0,0,0.5);
+            transform: translateY(-5px);
+            border-color: #fff;
+        }
+
+        .script-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .no-key {
+            color: #0f0;
+            font-weight: bold;
+            text-shadow: 0 0 10px #0f0;
+            background: rgba(0,255,0,0.1);
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 1px solid #0f0;
+            animation: badgePulse 1.5s infinite alternate;
+        }
+        .key-system {
+            color: #f00;
+            font-weight: bold;
+            text-shadow: 0 0 10px #f00;
+            background: rgba(255,0,0,0.1);
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 1px solid #f00;
+            animation: badgePulse 1.5s infinite alternate;
+        }
+        @keyframes badgePulse {
+            from { opacity: 0.7; box-shadow: 0 0 5px currentColor; }
+            to { opacity: 1; box-shadow: 0 0 20px currentColor, 0 0 40px currentColor; }
+        }
+
+        pre {
+            background: #000;
+            border: 1px solid #0af;
+            padding: 15px;
+            border-radius: 15px;
+            overflow-x: auto;
+            color: #fff;
+            font-size: 12px;
+            margin-bottom: 15px;
+            white-space: pre-wrap;
+            word-break: break-all;
+            transition: all 0.3s ease;
+        }
+        pre:hover {
+            border-color: #fff;
+            box-shadow: inset 0 0 20px rgba(0,170,255,0.3);
+        }
+
+        .copy-btn {
+            background: transparent;
+            border: 2px solid #0af;
+            color: #0af;
+            padding: 12px 20px;
+            border-radius: 40px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            width: 100%;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px #0af;
+            letter-spacing: 2px;
+        }
+        .copy-btn:hover {
+            background: #0af;
+            color: #000;
+            transform: scale(1.02);
+            box-shadow: 0 0 30px #0af;
+        }
+        .copy-btn.copied {
+            background: #0f0;
+            border-color: #0f0;
+            color: #000;
+            animation: copySuccess 0.5s ease;
+        }
+        @keyframes copySuccess {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(0.95); }
+        }
+
+        .date-red {
+            color: #f00;
+            text-align: right;
+            margin-top: 5px;
+            font-size: 12px;
+            text-shadow: 0 0 5px #f00;
+        }
+
+        .game-desc {
+            background: #0a0a0a;
+            border: 1px solid #0af;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 30px;
+            color: #ccc;
+            line-height: 1.5;
+            box-shadow: 0 0 10px #0af;
+            animation: textFocus 0.8s ease;
+        }
+        @keyframes textFocus {
+            from { filter: blur(2px); opacity: 0; }
+            to { filter: blur(0); opacity: 1; }
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0af;
+            text-decoration: none;
+            border: 1px solid #0af;
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        .back-link:hover {
+            background: #0af;
+            color: #000;
+            transform: translateX(-5px);
+            box-shadow: 0 0 20px #0af;
+        }
+
+        .page {
+            display: none;
+            animation: pageSlide 0.4s ease-out;
+        }
+        @keyframes pageSlide {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        #home-page { display: block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="site-title">Z1NTY SCRIPTS</div>
+        <a href="#" class="back-link" id="backBtn">← На главную</a>
+        <input type="text" class="search-box" placeholder=" 🔍 Введите название плейса..." id="searchInput">
+
+        <!-- ГЛАВНАЯ СТРАНИЦА -->
+        <div id="home-page" class="page">
+            <h2>🎮 ВЫБЕРИТЕ ПЛЕЙС:</h2>
+            <div class="game-grid" id="gameGrid">
+                <a href="#doors" class="game-row" data-game="doors">🚪 DOORS <span>→</span></a>
+                <a href="#rivals" class="game-row" data-game="rivals">⚔️ Rivals <span>→</span></a>
+                <a href="#inkgame" class="game-row" data-game="inkgame">🖋️ Ink Game <span>→</span></a>
+                <a href="#tsb" class="game-row" data-game="tsb">💥 The Strongest Battlegrounds <span>→</span></a>
+                <a href="#piggy" class="game-row" data-game="piggy">🐷 Piggy <span>→</span></a>
+                <a href="#mm2" class="game-row" data-game="mm2">🔪 Murder Mystery 2 <span>→</span></a>
+                <a href="#99nights" class="game-row" data-game="99nights">🌲 99 Night in the forest <span>→</span></a>
+                <a href="#thanos" class="game-row" data-game="thanos">👊 Thanos Gauntlet Simulator <span>→</span></a>
+                <a href="#regretevator" class="game-row" data-game="regretevator">🛗 Regretevator <span>→</span></a>
+                <a href="#hamburg" class="game-row" data-game="hamburg">🚨 Emergency Hamburg <span>→</span></a>
+                <a href="#volleyball" class="game-row" data-game="volleyball">🏐 Volleyball Legends <span>→</span></a>
+                <a href="#deadrails" class="game-row" data-game="deadrails">🛤️ Dead Rails <span>→</span></a>
+                <a href="#brainrot" class="game-row" data-game="brainrot">🧠 Steal a Brainrot <span>→</span></a>
+                <a href="#spider" class="game-row" data-game="spider">🕷️ Spider <span>→</span></a>
+                <a href="#bloxstrike" class="game-row" data-game="bloxstrike">🔫 BloxStrike <span>→</span></a>
+                <a href="#muscle" class="game-row" data-game="muscle">💪 Muscle Legends <span>→</span></a>
+                <a href="#evade" class="game-row" data-game="evade">🏃 Evade <span>→</span></a>
+                <a href="#luckyblock" class="game-row" data-game="luckyblock">🍀 Be a Lucky Block <span>→</span></a>
+                <a href="#violence" class="game-row" data-game="violence">🔪 Violence District <span>→</span></a>
+            </div>
+        </div>
+
+        <!-- BLOXSTRIKE -->
+        <div id="bloxstrike-page" class="page">
+            <h2>🔫 BLOXSTRIKE</h2>
+            <div class="game-desc">BloxStrike — это тактический шутер от первого лица в стиле Counter-Strike, доступный на платформе Roblox. В игре игроки делятся на две команды — террористов и контртеррористов — и сражаются на различных картах, выполняя задания (например, закладку или обезвреживание бомбы). С нашими скриптами Z1NTY вы сможете легко убивать противников и выигрывать.</div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🌀 Wydird Scripts</span><span class="no-key">No key</span></div><pre id="script41">loadstring(game:HttpGet("https://gist.githubusercontent.com/wydirdscripts/9eca68020f16e51d6ad9ab736e793019/raw/f06aca535da16f8c8e5795d0532fa4df1ac0e97e/obfuscated_script-1770322002434.lua"))()</pre><button class="copy-btn" onclick="copyScript('script41', this)">📋 Copy script</button><div class="date-red">15 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🔑 NoFear Scripts</span><span class="key-system">Key System</span></div><pre id="script42">loadstring(game:HttpGet("https://raw.githubusercontent.com/nofearscripts/b4st/main/loader.lua"))()</pre><button class="copy-btn" onclick="copyScript('script42', this)">📋 Copy script</button><div class="date-red">15 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">📦 VSS</span><span class="no-key">No key</span></div><pre id="script43">loadstring(game:HttpGet("https://vss.pandadevelopment.net/virtual/file/dd916fdc1dc44a6a"))()</pre><button class="copy-btn" onclick="copyScript('script43', this)">📋 Copy script</button><div class="date-red">15 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🌑 Twistedk1d</span><span class="no-key">No key</span></div><pre id="script44">loadstring(game:HttpGet("https://raw.githubusercontent.com/twistedk1d/BloxStrike/refs/heads/main/Source/script.lua"))()</pre><button class="copy-btn" onclick="copyScript('script44', this)">📋 Copy script</button><div class="date-red">15 April 2026</div></div>
+        </div>
+
+        <!-- MUSCLE LEGENDS -->
+        <div id="muscle-page" class="page">
+            <h2>💪 MUSCLE LEGENDS</h2>
+            <div class="game-desc">Muscle Legends — игра в Roblox, созданная студией Scriptbloxian Studios. Это симулятор прироста силы, где игрок тренируется, чтобы стать самым сильным в виртуальном мире. Игра вышла 9 августа 2019 года и неоднократно обновлялась. С нашими скриптами Z1NTY вы сможете развиться до невероятной силы за считанные минуты.</div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🔥 FourHub</span><span class="no-key">No key</span></div><pre id="script45">loadstring(game:HttpGet("https://raw.githubusercontent.com/jokerbiel13/FourHub/refs/heads/main/Muscle%20LegendsFH.lua",true))()</pre><button class="copy-btn" onclick="copyScript('script45', this)">📋 Copy script</button><div class="date-red">15 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">📡 Rndmq Loader</span><span class="no-key">No key</span></div><pre id="script46">loadstring(game:HttpGet("https://raw.githubusercontent.com/rndmq/Serverlist/refs/heads/main/Loader"))()</pre><button class="copy-btn" onclick="copyScript('script46', this)">📋 Copy script</button><div class="date-red">15 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">📋 Pastebin</span><span class="no-key">No key</span></div><pre id="script47">loadstring(game:HttpGet("https://pastebin.com/raw/2Cuza2mr"))()</pre><button class="copy-btn" onclick="copyScript('script47', this)">📋 Copy script</button><div class="date-red">15 April 2026</div></div>
+        </div>
+
+        <!-- EVADE -->
+        <div id="evade-page" class="page">
+            <h2>🏃 EVADE</h2>
+            <div class="game-desc">Evade — это игра на платформе Roblox в жанре survival-horror с элементами паркура. Цель игрока — продержаться как можно дольше, избегая некстботов (Nextbots) — плоских изображений персонажей мемов, которые охотятся на игроков. С нашими скриптами Z1NTY вы сможете легко избегать некстботов и выигрывать в раундах без усилий.</div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🎒 Bagah Hub</span><span class="no-key">No key</span></div><pre id="script48">loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Bagah-Project/bagah-hub-public/refs/heads/main/mainloader.lua"))()</pre><button class="copy-btn" onclick="copyScript('script48', this)">📋 Copy script</button><div class="date-red">15 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">📋 Pastebin 1</span><span class="no-key">No key</span></div><pre id="script49">loadstring(game:HttpGet("https://pastebin.com/raw/2frh8A2j"))()</pre><button class="copy-btn" onclick="copyScript('script49', this)">📋 Copy script</button><div class="date-red">15 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">📋 Pastebin 2</span><span class="no-key">No key</span></div><pre id="script50">loadstring(game:HttpGet("https://pastebin.com/raw/1aPE2GAk"))()</pre><button class="copy-btn" onclick="copyScript('script50', this)">📋 Copy script</button><div class="date-red">15 April 2026</div></div>
+        </div>
+
+        <!-- BE A LUCKY BLOCK -->
+        <div id="luckyblock-page" class="page">
+            <h2>🍀 BE A LUCKY BLOCK</h2>
+            <div class="game-desc">Be a Lucky Block — это игра‑тайкун на платформе Roblox, где вы играете за лаки‑блок и развиваете пассивный доход за счёт сбора особых юнитов — «брейнротов».</div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🥇 Wings</span><span class="no-key">No key</span></div><pre id="script51">loadstring(game:HttpGet("https://wings.ac/loader"))()</pre><button class="copy-btn" onclick="copyScript('script51', this)">📋 Copy script</button><div class="date-red">15 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">📋 Pastefy 1</span><span class="no-key">No key</span></div><pre id="script52">loadstring(game:HttpGet("https://pastefy.app/NpVKdJD7/raw"))()</pre><button class="copy-btn" onclick="copyScript('script52', this)">📋 Copy script</button><div class="date-red">15 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">📋 Pastefy 2</span><span class="no-key">No key</span></div><pre id="script53">loadstring(game:HttpGet("https://pastefy.app/K4N4YLZf/raw"))()</pre><button class="copy-btn" onclick="copyScript('script53', this)">📋 Copy script</button><div class="date-red">15 April 2026</div></div>
+        </div>
+
+        <!-- VIOLENCE DISTRICT -->
+        <div id="violence-page" class="page">
+            <h2>🔪 VIOLENCE DISTRICT</h2>
+            <div class="game-desc">Violence District — асимметричная хоррор-игра на платформе Roblox, где один игрок берёт на себя роль убийцы (Killer), а пятеро — выживших (Survivors). Задача убийцы — уничтожить всех выживших, а цель выживших — починить 5 генераторов и сбежать.</div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🌀 ANCH-Hax</span><span class="no-key">No key</span></div><pre id="script54">loadstring(game:HttpGet("https://raw.githubusercontent.com/ayamnubchh/Violence-District-Roblox-Script/main/ANCH-Hax.lua"))()</pre><button class="copy-btn" onclick="copyScript('script54', this)">📋 Copy script</button><div class="date-red">15 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">📦 RawScripts</span><span class="no-key">No key</span></div><pre id="script55">loadstring(game:HttpGet("https://rawscripts.net/raw/Violence-District-Open-Source-fully-auto-generator-script-with-working-ESP-65319"))()</pre><button class="copy-btn" onclick="copyScript('script55', this)">📋 Copy script</button><div class="date-red">15 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🔹 Askr Hub</span><span class="no-key">No key</span></div><pre id="script56">loadstring(game:HttpGet("https://raw.githubusercontent.com/Netshh/askr-hub/main/loader.lua"))()</pre><button class="copy-btn" onclick="copyScript('script56', this)">📋 Copy script</button><div class="date-red">15 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">📦 VSS</span><span class="no-key">No key</span></div><pre id="script57">loadstring(game:HttpGet("https://vss.pandadevelopment.net/virtual/file/6168f557bb3f42c8"))()</pre><button class="copy-btn" onclick="copyScript('script57', this)">📋 Copy script</button><div class="date-red">15 April 2026</div></div>
+        </div>
+
+        <!-- ОСТАЛЬНЫЕ ПЛЕЙСЫ (DOORS, RIVALS, INK GAME, TSB, PIGGY, MM2, 99NIGHTS, THANOS, REGRETEVATOR, HAMBURG, VOLLEYBALL, DEAD RAILS, BRAINROT, SPIDER) -->
+        <!-- (Здесь оставлены без изменений для краткости, но в твоём файле они должны быть) -->
+    </div>
+
+    <script>
+        function copyScript(id, btn) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                btn.innerText = '✅ Скопировано!';
+                btn.classList.add('copied');
+                setTimeout(() => { btn.innerText = '📋 Copy script'; btn.classList.remove('copied'); }, 2000);
+            }).catch(() => alert('Ошибка копирования'));
+        }
+
+        const pages = document.querySelectorAll('.page');
+        const homePage = document.getElementById('home-page');
+        const backBtn = document.getElementById('backBtn');
+        const searchInput = document.getElementById('searchInput');
+
+        function showPage(pageId) {
+            pages.forEach(p => p.style.display = 'none');
+            if (pageId === 'home') {
+                homePage.style.display = 'block';
+                window.location.hash = '';
+            } else {
+                const target = document.getElementById(pageId + '-page');
+                if (target) target.style.display = 'block';
+                window.location.hash = pageId;
+            }
+            if (searchInput) searchInput.value = '';
+        }
+
+        document.querySelectorAll('[data-game]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                showPage(this.dataset.game);
+            });
+        });
+
+        backBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showPage('home');
+        });
+
+        window.addEventListener('load', function() {
+            const hash = window.location.hash.slice(1);
+            if (hash && document.getElementById(hash + '-page')) showPage(hash);
+            else showPage('home');
+        });
+
+        window.addEventListener('hashchange', function() {
+            const hash = window.location.hash.slice(1);
+            if (hash && document.getElementById(hash + '-page')) showPage(hash);
+            else showPage('home');
+        });
+
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                const val = this.value.toLowerCase();
+                document.querySelectorAll('[data-game]').forEach(row => {
+                    const text = row.innerText.toLowerCase();
+                    row.style.display = text.includes(val) ? 'flex' : 'none';
+                });
+            });
+        }
+    </script>
+</body>
+    </html>
