@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Z1NTY // Scripts Library</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: #000;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: #0af;
+            min-height: 100vh;
+            padding: 20px;
+            background-image:
+                linear-gradient(rgba(0, 170, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 170, 255, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .container { max-width: 800px; margin: 0 auto; }
+        .search-box {
+            width: 100%; padding: 15px 20px; background: #111; border: 2px solid #0af;
+            border-radius: 40px; color: #0af; font-size: 18px; margin-bottom: 30px;
+            box-shadow: 0 0 20px #0af; outline: none;
+        }
+        .search-box::placeholder { color: #0af; opacity: 0.5; }
+        .game-grid { display: flex; flex-direction: column; gap: 15px; margin-bottom: 40px; }
+        .game-row {
+            display: flex; justify-content: space-between; align-items: center; padding: 15px 20px;
+            border: 1px solid #0af; border-radius: 20px; background: rgba(0,170,255,0.05);
+            backdrop-filter: blur(5px); text-decoration: none; color: #0af; font-size: 20px;
+            font-weight: bold; transition: 0.2s; box-shadow: 0 0 10px #0af;
+        }
+        .game-row:hover { background: #0af; color: #000; }
+        h1, h2 { text-shadow: 0 0 15px #0af; margin: 30px 0 20px; border-left: 5px solid #0af; padding-left: 15px; }
+        .script-card {
+            background: #0a0a0a; border: 1px solid #0af; border-radius: 20px; padding: 20px;
+            margin-bottom: 25px; box-shadow: 0 0 15px rgba(0,170,255,0.3);
+        }
+        .script-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .no-key { color: #0f0; font-weight: bold; text-shadow: 0 0 10px #0f0; background: rgba(0,255,0,0.1); padding: 5px 15px; border-radius: 20px; border: 1px solid #0f0; }
+        .key-system { color: #f00; font-weight: bold; text-shadow: 0 0 10px #f00; background: rgba(255,0,0,0.1); padding: 5px 15px; border-radius: 20px; border: 1px solid #f00; }
+        pre {
+            background: #000; border: 1px solid #0af; padding: 15px; border-radius: 15px;
+            overflow-x: auto; color: #fff; font-size: 12px; margin-bottom: 15px;
+            white-space: pre-wrap; word-break: break-all;
+        }
+        .copy-btn {
+            background: transparent; border: 2px solid #0af; color: #0af; padding: 12px 20px;
+            border-radius: 40px; font-weight: bold; font-size: 16px; cursor: pointer;
+            transition: 0.2s; width: 100%; text-transform: uppercase; box-shadow: 0 0 15px #0af;
+        }
+        .copy-btn:hover { background: #0af; color: #000; }
+        .copy-btn.copied { background: #0f0; border-color: #0f0; color: #000; }
+        .date-red { color: #f00; text-align: right; margin-top: 5px; font-size: 12px; text-shadow: 0 0 5px #f00; }
+        .game-desc {
+            background: #0a0a0a; border: 1px solid #0af; border-radius: 20px; padding: 20px;
+            margin-bottom: 30px; color: #ccc; line-height: 1.5; box-shadow: 0 0 10px #0af;
+        }
+        .back-link {
+            display: inline-block; margin-bottom: 20px; color: #0af; text-decoration: none;
+            border: 1px solid #0af; padding: 10px 20px; border-radius: 30px;
+        }
+        .back-link:hover { background: #0af; color: #000; }
+        .page { display: none; }
+        #home-page { display: block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="#" class="back-link" id="backBtn">← На главную</a>
+        <input type="text" class="search-box" placeholder=" 🔍 Введите название плейса..." id="searchInput">
+
+        <!-- ГЛАВНАЯ СТРАНИЦА -->
+        <div id="home-page" class="page">
+            <h2>🎮 ВЫБЕРИТЕ ПЛЕЙС:</h2>
+            <div class="game-grid" id="gameGrid">
+                <a href="#doors" class="game-row" data-game="doors">🚪 DOORS <span>→</span></a>
+                <a href="#rivals" class="game-row" data-game="rivals">⚔️ Rivals <span>→</span></a>
+                <a href="#inkgame" class="game-row" data-game="inkgame">🖋️ Ink Game <span>→</span></a>
+                <a href="#tsb" class="game-row" data-game="tsb">💥 The Strongest Battlegrounds <span>→</span></a>
+                <a href="#piggy" class="game-row" data-game="piggy">🐷 Piggy <span>→</span></a>
+                <a href="#mm2" class="game-row" data-game="mm2">🔪 Murder Mystery 2 <span>→</span></a>
+                <a href="#99nights" class="game-row" data-game="99nights">🌲 99 Night in the forest <span>→</span></a>
+                <a href="#thanos" class="game-row" data-game="thanos">👊 Thanos Gauntlet Simulator <span>→</span></a>
+                <a href="#regretevator" class="game-row" data-game="regretevator">🛗 Regretevator <span>→</span></a>
+                <a href="#hamburg" class="game-row" data-game="hamburg">🚨 Emergency Hamburg <span>→</span></a>
+            </div>
+        </div>
+
+        <!-- DOORS -->
+        <div id="doors-page" class="page"><h2>🚪 DOORS</h2><div class="game-desc">DOORS — популярная многопользовательская хоррор-игра на платформе Roblox, разработанная Lightning_Splash совместно с RediblesQW. Игра вышла 10 августа 2022 года и представляет с собой хоррор жанр на локации "Отель" так же есть вторая часть на локации Mine где охотятся на игрока десятки монстров. Задача игрока дойти до 100 двери, пройти все головоломки, лабиринты, побеги и сложные решения. Но с нашими скриптами Z1NTY вы сможете упростить прохождения, смотрите ниже.</div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">⚡ Z1NTY DOORS V1</span><span class="no-key">No key</span></div><pre id="script1">loadstring(game:HttpGet("https://api.jnkie.com/api/v1/luascripts/public/abd3cc54d2dc7de4a091fb19c8f4ea9e15e939e7ecc88b475e6956e8af94ad6f/download"))()</pre><button class="copy-btn" onclick="copyScript('script1', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🌙 Soluna Doors</span><span class="no-key">No key</span></div><pre id="script2">loadstring(game:HttpGet("https://soluna-script.vercel.app/doors.lua"))()</pre><button class="copy-btn" onclick="copyScript('script2', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🔧 RAW Scripts Doors</span><span class="no-key">No key</span></div><pre id="script3">loadstring(game:HttpGet("https://rawscripts.net/raw/DOORS-Free-Script-ESP-Auto-Pick-Loot-Full-Bright-Speed-Boost-33177"))()</pre><button class="copy-btn" onclick="copyScript('script3', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+        </div>
+
+        <!-- RIVALS -->
+        <div id="rivals-page" class="page"><h2>⚔️ RIVALS</h2><div class="game-desc">Rivals — это соревновательный шутер от первого лица на платформе Roblox, разработанный студией Nosniy Games. Игра фокусируется на быстрых раундовых матчах, где ключевую роль играют меткость, передвижение и принятие решений. Цель — первым выиграть 5 раундов. Но с нашими скриптами Z1NTY вы упростите себе игру и сможете выигрывать раунды без проблем. Скрипты ниже:</div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🥇 Kurona Hub v3.5</span><span class="no-key">No key</span></div><pre id="script4">loadstring(game:HttpGet("https://raw.githubusercontent.com/ditanio97/Kurona-hub-v3.5...../refs/heads/main/Kurona%20hub%20v3.5%2050%25%24%25%5E!"))()</pre><button class="copy-btn" onclick="copyScript('script4', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🚀 Vylera Rivals</span><span class="no-key">No key</span></div><pre id="script5">loadstring(game:HttpGet("https://raw.githubusercontent.com/vylerascripts/vylera-scripts/main/vylerarivals.lua"))()</pre><button class="copy-btn" onclick="copyScript('script5', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+        </div>
+
+        <!-- INK GAME -->
+        <div id="inkgame-page" class="page"><h2>🖋️ INK GAME</h2><div class="game-desc">Ink Game — это многопользовательская игра на платформе Roblox, вдохновлённая сериалом Netflix «Игра в кальмара». В ней игроки участвуют в серии смертельных мини-игр, где поражение означает виртуальную гибель. Цель — выжить во всех испытаниях или организовать восстание с другими игроками. Но с нашими скриптами Z1NTY вы упростите процесс в игре и сможете выигрывать почти всегда.</div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🌀 Ringta Ink Game</span><span class="no-key">No key</span></div><pre id="script6">loadstring(game:HttpGet("https://raw.githubusercontent.com/wefwef127382/inkgames.github.io/refs/heads/main/ringta.lua"))()</pre><button class="copy-btn" onclick="copyScript('script6', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">❄️ Frostware Ink</span><span class="no-key">No key</span></div><pre id="script7">loadstring(game:HttpGet("https://raw.githubusercontent.com/Actualmrp/FWInkGame/refs/heads/main/FrostwareInkGameSource.txt"))()</pre><button class="copy-btn" onclick="copyScript('script7', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🔑 Artas01 Loader</span><span class="key-system">Key System</span></div><pre id="script8">loadstring(game:HttpGet('https://raw.githubusercontent.com/artas01/robscript/refs/heads/main/loader.lua'))()</pre><button class="copy-btn" onclick="copyScript('script8', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+        </div>
+
+        <!-- THE STRONGEST BATTLEGROUNDS -->
+        <div id="tsb-page" class="page"><h2>💥 THE STRONGEST BATTLEGROUNDS</h2><div class="game-desc">The Strongest Battlegrounds — это PvP-файтинг в Roblox, вдохновлённый вселенной One Punch Man. Игроки выбирают персонажей с уникальными способностями и сражаются на арене, используя комбо, позиционирование и тактику. С нашими скриптами Z1NTY вы облегчите процесс в игре и сможете побеждать всех.</div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">👊 Pxntxrez NULL</span><span class="no-key">No key</span></div><pre id="script9">loadstring(game:HttpGet("https://raw.githubusercontent.com/Pxntxrez/NULL/refs/heads/main/obfuscated_script-1753991814596.lua"))()</pre><button class="copy-btn" onclick="copyScript('script9', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🚀 ZeOrbit v4</span><span class="no-key">No key</span></div><pre id="script10">loadstring(game:HttpGet("https://raw.githubusercontent.com/xploitforceofficial-stack/ZeOrbitv4Main/refs/heads/main/zeorbitv4.lua"))()</pre><button class="copy-btn" onclick="copyScript('script10', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🥊 Trashcan TSB</span><span class="no-key">No key</span></div><pre id="script11">loadstring(game:HttpGet("https://raw.githubusercontent.com/academicsep2021-bit/trashcan-tsb-saitama/refs/heads/main/Tsb", true))()</pre><button class="copy-btn" onclick="copyScript('script11', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+        </div>
+
+        <!-- PIGGY -->
+        <div id="piggy-page" class="page"><h2>🐷 PIGGY</h2><div class="game-desc">Piggy — это хоррор‑игра на выживание в платформе Roblox, созданная разработчиками MiniToon, IK3As и Optikk. Игра заимствует визуальную стилистику популярного детского мультсериала Peppa Pig, но трансформирует её в напряжённый жанр хоррора — по атмосфере она отчасти напоминает игру Granny.</div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">⭐ StarHack Hub</span><span class="no-key">No key</span></div><pre id="script12">loadstring(game:HttpGet("https://raw.githubusercontent.com/StarHackScripts/StarHack-Hub-Deepstar-Hub/refs/heads/main/StarHack%20Hub%20-%20Piggy%20Pro%20Hub.txt"))()</pre><button class="copy-btn" onclick="copyScript('script12', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">📦 Pastebin Piggy</span><span class="no-key">No key</span></div><pre id="script13">loadstring(game:HttpGet("https://pastebin.com/raw/vNYaRykx"))()</pre><button class="copy-btn" onclick="copyScript('script13', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+        </div>
+
+        <!-- MURDER MYSTERY 2 -->
+        <div id="mm2-page" class="page"><h2>🔪 MURDER MYSTERY 2</h2><div class="game-desc">Murder Mystery 2 (MM2) — популярная многопользовательская хоррор‑игра на платформе Roblox, созданная игроком Nikilis в 2014 году. Игра привлекает динамичным геймплеем и атмосферой напряжённого противостояния: каждый раунд непредсказуем благодаря случайному распределению ролей. Есть роли такие как Невиновный, Шериф и Убийца. Задача Невиновного выжить от убийцы, задача Шерифа - узнать кто убийца и ликвидировать его спася невиновных, а задача Убийцы убить всех при этом не попасться под пули шерифа.</div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🌙 Moon V1</span><span class="no-key">No key</span></div><pre id="script14">loadstring(game:HttpGet("https://raw.githubusercontent.com/littl3prince/Moon/main/Moon_V1"))()</pre><button class="copy-btn" onclick="copyScript('script14', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🔹 Lunn Hub</span><span class="no-key">No key</span></div><pre id="script15">loadstring(game:HttpGet("https://raw.githubusercontent.com/LunnHubX99/MurderMystery2/refs/heads/main/lua"))()</pre><button class="copy-btn" onclick="copyScript('script15', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🔵 Azure Hub</span><span class="no-key">No key</span></div><pre id="script16">loadstring(game:HttpGet("https://raw.githubusercontent.com/Aura-56/MurderMystery2/refs/heads/main/AzureHub.lua", true))()</pre><button class="copy-btn" onclick="copyScript('script16', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🔑 Artas01 Loader</span><span class="key-system">Key System</span></div><pre id="script17">loadstring(game:HttpGet('https://raw.githubusercontent.com/artas01/robscript/refs/heads/main/loader.lua'))()</pre><button class="copy-btn" onclick="copyScript('script17', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+        </div>
+
+        <!-- 99 NIGHT IN THE FOREST (ИСПРАВЛЕНО) -->
+        <div id="99nights-page" class="page">
+            <h2>🌲 99 NIGHT IN THE FOREST</h2>
+            <div class="game-desc">«99 Nights in the Forest» — это игра в Roblox, разработанная группой Grandma's Favourite Games. В ней игроки должны выжить 99 ночей в лесу, спасая четырёх пропавших детей и сражаясь с различными угрозами: культистами, агрессивными существами (включая оленя-монстра), волками, медведями и другими противниками.</div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">💨 VapeVoidware (Скрипт большой, могут быть лаги!)</span><span class="no-key">No key</span></div><pre id="script18">loadstring(game:HttpGet("https://raw.githubusercontent.com/VapeVoidware/VW-Add/main/nightsintheforest.lua", true))()</pre><button class="copy-btn" onclick="copyScript('script18', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🎒 Bring Items</span><span class="no-key">No key</span></div><pre id="script19">loadstring(game:HttpGet("https://raw.githubusercontent.com/Bac0nHck/Scripts/refs/heads/main/bringitems.lua"))()</pre><button class="copy-btn" onclick="copyScript('script19', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">❄️ Iceware Loader</span><span class="key-system">Key System</span></div><pre id="script20">loadstring(game:HttpGet("https://raw.githubusercontent.com/Iceware-RBLX/Roblox/refs/heads/main/loader.lua",true))()</pre><button class="copy-btn" onclick="copyScript('script20', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+        </div>
+
+        <!-- THANOS GAUNTLET SIMULATOR -->
+        <div id="thanos-page" class="page"><h2>👊 THANOS GAUNTLET SIMULATOR</h2><div class="game-desc">Infinity Gauntlet | Thanos Simulator — это игра на платформе Roblox, где игроки берут на себя роль Таноса и собирают Камни Бесконечности, чтобы достичь безграничной силы и доминировать во вселенной. Игра сочетает элементы экшена и стратегии, а её сюжет вдохновлён вселенной Marvel, в частности фильмом «Мстители: Война бесконечности».</div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">📜 Script Adit</span><span class="no-key">No key</span></div><pre id="script21">loadstring(game:HttpGet("https://raw.githubusercontent.com/erafonexyz1-dot/script-adit/refs/heads/main/file_80.txt"))()</pre><button class="copy-btn" onclick="copyScript('script21', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">📦 Script Skamb</span><span class="no-key">No key</span></div><pre id="script22">loadstring(game:HttpGet("https://raw.githubusercontent.com/erafonexyz1-dot/script-skamb/refs/heads/main/file_19.txt"))()</pre><button class="copy-btn" onclick="copyScript('script22', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+        </div>
+
+        <!-- REGRETEVATOR -->
+        <div id="regretevator-page" class="page"><h2>🛗 REGRETEVATOR</h2><div class="game-desc">Regretevator — это игра в жанре социального рогалика на платформе Roblox, созданная группой The Axolotl Sun. Она представляет собой бесконечный лифт, в котором игроки исследуют случайно генерируемые этажи, участвуют в мини-играх и взаимодействуют с неигровыми персонажами (NPC).</div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">📡 Rndmq Loader</span><span class="no-key">No key</span></div><pre id="script23">loadstring(game:HttpGet("https://raw.githubusercontent.com/rndmq/Serverlist/refs/heads/main/Loader"))()</pre><button class="copy-btn" onclick="copyScript('script23', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🔷 Luarmor Loader</span><span class="no-key">No key</span></div><pre id="script24">loadstring(game:HttpGet('https://api.luarmor.net/files/v3/loaders/49f02b0d8c1f60207c84ae76e12abc1e.lua'))()</pre><button class="copy-btn" onclick="copyScript('script24', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+        </div>
+
+        <!-- EMERGENCY HAMBURG -->
+        <div id="hamburg-page" class="page"><h2>🚨 EMERGENCY HAMBURG</h2><div class="game-desc">Emergency Hamburg — это ролевая игра на платформе Roblox, где игроки могут выбрать роль в системе экстренных служб в вымышленном Гамбурге, Германия. В игре доступны такие персонажи, как полицейский, пожарный, медик, водитель автобуса или грузовика, автомеханик, гражданин или преступник. У каждой роли есть уникальные задачи: от реагирования на аварии и пожары до проведения расследований или совершения преступлений.</div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🥩 Beanzz Main</span><span class="no-key">No key</span></div><pre id="script25">loadstring(game:HttpGet("https://beanzz.wtf/Main.lua"))()</pre><button class="copy-btn" onclick="copyScript('script25', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🤖 Beanzz Autorob</span><span class="no-key">No key</span></div><pre id="script26">loadstring(game:HttpGet("https://beanzz.wtf/Autorob.lua"))()</pre><button class="copy-btn" onclick="copyScript('script26', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🌙 Moon Hub EMH</span><span class="no-key">No key</span></div><pre id="script27">loadstring(game:HttpGet("https://moon-hub.pages.dev/api/emh-main"))()</pre><button class="copy-btn" onclick="copyScript('script27', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+        </div>
+    </div>
+
+    <script>
+        function copyScript(id, btn) {
+            const text = document.getElementById(id).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                btn.innerText = '✅ Скопировано!';
+                btn.classList.add('copied');
+                setTimeout(() => { btn.innerText = '📋 Copy script'; btn.classList.remove('copied'); }, 2000);
+            }).catch(() => alert('Ошибка копирования'));
+        }
+
+        const pages = document.querySelectorAll('.page');
+        const homePage = document.getElementById('home-page');
+        const backBtn = document.getElementById('backBtn');
+        const searchInput = document.getElementById('searchInput');
+        const gameGrid = document.getElementById('gameGrid');
+
+        function showPage(pageId) {
+            pages.forEach(p => p.style.display = 'none');
+            if (pageId === 'home') {
+                homePage.style.display = 'block';
+                window.location.hash = '';
+            } else {
+                const target = document.getElementById(pageId + '-page');
+                if (target) target.style.display = 'block';
+                window.location.hash = pageId;
+            }
+            if (searchInput) searchInput.value = '';
+        }
+
+        document.querySelectorAll('[data-game]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                showPage(this.dataset.game);
+            });
+        });
+
+        backBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showPage('home');
+        });
+
+        window.addEventListener('load', function() {
+            const hash = window.location.hash.slice(1);
+            if (hash && document.getElementById(hash + '-page')) showPage(hash);
+            else showPage('home');
+        });
+
+        window.addEventListener('hashchange', function() {
+            const hash = window.location.hash.slice(1);
+            if (hash && document.getElementById(hash + '-page')) showPage(hash);
+            else showPage('home');
+        });
+
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                const val = this.value.toLowerCase();
+                document.querySelectorAll('[data-game]').forEach(row => {
+                    const text = row.innerText.toLowerCase();
+                    row.style.display = text.includes(val) ? 'flex' : 'none';
+                });
+            });
+        }
+    </script>
+</body>
+  </html>
