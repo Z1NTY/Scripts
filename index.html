@@ -13,56 +13,252 @@
             min-height: 100vh;
             padding: 20px;
             background-image:
-                linear-gradient(rgba(0, 170, 255, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 170, 255, 0.1) 1px, transparent 1px);
+                linear-gradient(rgba(0, 170, 255, 0.15) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 170, 255, 0.15) 1px, transparent 1px);
             background-size: 40px 40px;
+            animation: bgMove 30s linear infinite;
+        }
+        @keyframes bgMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 40px 40px; }
         }
         .container { max-width: 800px; margin: 0 auto; }
+
         .search-box {
-            width: 100%; padding: 15px 20px; background: #111; border: 2px solid #0af;
-            border-radius: 40px; color: #0af; font-size: 18px; margin-bottom: 30px;
-            box-shadow: 0 0 20px #0af; outline: none;
+            width: 100%;
+            padding: 15px 20px;
+            background: #111;
+            border: 2px solid #0af;
+            border-radius: 40px;
+            color: #0af;
+            font-size: 18px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 20px #0af;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .search-box:focus {
+            box-shadow: 0 0 30px #0af, 0 0 60px #0af;
+            transform: scale(1.02);
         }
         .search-box::placeholder { color: #0af; opacity: 0.5; }
-        .game-grid { display: flex; flex-direction: column; gap: 15px; margin-bottom: 40px; }
+
+        .game-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
         .game-row {
-            display: flex; justify-content: space-between; align-items: center; padding: 15px 20px;
-            border: 1px solid #0af; border-radius: 20px; background: rgba(0,170,255,0.05);
-            backdrop-filter: blur(5px); text-decoration: none; color: #0af; font-size: 20px;
-            font-weight: bold; transition: 0.2s; box-shadow: 0 0 10px #0af;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border: 1px solid #0af;
+            border-radius: 20px;
+            background: rgba(0,170,255,0.05);
+            backdrop-filter: blur(5px);
+            text-decoration: none;
+            color: #0af;
+            font-size: 20px;
+            font-weight: bold;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 0 10px #0af;
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
         }
-        .game-row:hover { background: #0af; color: #000; }
-        h1, h2 { text-shadow: 0 0 15px #0af; margin: 30px 0 20px; border-left: 5px solid #0af; padding-left: 15px; }
+        .game-row:nth-child(1) { animation-delay: 0.05s; }
+        .game-row:nth-child(2) { animation-delay: 0.10s; }
+        .game-row:nth-child(3) { animation-delay: 0.15s; }
+        .game-row:nth-child(4) { animation-delay: 0.20s; }
+        .game-row:nth-child(5) { animation-delay: 0.25s; }
+        .game-row:nth-child(6) { animation-delay: 0.30s; }
+        .game-row:nth-child(7) { animation-delay: 0.35s; }
+        .game-row:nth-child(8) { animation-delay: 0.40s; }
+        .game-row:nth-child(9) { animation-delay: 0.45s; }
+        .game-row:nth-child(10) { animation-delay: 0.50s; }
+        .game-row:nth-child(11) { animation-delay: 0.55s; }
+        .game-row:nth-child(12) { animation-delay: 0.60s; }
+        .game-row:nth-child(13) { animation-delay: 0.65s; }
+        .game-row:nth-child(14) { animation-delay: 0.70s; }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .game-row:hover {
+            background: #0af;
+            color: #000;
+            transform: scale(1.03) translateY(-3px);
+            box-shadow: 0 0 30px #0af, 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        h1, h2 {
+            text-shadow: 0 0 15px #0af;
+            margin: 30px 0 20px;
+            border-left: 5px solid #0af;
+            padding-left: 15px;
+            animation: glowPulse 2s infinite alternate;
+        }
+        @keyframes glowPulse {
+            from { text-shadow: 0 0 10px #0af; border-left-color: #0af; }
+            to { text-shadow: 0 0 20px #0af, 0 0 30px #0af; border-left-color: #fff; }
+        }
+
         .script-card {
-            background: #0a0a0a; border: 1px solid #0af; border-radius: 20px; padding: 20px;
-            margin-bottom: 25px; box-shadow: 0 0 15px rgba(0,170,255,0.3);
+            background: #0a0a0a;
+            border: 1px solid #0af;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 0 15px rgba(0,170,255,0.3);
+            transition: all 0.3s ease;
+            animation: cardFadeIn 0.6s ease forwards;
+            opacity: 0;
         }
-        .script-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .no-key { color: #0f0; font-weight: bold; text-shadow: 0 0 10px #0f0; background: rgba(0,255,0,0.1); padding: 5px 15px; border-radius: 20px; border: 1px solid #0f0; }
-        .key-system { color: #f00; font-weight: bold; text-shadow: 0 0 10px #f00; background: rgba(255,0,0,0.1); padding: 5px 15px; border-radius: 20px; border: 1px solid #f00; }
+        .script-card:nth-child(2) { animation-delay: 0.1s; }
+        .script-card:nth-child(3) { animation-delay: 0.2s; }
+        .script-card:nth-child(4) { animation-delay: 0.3s; }
+        .script-card:nth-child(5) { animation-delay: 0.4s; }
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .script-card:hover {
+            box-shadow: 0 0 30px #0af, 0 10px 20px rgba(0,0,0,0.5);
+            transform: translateY(-5px);
+            border-color: #fff;
+        }
+
+        .script-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .no-key {
+            color: #0f0;
+            font-weight: bold;
+            text-shadow: 0 0 10px #0f0;
+            background: rgba(0,255,0,0.1);
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 1px solid #0f0;
+            animation: badgePulse 1.5s infinite alternate;
+        }
+        .key-system {
+            color: #f00;
+            font-weight: bold;
+            text-shadow: 0 0 10px #f00;
+            background: rgba(255,0,0,0.1);
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 1px solid #f00;
+            animation: badgePulse 1.5s infinite alternate;
+        }
+        @keyframes badgePulse {
+            from { opacity: 0.7; box-shadow: none; }
+            to { opacity: 1; box-shadow: 0 0 15px currentColor; }
+        }
+
         pre {
-            background: #000; border: 1px solid #0af; padding: 15px; border-radius: 15px;
-            overflow-x: auto; color: #fff; font-size: 12px; margin-bottom: 15px;
-            white-space: pre-wrap; word-break: break-all;
+            background: #000;
+            border: 1px solid #0af;
+            padding: 15px;
+            border-radius: 15px;
+            overflow-x: auto;
+            color: #fff;
+            font-size: 12px;
+            margin-bottom: 15px;
+            white-space: pre-wrap;
+            word-break: break-all;
+            transition: all 0.3s ease;
         }
+        pre:hover {
+            border-color: #fff;
+            box-shadow: inset 0 0 20px rgba(0,170,255,0.3);
+        }
+
         .copy-btn {
-            background: transparent; border: 2px solid #0af; color: #0af; padding: 12px 20px;
-            border-radius: 40px; font-weight: bold; font-size: 16px; cursor: pointer;
-            transition: 0.2s; width: 100%; text-transform: uppercase; box-shadow: 0 0 15px #0af;
+            background: transparent;
+            border: 2px solid #0af;
+            color: #0af;
+            padding: 12px 20px;
+            border-radius: 40px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            width: 100%;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px #0af;
+            letter-spacing: 2px;
         }
-        .copy-btn:hover { background: #0af; color: #000; }
-        .copy-btn.copied { background: #0f0; border-color: #0f0; color: #000; }
-        .date-red { color: #f00; text-align: right; margin-top: 5px; font-size: 12px; text-shadow: 0 0 5px #f00; }
+        .copy-btn:hover {
+            background: #0af;
+            color: #000;
+            transform: scale(1.02);
+            box-shadow: 0 0 30px #0af;
+        }
+        .copy-btn.copied {
+            background: #0f0;
+            border-color: #0f0;
+            color: #000;
+            animation: copySuccess 0.5s ease;
+        }
+        @keyframes copySuccess {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(0.95); }
+        }
+
+        .date-red {
+            color: #f00;
+            text-align: right;
+            margin-top: 5px;
+            font-size: 12px;
+            text-shadow: 0 0 5px #f00;
+        }
+
         .game-desc {
-            background: #0a0a0a; border: 1px solid #0af; border-radius: 20px; padding: 20px;
-            margin-bottom: 30px; color: #ccc; line-height: 1.5; box-shadow: 0 0 10px #0af;
+            background: #0a0a0a;
+            border: 1px solid #0af;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 30px;
+            color: #ccc;
+            line-height: 1.5;
+            box-shadow: 0 0 10px #0af;
+            animation: textFocus 0.8s ease;
         }
+        @keyframes textFocus {
+            from { filter: blur(2px); opacity: 0; }
+            to { filter: blur(0); opacity: 1; }
+        }
+
         .back-link {
-            display: inline-block; margin-bottom: 20px; color: #0af; text-decoration: none;
-            border: 1px solid #0af; padding: 10px 20px; border-radius: 30px;
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #0af;
+            text-decoration: none;
+            border: 1px solid #0af;
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
         }
-        .back-link:hover { background: #0af; color: #000; }
-        .page { display: none; }
+        .back-link:hover {
+            background: #0af;
+            color: #000;
+            transform: translateX(-5px);
+            box-shadow: 0 0 20px #0af;
+        }
+
+        .page {
+            display: none;
+            animation: pageSlide 0.4s ease-out;
+        }
+        @keyframes pageSlide {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
         #home-page { display: block; }
     </style>
 </head>
@@ -85,6 +281,10 @@
                 <a href="#thanos" class="game-row" data-game="thanos">👊 Thanos Gauntlet Simulator <span>→</span></a>
                 <a href="#regretevator" class="game-row" data-game="regretevator">🛗 Regretevator <span>→</span></a>
                 <a href="#hamburg" class="game-row" data-game="hamburg">🚨 Emergency Hamburg <span>→</span></a>
+                <a href="#volleyball" class="game-row" data-game="volleyball">🏐 Volleyball Legends <span>→</span></a>
+                <a href="#deadrails" class="game-row" data-game="deadrails">🛤️ Dead Rails <span>→</span></a>
+                <a href="#brainrot" class="game-row" data-game="brainrot">🧠 Steal a Brainrot <span>→</span></a>
+                <a href="#spider" class="game-row" data-game="spider">🕷️ Spider <span>→</span></a>
             </div>
         </div>
 
@@ -129,10 +329,8 @@
             <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🔑 Artas01 Loader</span><span class="key-system">Key System</span></div><pre id="script17">loadstring(game:HttpGet('https://raw.githubusercontent.com/artas01/robscript/refs/heads/main/loader.lua'))()</pre><button class="copy-btn" onclick="copyScript('script17', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
         </div>
 
-        <!-- 99 NIGHT IN THE FOREST (ИСПРАВЛЕНО) -->
-        <div id="99nights-page" class="page">
-            <h2>🌲 99 NIGHT IN THE FOREST</h2>
-            <div class="game-desc">«99 Nights in the Forest» — это игра в Roblox, разработанная группой Grandma's Favourite Games. В ней игроки должны выжить 99 ночей в лесу, спасая четырёх пропавших детей и сражаясь с различными угрозами: культистами, агрессивными существами (включая оленя-монстра), волками, медведями и другими противниками.</div>
+        <!-- 99 NIGHT IN THE FOREST -->
+        <div id="99nights-page" class="page"><h2>🌲 99 NIGHT IN THE FOREST</h2><div class="game-desc">«99 Nights in the Forest» — это игра в Roblox, разработанная группой Grandma's Favourite Games. В ней игроки должны выжить 99 ночей в лесу, спасая четырёх пропавших детей и сражаясь с различными угрозами: культистами, агрессивными существами (включая оленя-монстра), волками, медведями и другими противниками.</div>
             <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">💨 VapeVoidware (Скрипт большой, могут быть лаги!)</span><span class="no-key">No key</span></div><pre id="script18">loadstring(game:HttpGet("https://raw.githubusercontent.com/VapeVoidware/VW-Add/main/nightsintheforest.lua", true))()</pre><button class="copy-btn" onclick="copyScript('script18', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
             <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🎒 Bring Items</span><span class="no-key">No key</span></div><pre id="script19">loadstring(game:HttpGet("https://raw.githubusercontent.com/Bac0nHck/Scripts/refs/heads/main/bringitems.lua"))()</pre><button class="copy-btn" onclick="copyScript('script19', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
             <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">❄️ Iceware Loader</span><span class="key-system">Key System</span></div><pre id="script20">loadstring(game:HttpGet("https://raw.githubusercontent.com/Iceware-RBLX/Roblox/refs/heads/main/loader.lua",true))()</pre><button class="copy-btn" onclick="copyScript('script20', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
@@ -156,6 +354,35 @@
             <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🤖 Beanzz Autorob</span><span class="no-key">No key</span></div><pre id="script26">loadstring(game:HttpGet("https://beanzz.wtf/Autorob.lua"))()</pre><button class="copy-btn" onclick="copyScript('script26', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
             <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🌙 Moon Hub EMH</span><span class="no-key">No key</span></div><pre id="script27">loadstring(game:HttpGet("https://moon-hub.pages.dev/api/emh-main"))()</pre><button class="copy-btn" onclick="copyScript('script27', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
         </div>
+
+        <!-- VOLLEYBALL LEGENDS -->
+        <div id="volleyball-page" class="page"><h2>🏐 VOLLEYBALL LEGENDS</h2><div class="game-desc">Volleyball Legends — это игра в Roblox, вдохновлённая аниме-сериалом «Haikyuu!!». В ней игроки участвуют в динамичных волейбольных матчах 6 на 6, соревнуясь с друзьями или другими игроками. Цель — набрать больше очков и стать лучшей волейбольной командой. С нашими скриптами Z1NTY вы сможете облегчить игру и забивать мячи без конца без труда.</div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🌀 Sigma Hub</span><span class="no-key">No key</span></div><pre id="script28">loadstring(game.HttpGet(game, 'https://raw.githubusercontent.com/Xm2iufas09ijmF/sigma-hub/refs/heads/main/temp.lua'))</pre><button class="copy-btn" onclick="copyScript('script28', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🌟 Sterling</span><span class="no-key">No key</span></div><pre id="script29">loadstring(game:HttpGet("https://raw.githubusercontent.com/Zayn31214/name/refs/heads/main/SterlingNew"))()</pre><button class="copy-btn" onclick="copyScript('script29', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">📦 Omgshit Scripts</span><span class="no-key">No key</span></div><pre id="script30">loadstring(game:HttpGet("https://raw.githubusercontent.com/Omgshit/Scripts/main/MainLoader.lua"))()</pre><button class="copy-btn" onclick="copyScript('script30', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+        </div>
+
+        <!-- DEAD RAILS -->
+        <div id="deadrails-page" class="page"><h2>🛤️ DEAD RAILS</h2><div class="game-desc">Dead Rails — это приключенческая игра в жанре вестерн, созданная компанией RCM Games, который принадлежит Рикко Миллеру. Эта игра вдохновлена ​​пыльным путешествием, в котором игрокам предстоит проехать около 80 км (80 000 м) на поезде, отбиваясь от различных врагов и исследуя разные локации в дикой пустыне. С нашими скриптами Z1NTY вы облегчите поездку 80 км в 100 раз.</div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🔥 DP HUB</span><span class="no-key">No key</span></div><pre id="script31">loadstring(game:HttpGet("https://raw.githubusercontent.com/COOLXPLO/DP-HUB-coolxplo/refs/heads/main/Deadrails.lua"))()</pre><button class="copy-btn" onclick="copyScript('script31', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">📋 Pastebin</span><span class="no-key">No key</span></div><pre id="script32">loadstring(game:HttpGet("https://pastebin.com/raw/f9zj41Gi"))()</pre><button class="copy-btn" onclick="copyScript('script32', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🔷 Luarmor</span><span class="no-key">No key</span></div><pre id="script33">loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/5132beca3ac02bb7f0536fa934905520.lua"))()</pre><button class="copy-btn" onclick="copyScript('script33', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🔑 Artas01 Loader</span><span class="key-system">Key System</span></div><pre id="script34">loadstring(game:HttpGet('https://raw.githubusercontent.com/artas01/robscript/refs/heads/main/loader.lua'))()</pre><button class="copy-btn" onclick="copyScript('script34', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+        </div>
+
+        <!-- STEAL A BRAINROT -->
+        <div id="brainrot-page" class="page"><h2>🧠 STEAL A BRAINROT</h2><div class="game-desc">Steal a Brainrot — это игра на Roblox, разработанная бразильским разработчиком SPYDER SAMMY. Цель игры — украсть лучшие брейнроты у других игроков, чтобы заработать больше денег. С нашими скриптами Z1NTY вы сможете красть брейнротов без усилий (не гарантируем).</div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🔷 Luarmor</span><span class="no-key">No key</span></div><pre id="script35">loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/55468c3903178b13cf5dbf49dc21394d.lua"))()</pre><button class="copy-btn" onclick="copyScript('script35', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">📋 Pastefy</span><span class="no-key">No key</span></div><pre id="script36">loadstring(game:HttpGet("https://pastefy.app/4J8q1GQk/raw"))()</pre><button class="copy-btn" onclick="copyScript('script36', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🧩 Solvex GUI</span><span class="key-system">Key System</span></div><pre id="script37">loadstring(game:HttpGet("https://raw.githubusercontent.com/Solvexxxx/Scripts/refs/heads/main/SolvexGUI_SAB.lua"))()</pre><button class="copy-btn" onclick="copyScript('script37', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+        </div>
+
+        <!-- SPIDER -->
+        <div id="spider-page" class="page"><h2>🕷️ SPIDER</h2><div class="game-desc">Spider — это многопользовательская игра в Roblox в жанре хоррор, где игроки могут выбирать роли: либо выжившего, который пытается сбежать от гигантского паука, либо самого паука, который охотится на других игроков. Цель выживальщиков - выжить от паука и их ловушек и найти предметы для побега из локации, а задача паука - убить всех игроков и не дать им сбежать. С нашими скриптами Z1NTY вы сможете легко сбежать с локации и от самого паука.</div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🕸️ Abre.ai Spider</span><span class="no-key">No key</span></div><pre id="script38">loadstring(game:HttpGet("https://abre.ai/spider-lua"))()</pre><button class="copy-btn" onclick="copyScript('script38', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">📦 Pastes.io</span><span class="no-key">No key</span></div><pre id="script39">loadstring(game:HttpGet("https://pastes.io/raw/sss-83237"))()</pre><button class="copy-btn" onclick="copyScript('script39', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+            <div class="script-card"><div class="script-header"><span style="font-weight: bold; font-size: 20px;">🌑 DarksHub</span><span class="no-key">No key</span></div><pre id="script40">loadstring(game:HttpGet("https://raw.githubusercontent.com/DarksGitHub/Robox-Spider-Gui/main/Spider.lua", true))()</pre><button class="copy-btn" onclick="copyScript('script40', this)">📋 Copy script</button><div class="date-red">14 April 2026</div></div>
+        </div>
     </div>
 
     <script>
@@ -172,7 +399,6 @@
         const homePage = document.getElementById('home-page');
         const backBtn = document.getElementById('backBtn');
         const searchInput = document.getElementById('searchInput');
-        const gameGrid = document.getElementById('gameGrid');
 
         function showPage(pageId) {
             pages.forEach(p => p.style.display = 'none');
@@ -222,4 +448,4 @@
         }
     </script>
 </body>
-  </html>
+                                         </html>
