@@ -361,18 +361,116 @@ window.addEventListener('hashchange',()=>{const hash=window.location.hash.slice(
 if(searchInput){searchInput.addEventListener('input',function(){if(currentPage!=='home')return;const val=this.value.toLowerCase();document.querySelectorAll('[data-game]').forEach(row=>{row.style.display=row.innerText.toLowerCase().includes(val)?'flex':'none';});});}
 function copyCode(blockId,btn){const text=document.getElementById(blockId).innerText;navigator.clipboard.writeText(text).then(()=>{btn.innerText='✅ Скопировано!';btn.classList.add('copied');setTimeout(()=>{btn.innerText='📋 Copy Script';btn.classList.remove('copied');},2000);}).catch(()=>alert('Ошибка копирования'));}
 
-// ====== COPILOT ======
-let copilotMode='helper';
-const trigger=document.getElementById('copilotTrigger'),window_el=document.getElementById('copilotWindow'),closeBtn=document.getElementById('copilotClose'),messagesDiv=document.getElementById('copilotMessages'),inputEl=document.getElementById('copilotInput'),sendBtn=document.getElementById('copilotSend'),modeHelper=document.getElementById('modeHelper'),modeBypass=document.getElementById('modeBypass');
-trigger.addEventListener('click',()=>window_el.classList.toggle('open'));
-closeBtn.addEventListener('click',()=>window_el.classList.remove('open'));
-function switchMode(mode){copilotMode=mode;modeHelper.classList.toggle('active',mode==='helper');modeBypass.classList.toggle('active',mode==='bypass');messagesDiv.innerHTML='';addMessage(copilotMode==='helper'?'🧠 AI Helper готов. Задай любой вопрос о сайте или скриптах.':'🔑 Bypass KEY готов. Отправь ссылку для обхода.','bot');}
-function addMessage(text,type){const msg=document.createElement('div');msg.className=`copilot-msg ${type}`;msg.innerText=text;messagesDiv.appendChild(msg);messagesDiv.scrollTop=messagesDiv.scrollHeight;}
-async function sendMessage(){const text=inputEl.value.trim();if(!text)return;addMessage(text,'user');inputEl.value='';addMessage('⏳ Думаю...','bot');const loadingMsg=messagesDiv.lastChild;
-try{if(copilotMode==='bypass'){const res=await fetch(`https://bypass.tools/api/bypass?key=bt_9ce0dc7a030a8dd52e2def9614aab0a77f0a2a2a8fecadd2&url=${encodeURIComponent(text)}`);const data=await res.json();loadingMsg.remove();if(data&&data.key){addMessage(`✅ Ключ: ${data.key}`,'bot');}else{addMessage('❌ Не удалось обойти ссылку.','bot');}}else{const res=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:`Ты — Z1NTY Copilot, встроенный в сайт Z1NTY Scripts Hub. Твоя задача — помогать пользователям сайта. Отвечай кратко, дружелюбно и по делу.\n\nИнформация о сайте:\n- Сайт содержит более 30 плейсов Roblox (DOORS, Rivals, MM2, Blox Fruits, Forsaken, Funkin Friday, Bee Swarm Simulator, Brookhaven RP и другие).\n- В каждом плейсе есть несколько скриптов (обычные и верифицированные владельцем сайта).\n- Верифицированные скрипты отмечены зелёной галочкой и подписью "Верифицирован владельцем сайта".\n- Все верифицированные скрипты — без ключа (No Key).\n- Есть специальные скрипты: "OP Doors script" для DOORS, "OP MM2 Script" для Murder Mystery 2, "Fire Hub (OP Autoplay)" для Funkin Friday.\n- На сайте есть удобный поиск по плейсам в самом верху страницы.\n- Чтобы скачать скрипт, нужно нажать на плейс, найти нужный скрипт и нажать кнопку "Copy Script".\n\nОтвечай на вопросы о сайте, скриптах, плейсах. Если вопрос не по теме — вежливо отказывай и предлагай задать вопрос о сайте.`+'\n\nВопрос пользователя: '+text}]}]})});if(!res.ok)throw new Error(`HTTP ${res.status}`);const data=await res.json();loadingMsg.remove();const reply=data?.candidates?.[0]?.content?.parts?.[0]?.text||'Извини, не смог ответить. Попробуй переформулировать.';addMessage(reply,'bot');}}catch(e){loadingMsg.remove();addMessage('⚠️ Ошибка соединения. Проверь интернет.','bot');}}
-sendBtn.addEventListener('click',sendMessage);
-inputEl.addEventListener('keypress',(e)=>{if(e.key==='Enter')sendMessage();});
+// ====== COPILOT (Оффлайн-AI + Прямой Bypass + Публичный CORS-прокси) ======
+let copilotMode = 'helper';
+const trigger = document.getElementById('copilotTrigger');
+const window_el = document.getElementById('copilotWindow');
+const closeBtn = document.getElementById('copilotClose');
+const messagesDiv = document.getElementById('copilotMessages');
+const inputEl = document.getElementById('copilotInput');
+const sendBtn = document.getElementById('copilotSend');
+const modeHelper = document.getElementById('modeHelper');
+const modeBypass = document.getElementById('modeBypass');
+
+trigger.addEventListener('click', () => window_el.classList.toggle('open'));
+closeBtn.addEventListener('click', () => window_el.classList.remove('open'));
+
+function switchMode(mode) {
+    copilotMode = mode;
+    modeHelper.classList.toggle('active', mode === 'helper');
+    modeBypass.classList.toggle('active', mode === 'bypass');
+    messagesDiv.innerHTML = '';
+    addMessage(copilotMode === 'helper' 
+        ? '🧠 AI Helper готов. Задай любой вопрос о сайте или скриптах.' 
+        : '🔑 Bypass KEY готов. Отправь ссылку для обхода.', 'bot');
+}
+
+function addMessage(text, type) {
+    const msg = document.createElement('div');
+    msg.className = `copilot-msg ${type}`;
+    msg.innerText = text;
+    messagesDiv.appendChild(msg);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+async function sendMessage() {
+    const text = inputEl.value.trim();
+    if (!text) return;
+    addMessage(text, 'user');
+    inputEl.value = '';
+
+    if (copilotMode === 'bypass') {
+        addMessage('⏳ Обхожу ссылку...', 'bot');
+        const loadingMsg = messagesDiv.lastChild;
+
+        try {
+            const proxyUrl = 'https://api.allorigins.win/raw?url=';
+            const bypassApi = `https://bypass.tools/api/bypass?url=${encodeURIComponent(text)}`;
+            
+            const res = await fetch(proxyUrl + encodeURIComponent(bypassApi));
+            const data = await res.json();
+            
+            loadingMsg.remove();
+            
+            if (data && data.key) {
+                addMessage(`✅ Ключ успешно получен:\n\n🔑 ${data.key}\n\nСкопируй его и используй!`, 'bot');
+            } else if (data && data.error) {
+                addMessage(`❌ Ошибка обхода: ${data.error}`, 'bot');
+            } else {
+                addMessage('❌ Не удалось обойти ссылку. Возможно, она недействительна.', 'bot');
+            }
+        } catch (e) {
+            loadingMsg.remove();
+            const bypassUrl = `https://bypass.tools/?url=${encodeURIComponent(text)}`;
+            addMessage(`⚠️ Автообход не сработал.\n🔗 Открываю сайт для ручного обхода...`, 'bot');
+            window.open(bypassUrl, '_blank');
+        }
+    } else {
+        // Оффлайн AI Helper
+        addMessage('⏳ Думаю...', 'bot');
+        const loadingMsg = messagesDiv.lastChild;
+        
+        const q = text.toLowerCase();
+        let reply = '';
+        
+        if (q.includes('привет') || q.includes('здравств') || q.includes('ку') || q.includes('хелло')) {
+            reply = '👋 Привет! Я Z1NTY Copilot. Я могу:\n- Рассказать о любом плейсе (DOORS, MM2, Rivals, Blox Fruits...)\n- Объяснить, как скопировать скрипт\n- Обойти ключ (в режиме Bypass KEY)\n\nЧто тебя интересует?';
+        } else if (q.includes('помощь') || q.includes('что ты умеешь') || q.includes('help')) {
+            reply = '🤖 Я Z1NTY Copilot. Вот что я умею:\n📋 Рассказывать о плейсах и скриптах\n🔑 Обходить ключи (режим Bypass KEY)\n❓ Отвечать на вопросы о сайте\n\nПросто спроси о конкретном плейсе!';
+        } else if (q.includes('doors') || q.includes('дорс')) {
+            reply = '🚪 **DOORS** — популярная хоррор-игра. Проходи комнаты и избегай монстров.\n\nУ нас есть 5 скриптов:\n✅ OP Doors script (верифицированный, без ключа)\n- Moon V1\n- Soluna Doors\n- RAW Scripts Doors\n- OrangeHub Rehax\n\nВсе скрипты находятся на странице плейса DOORS. Нажми на него в главном меню и скопируй нужный скрипт кнопкой Copy Script.';
+        } else if (q.includes('rivals') || q.includes('ривалс')) {
+            reply = '⚔️ **Rivals** — соревновательный PvP-шутер. Цель — выиграть 5 раундов первым.\n\nУ нас есть 3 скрипта:\n- Kurona Hub v3.5\n- Vylera Rivals\n- Breadz Rivals\n\nВсе скрипты без ключа (No Key).';
+        } else if (q.includes('mm2') || q.includes('murder mystery') || q.includes('мёрдер')) {
+            reply = '🔪 **Murder Mystery 2** — динамичный хоррор с ролями Невиновный, Шериф и Убийца.\n\nУ нас есть 5 скриптов:\n✅ OP MM2 Script (верифицированный, без ключа)\n- Moon V1\n- Lunn Hub\n- Azure Hub\n- Artas01 Loader (с ключом)\n\nВерифицированный скрипт самый надёжный!';
+        } else if (q.includes('blox fruit') || q.includes('блокс фрут')) {
+            reply = '🍑 **Blox Fruits** — RPG по мотивам One Piece. Сражайся, исследуй моря, собирай дьявольские фрукты.\n\nУ нас есть 5 скриптов:\n- Cats Scripts\n- QuantumOnyx\n- Styxz Hub\n- RO-HUB (без ключа)\n- NYX8HUB\n\nВсе скрипты на странице плейса!';
+        } else if (q.includes('forsaken') || q.includes('форсакен')) {
+            reply = '🔪 **Forsaken** — мрачный экшен-платформер. Проходи испытания, избегай ловушек, сражайся с боссами.\n\nУ нас есть скрипт:\n- Forsaken Plus\n\nБез ключа (No Key).';
+        } else if (q.includes('bee') || q.includes('би') || q.includes('пчел')) {
+            reply = '🐝 **Bee Swarm Simulator** — собирай мёд, качай улей, выполняй квесты медведей.\n\nУ нас есть скрипт:\n- Kron Hub\n\nБез ключа (No Key).';
+        } else if (q.includes('brookhaven') || q.includes('брукхейвен')) {
+            reply = '🏡 **Brookhaven RP** — ролевая игра: живи в городе, покупай дома, машины, общайся.\n\nУ нас есть скрипт:\n- SP Hub\n\nБез ключа (No Key).';
+        } else if (q.includes('funkin') || q.includes('фанкин') || q.includes('fnf')) {
+            reply = '🎵 **Funkin Friday** — ритм-игра с OP Autoplay (автоматическое прохождение).\n\nУ нас есть скрипт:\n✅ Fire Hub (OP Autoplay) — верифицированный, без ключа!\n\nЭто один из лучших скриптов на сайте.';
+        } else if (q.includes('верифиц') || q.includes('проверен') || q.includes('галочка')) {
+            reply = '✅ **Верифицированные скрипты** — это скрипты, проверенные лично владельцем сайта. Они отмечены зелёной галочкой и подписью "Верифицирован владельцем сайта".\n\nСейчас на сайте 3 верифицированных скрипта:\n- OP Doors script (DOORS)\n- OP MM2 Script (MM2)\n- Fire Hub (Funkin Friday)\n\nВсе они без ключа (No Key) и самые надёжные!';
+        } else if (q.includes('скопировать') || q.includes('copy') || q.includes('скрипт')) {
+            reply = '📋 **Как скопировать скрипт:**\n1. На главной странице выбери нужный плейс (DOORS, MM2, Rivals...)\n2. Прокрути вниз до скрипта\n3. Нажми кнопку **Copy Script**\n4. Скрипт скопируется в буфер обмена!\n\nВсё просто!';
+        } else if (q.includes('поиск') || q.includes('найти') || q.includes('search')) {
+            reply = '🔍 **Поиск по сайту:**\nНа главной странице вверху есть поле поиска. Просто начни вводить название плейса — и сайт покажет только подходящие варианты.\n\nПопробуй прямо сейчас!';
+        } else {
+            reply = '🤔 Я не совсем понял вопрос. Попробуй спросить о конкретном плейсе (например, "DOORS", "MM2", "Rivals", "Blox Fruits") или о том, как скопировать скрипт.\n\nТакже ты можешь переключиться в режим Bypass KEY для обхода ключей.';
+        }
+        
+        setTimeout(() => {
+            loadingMsg.remove();
+            addMessage(reply, 'bot');
+        }, 600);
+    }
+}
+
+sendBtn.addEventListener('click', sendMessage);
+inputEl.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+
 console.log('✅ Z1NTY Scripts Hub загружен! Copilot готов.');
-</script>
-</body>
-</html>
