@@ -188,7 +188,7 @@
     <div id="pagesContainer"></div>
 </div>
 
-<!-- COPILOT -->
+<!-- COPILOT (AI + Math) -->
 <div class="copilot-trigger" id="copilotTrigger">
     <span class="icon">💬</span>
     <span class="copilot-label">AI Copilot</span>
@@ -218,9 +218,11 @@
     const inputEl = document.getElementById('copilotInput');
     const sendBtn = document.getElementById('copilotSend');
 
+    // Открытие/закрытие окна
     trigger.addEventListener('click', () => window_el.classList.toggle('open'));
     closeBtn.addEventListener('click', () => window_el.classList.remove('open'));
 
+    // Добавление сообщения в чат
     function addMessage(text, type) {
         const msg = document.createElement('div');
         msg.className = `copilot-msg ${type}`;
@@ -229,10 +231,12 @@
         messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
 
+    // Проверка на математическое выражение
     function isMath(text) {
         return /[0-9]/.test(text) && /[\+\-\*\/\^\%\(\)]/.test(text);
     }
 
+    // Решение математики
     function solveMath(text) {
         try {
             let expr = text.replace(/[^0-9+\-*\/().%^]/g, '').replace(/\^/g, '**');
@@ -244,6 +248,7 @@
         }
     }
 
+    // Отправка сообщения
     async function sendMessage() {
         const text = inputEl.value.trim();
         if (!text) return;
@@ -252,6 +257,7 @@
         addMessage('⏳ Думаю...', 'bot');
         const loadingMsg = messagesDiv.lastChild;
 
+        // Проверяем, это математика?
         if (isMath(text)) {
             const mathResult = solveMath(text);
             loadingMsg.remove();
@@ -263,6 +269,7 @@
             return;
         }
 
+        // Если не математика — отправляем в Gemini
         try {
             const siteInfo = `Ты — Z1NTY Copilot, встроенный в сайт Z1NTY Scripts Hub. Твоя задача — помогать пользователям сайта. Отвечай кратко, дружелюбно и по делу. Ты знаешь только этот сайт и математику. Если вопрос не по теме — вежливо отказывай и предлагай задать вопрос о сайте.\n\nИнформация о сайте:\n- Сайт содержит более 40 плейсов Roblox (DOORS, Rivals, MM2, Blox Fruits, Forsaken, Funkin Friday, Bee Swarm Simulator, Brookhaven RP, Dandy's World, Blade Ball, Arsenal, Prison Life, SCP 3008, The Forge, Solo Hunters и другие).\n- В каждом плейсе есть несколько скриптов (обычные и верифицированные владельцем сайта).\n- Верифицированные скрипты отмечены зелёной галочкой и подписью "Верифицирован владельцем сайта".\n- Все верифицированные скрипты — без ключа (No Key).\n- Есть специальные скрипты: "OP Doors script" для DOORS, "OP MM2 Script" для Murder Mystery 2, "Fire Hub (OP Autoplay)" для Funkin Friday.\n- На сайте есть удобный поиск по плейсам в самом верху страницы.\n- Чтобы скачать скрипт, нужно нажать на плейс, найти нужный скрипт и нажать кнопку "Copy Script".\n- Также на сайте есть Техподдержка (кнопка слева внизу) и Key Bypass (отдельный сайт).\n\nОтвечай на вопросы о сайте, скриптах, плейсах. Если вопрос не по теме — вежливо отказывай и предлагай задать вопрос о сайте.`;
 
@@ -290,7 +297,6 @@
     inputEl.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
 })();
 </script>
-
 <!-- ТЕХПОДДЕРЖКА -->
 <div class="support-trigger" id="supportTrigger"><span class="icon">🛟</span></div>
 <div class="support-overlay" id="supportOverlay"></div>
