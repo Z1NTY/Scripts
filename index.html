@@ -153,8 +153,15 @@
         .copilot-header { padding: 15px; border-bottom: 1px solid rgba(0,170,255,0.3); display: flex; justify-content: space-between; align-items: center; }
         .copilot-title { font-weight: 800; color: #0af; text-shadow: 0 0 10px #0af; letter-spacing: 2px; }
         .copilot-close { background: none; border: none; color: #f55; font-size: 22px; cursor: pointer; }
-        .copilot-soon { text-align: center; padding: 40px 20px; color: #aaa; font-size: 16px; }
-        .copilot-soon .big-icon { font-size: 48px; display: block; margin-bottom: 15px; }
+        .copilot-messages { flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 10px; }
+        .copilot-msg { max-width: 90%; padding: 10px 14px; border-radius: 16px; font-size: 13px; line-height: 1.5; animation: msgIn 0.25s ease; }
+        @keyframes msgIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .copilot-msg.bot { background: rgba(0,170,255,0.08); border: 1px solid rgba(0,170,255,0.25); color: #bcd; align-self: flex-start; }
+        .copilot-msg.user { background: rgba(0,170,255,0.15); border: 1px solid rgba(0,170,255,0.4); color: #fff; align-self: flex-end; }
+        .copilot-input-area { display: flex; padding: 10px; gap: 8px; border-top: 1px solid rgba(0,170,255,0.2); }
+        .copilot-input { flex: 1; padding: 12px; background: #000; border: 1px solid rgba(0,170,255,0.4); border-radius: 25px; color: #fff; outline: none; font-size: 13px; }
+        .copilot-send { padding: 10px 16px; background: #0af; border: none; border-radius: 25px; color: #000; font-weight: 700; cursor: pointer; transition: 0.3s; }
+        .copilot-send:hover { box-shadow: 0 0 20px #0af; }
         .support-trigger { position: fixed; left: 18px; bottom: 100px; z-index: 999; width: 56px; height: 56px; border-radius: 50%; background: rgba(0,170,255,0.1); border: 2px solid #0af; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 25px rgba(0,170,255,0.4); transition: all 0.3s ease; animation: float 2.5s ease-in-out infinite; }
         .support-trigger:hover { box-shadow: 0 0 45px rgba(0,170,255,0.8); transform: scale(1.08); }
         .support-trigger .icon { font-size: 22px; filter: drop-shadow(0 0 6px #0af); }
@@ -187,12 +194,12 @@
     <div id="homePage" class="page-section active"><h2>🎮 ВЫБЕРИТЕ ПЛЕЙС:</h2><div class="game-grid" id="gameGrid"></div></div>
     <div id="pagesContainer"></div>
 </div>
-<!-- COPILOT (Google Gemini - только сайт) -->
+
+<!-- COPILOT (Google Gemini) -->
 <div class="copilot-trigger" id="copilotTrigger">
     <span class="icon">💬</span>
     <span class="copilot-label">AI Copilot</span>
 </div>
-
 <div class="copilot-window" id="copilotWindow">
     <div class="copilot-header">
         <span class="copilot-title">🤖 Z1NTY Copilot</span>
@@ -207,63 +214,6 @@
     </div>
 </div>
 
-<script>
-(function() {
-    const trigger = document.getElementById('copilotTrigger');
-    const window_el = document.getElementById('copilotWindow');
-    const closeBtn = document.getElementById('copilotClose');
-    const messagesDiv = document.getElementById('copilotMessages');
-    const inputEl = document.getElementById('copilotInput');
-    const sendBtn = document.getElementById('copilotSend');
-
-    trigger.addEventListener('click', () => window_el.classList.toggle('open'));
-    closeBtn.addEventListener('click', () => window_el.classList.remove('open'));
-
-    function addMessage(text, type) {
-        const msg = document.createElement('div');
-        msg.className = 'copilot-msg ' + type;
-        msg.textContent = text;
-        messagesDiv.appendChild(msg);
-        messagesDiv.scrollTop = messagesDiv.scrollHeight;
-    }
-
-    async function sendMessage() {
-        const text = inputEl.value.trim();
-        if (!text) return;
-        addMessage(text, 'user');
-        inputEl.value = '';
-        addMessage('⏳ Думаю...', 'bot');
-        const loadingMsg = messagesDiv.lastChild;
-
-        try {
-            const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [{
-                        parts: [{
-                            text: `Ты — Z1NTY Copilot на сайте Z1NTY Scripts Hub. Твоя задача — отвечать на вопросы пользователей о сайте, скриптах, плейсах, дельте и всём, что связано с сайтом. Отвечай кратко, дружелюбно и по делу. Если вопрос не по теме сайта — вежливо откажи и предложи задать вопрос о сайте.\n\nВот полная информация о сайте:\n\nСайт Z1NTY Scripts Hub содержит более 40 плейсов Roblox:\n- DOORS\n- Rivals\n- Ink Game\n- The Strongest Battlegrounds\n- Piggy\n- Murder Mystery 2\n- 99 Night in the forest\n- Thanos Gauntlet Simulator\n- Regretevator\n- Emergency Hamburg\n- Volleyball Legends\n- Dead Rails\n- Steal a Brainrot\n- Spider\n- BloxStrike\n- Muscle Legends\n- Evade\n- Be a Lucky Block\n- Violence District\n- Blox Fruits\n- Untitled Boxing Game\n- Jailbreak\n- Slap Battles\n- Grow a Garden 2\n- Forsaken\n- Grow a Garden\n- Build A Boat For Treasure\n- Fish\n- NFT Battle\n- Bee Swarm Simulator\n- Fling Things and People\n- Brookhaven RP\n- Funkin Friday\n- Dandy's World\n- Blade Ball\n- Build A Ring Farm\n- Your Bizarre Adventure\n- SCP 3008\n- Pls Donate\n- Ninja Legends\n- Garden Horizons\n- Prison Life\n- Arsenal\n- The Lost Front\n- The Forge\n- Escape Tsunami for Brainrot\n- Solo Hunters\n\nВ каждом плейсе есть несколько скриптов. Верифицированные скрипты отмечены зелёной галочкой и подписью "Верифицирован владельцем сайта". Все верифицированные скрипты без ключа (No Key).\n\nВерифицированные скрипты:\n- OP Doors script (для DOORS)\n- OP MM2 Script (для Murder Mystery 2)\n- Fire Hub / OP Autoplay (для Funkin Friday)\n\nЧтобы скопировать скрипт:\n1. На главной странице выбери нужный плейс\n2. Прокрути вниз до скрипта\n3. Нажми кнопку "Copy Script"\n4. Скрипт скопируется в буфер обмена\n\nНа сайте есть:\n- Поиск по плейсам (вверху страницы)\n- Техподдержка (кнопка слева внизу, ведёт в бот @Z1NTY_SupportBot)\n- Key Bypass (отдельный сайт для обхода ключей)\n- Главное меню с кнопками "Скачать Дельту", "Как установить", "Скрипты на режимы"\n\nДельта (Delta) — это инжектор для Roblox, который можно скачать с Menu-сайта Z1NTY.\n\nОтвечай на вопросы о сайте, скриптах, плейсах, дельте и всём, что связано с сайтом. Если вопрос не по теме — вежливо откажи.` + '\n\nВопрос пользователя: ' + text
-                        }]
-                    }]
-                })
-            });
-            const data = await response.json();
-            const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text || 'Извини, не смог ответить. Попробуй переформулировать вопрос.';
-            loadingMsg.remove();
-            addMessage(reply, 'bot');
-        } catch (e) {
-            loadingMsg.remove();
-            addMessage('⚠️ Ошибка соединения. Попробуй позже.', 'bot');
-        }
-    }
-
-    sendBtn.addEventListener('click', sendMessage);
-    inputEl.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); });
-})();
-</script>
-
-
-    
 <!-- ТЕХПОДДЕРЖКА -->
 <div class="support-trigger" id="supportTrigger"><span class="icon">🛟</span></div>
 <div class="support-overlay" id="supportOverlay"></div>
@@ -595,12 +545,59 @@ function copyCode(blockId, btn) {
     }).catch(() => alert('Ошибка копирования'));
 }
 
-// ====== COPILOT (BETA SOON) ======
-const copilotTrigger = document.getElementById('copilotTrigger');
-const copilotWindow = document.getElementById('copilotWindow');
-const copilotClose = document.getElementById('copilotClose');
-copilotTrigger.addEventListener('click', () => copilotWindow.classList.toggle('open'));
-copilotClose.addEventListener('click', () => copilotWindow.classList.remove('open'));
+// ====== COPILOT (Google Gemini - только сайт) ======
+(function() {
+    const trigger = document.getElementById('copilotTrigger');
+    const window_el = document.getElementById('copilotWindow');
+    const closeBtn = document.getElementById('copilotClose');
+    const messagesDiv = document.getElementById('copilotMessages');
+    const inputEl = document.getElementById('copilotInput');
+    const sendBtn = document.getElementById('copilotSend');
+
+    trigger.addEventListener('click', () => window_el.classList.toggle('open'));
+    closeBtn.addEventListener('click', () => window_el.classList.remove('open'));
+
+    function addMessage(text, type) {
+        const msg = document.createElement('div');
+        msg.className = 'copilot-msg ' + type;
+        msg.textContent = text;
+        messagesDiv.appendChild(msg);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+
+    async function sendMessage() {
+        const text = inputEl.value.trim();
+        if (!text) return;
+        addMessage(text, 'user');
+        inputEl.value = '';
+        addMessage('⏳ Думаю...', 'bot');
+        const loadingMsg = messagesDiv.lastChild;
+
+        try {
+            const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{
+                            text: `Ты — Z1NTY Copilot на сайте Z1NTY Scripts Hub. Твоя задача — отвечать на вопросы пользователей о сайте, скриптах, плейсах, дельте и всём, что связано с сайтом. Отвечай кратко, дружелюбно и по делу. Если вопрос не по теме сайта — вежливо откажи и предложи задать вопрос о сайте.\n\nВот полная информация о сайте:\n\nСайт Z1NTY Scripts Hub содержит более 40 плейсов Roblox:\n- DOORS\n- Rivals\n- Ink Game\n- The Strongest Battlegrounds\n- Piggy\n- Murder Mystery 2\n- 99 Night in the forest\n- Thanos Gauntlet Simulator\n- Regretevator\n- Emergency Hamburg\n- Volleyball Legends\n- Dead Rails\n- Steal a Brainrot\n- Spider\n- BloxStrike\n- Muscle Legends\n- Evade\n- Be a Lucky Block\n- Violence District\n- Blox Fruits\n- Untitled Boxing Game\n- Jailbreak\n- Slap Battles\n- Grow a Garden 2\n- Forsaken\n- Grow a Garden\n- Build A Boat For Treasure\n- Fish\n- NFT Battle\n- Bee Swarm Simulator\n- Fling Things and People\n- Brookhaven RP\n- Funkin Friday\n- Dandy's World\n- Blade Ball\n- Build A Ring Farm\n- Your Bizarre Adventure\n- SCP 3008\n- Pls Donate\n- Ninja Legends\n- Garden Horizons\n- Prison Life\n- Arsenal\n- The Lost Front\n- The Forge\n- Escape Tsunami for Brainrot\n- Solo Hunters\n\nВ каждом плейсе есть несколько скриптов. Верифицированные скрипты отмечены зелёной галочкой и подписью "Верифицирован владельцем сайта". Все верифицированные скрипты без ключа (No Key).\n\nВерифицированные скрипты:\n- OP Doors script (для DOORS)\n- OP MM2 Script (для Murder Mystery 2)\n- Fire Hub / OP Autoplay (для Funkin Friday)\n\nЧтобы скопировать скрипт:\n1. На главной странице выбери нужный плейс\n2. Прокрути вниз до скрипта\n3. Нажми кнопку "Copy Script"\n4. Скрипт скопируется в буфер обмена\n\nНа сайте есть:\n- Поиск по плейсам (вверху страницы)\n- Техподдержка (кнопка слева внизу, ведёт в бот @Z1NTY_SupportBot)\n- Key Bypass (отдельный сайт для обхода ключей)\n- Главное меню с кнопками "Скачать Дельту", "Как установить", "Скрипты на режимы"\n\nДельта (Delta) — это инжектор для Roblox, который можно скачать с Menu-сайта Z1NTY.\n\nОтвечай на вопросы о сайте, скриптах, плейсах, дельте и всём, что связано с сайтом. Если вопрос не по теме — вежливо откажи.` + '\n\nВопрос пользователя: ' + text
+                        }]
+                    }]
+                })
+            });
+            const data = await response.json();
+            const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text || 'Извини, не смог ответить. Попробуй переформулировать вопрос.';
+            loadingMsg.remove();
+            addMessage(reply, 'bot');
+        } catch (e) {
+            loadingMsg.remove();
+            addMessage('⚠️ Ошибка соединения. Попробуй позже.', 'bot');
+        }
+    }
+
+    sendBtn.addEventListener('click', sendMessage);
+    inputEl.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); });
+})();
 
 // ====== ТЕХПОДДЕРЖКА ======
 const supportTrigger = document.getElementById('supportTrigger');
@@ -632,7 +629,7 @@ function toggleCheckbox(type) {
     }
 }
 
-console.log('✅ Z1NTY Scripts Hub загружен!');
+console.log('✅ Z1NTY Scripts Hub загружен! Copilot готов.');
 </script>
 </body>
     </html>
