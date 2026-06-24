@@ -188,18 +188,108 @@
     <div id="pagesContainer"></div>
 </div>
 
-<!-- COPILOT (BETA SOON) -->
+<!-- COPILOT -->
 <div class="copilot-trigger" id="copilotTrigger">
     <span class="icon">💬</span>
-    <span class="copilot-label">AI Copilot (Soon)</span>
+    <span class="copilot-label">AI Copilot</span>
 </div>
 <div class="copilot-window" id="copilotWindow">
-    <div class="copilot-header"><span class="copilot-title">🤖 Z1NTY Copilot</span><button class="copilot-close" id="copilotClose">✕</button></div>
-    <div class="copilot-soon">
-        <span class="big-icon">🚧</span>
-        <span>AI Copilot находится в разработке.<br>Скоро появится!</span>
+    <div class="copilot-header">
+        <span class="copilot-title">🤖 Z1NTY Copilot</span>
+        <button class="copilot-close" id="copilotClose">✕</button>
+    </div>
+    <div class="copilot-messages" id="copilotMessages">
+        <div class="copilot-msg bot">
+            Привет! Я Z1NTY Copilot. Я знаю всё об этом сайте и умею считать. Спроси меня о любом скрипте или плейсе. 🚀
+        </div>
+    </div>
+    <div class="copilot-input-area">
+        <input type="text" class="copilot-input" id="copilotInput" placeholder="Спроси о скриптах или посчитай...">
+        <button class="copilot-send" id="copilotSend">➤</button>
     </div>
 </div>
+
+<script>
+(function() {
+    const trigger = document.getElementById('copilotTrigger');
+    const window_el = document.getElementById('copilotWindow');
+    const closeBtn = document.getElementById('copilotClose');
+    const messagesDiv = document.getElementById('copilotMessages');
+    const inputEl = document.getElementById('copilotInput');
+    const sendBtn = document.getElementById('copilotSend');
+
+    trigger.addEventListener('click', () => window_el.classList.toggle('open'));
+    closeBtn.addEventListener('click', () => window_el.classList.remove('open'));
+
+    function addMessage(text, type) {
+        const msg = document.createElement('div');
+        msg.className = `copilot-msg ${type}`;
+        msg.textContent = text;
+        messagesDiv.appendChild(msg);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+
+    function isMath(text) {
+        return /[0-9]/.test(text) && /[\+\-\*\/\^\%\(\)]/.test(text);
+    }
+
+    function solveMath(text) {
+        try {
+            let expr = text.replace(/[^0-9+\-*\/().%^]/g, '').replace(/\^/g, '**');
+            if (!expr) return null;
+            let result = new Function('return ' + expr)();
+            return `${text} = ${result}`;
+        } catch (e) {
+            return null;
+        }
+    }
+
+    async function sendMessage() {
+        const text = inputEl.value.trim();
+        if (!text) return;
+        addMessage(text, 'user');
+        inputEl.value = '';
+        addMessage('⏳ Думаю...', 'bot');
+        const loadingMsg = messagesDiv.lastChild;
+
+        if (isMath(text)) {
+            const mathResult = solveMath(text);
+            loadingMsg.remove();
+            if (mathResult) {
+                addMessage(`🧮 ${mathResult}`, 'bot');
+            } else {
+                addMessage('❌ Не могу это посчитать. Попробуй другой пример.', 'bot');
+            }
+            return;
+        }
+
+        try {
+            const siteInfo = `Ты — Z1NTY Copilot, встроенный в сайт Z1NTY Scripts Hub. Твоя задача — помогать пользователям сайта. Отвечай кратко, дружелюбно и по делу. Ты знаешь только этот сайт и математику. Если вопрос не по теме — вежливо отказывай и предлагай задать вопрос о сайте.\n\nИнформация о сайте:\n- Сайт содержит более 40 плейсов Roblox (DOORS, Rivals, MM2, Blox Fruits, Forsaken, Funkin Friday, Bee Swarm Simulator, Brookhaven RP, Dandy's World, Blade Ball, Arsenal, Prison Life, SCP 3008, The Forge, Solo Hunters и другие).\n- В каждом плейсе есть несколько скриптов (обычные и верифицированные владельцем сайта).\n- Верифицированные скрипты отмечены зелёной галочкой и подписью "Верифицирован владельцем сайта".\n- Все верифицированные скрипты — без ключа (No Key).\n- Есть специальные скрипты: "OP Doors script" для DOORS, "OP MM2 Script" для Murder Mystery 2, "Fire Hub (OP Autoplay)" для Funkin Friday.\n- На сайте есть удобный поиск по плейсам в самом верху страницы.\n- Чтобы скачать скрипт, нужно нажать на плейс, найти нужный скрипт и нажать кнопку "Copy Script".\n- Также на сайте есть Техподдержка (кнопка слева внизу) и Key Bypass (отдельный сайт).\n\nОтвечай на вопросы о сайте, скриптах, плейсах. Если вопрос не по теме — вежливо отказывай и предлагай задать вопрос о сайте.`;
+
+            const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: siteInfo + '\n\nВопрос пользователя: ' + text }] }]
+                })
+            });
+
+            if (!response.ok) throw new Error('API error');
+            const data = await response.json();
+            const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text || 'Извини, не смог ответить.';
+
+            loadingMsg.remove();
+            addMessage(reply, 'bot');
+        } catch (e) {
+            loadingMsg.remove();
+            addMessage('⚠️ Не удалось связаться с AI. Попробуй позже.', 'bot');
+        }
+    }
+
+    sendBtn.addEventListener('click', sendMessage);
+    inputEl.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+})();
+</script>
 
 <!-- ТЕХПОДДЕРЖКА -->
 <div class="support-trigger" id="supportTrigger"><span class="icon">🛟</span></div>
