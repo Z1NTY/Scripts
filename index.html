@@ -25,9 +25,9 @@
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: radial-gradient(ellipse at 20% 50%, rgba(0,120,255,0.08) 0%, transparent 50%),
-                        radial-gradient(ellipse at 80% 50%, rgba(0,150,255,0.1) 0%, transparent 50%),
-                        radial-gradient(ellipse at 50% 50%, rgba(0,100,255,0.06) 0%, transparent 70%);
+            background: radial-gradient(ellipse at 20% 50%, rgba(0,120,255,0.1) 0%, transparent 50%),
+                        radial-gradient(ellipse at 80% 50%, rgba(0,150,255,0.12) 0%, transparent 50%),
+                        radial-gradient(ellipse at 50% 50%, rgba(0,100,255,0.08) 0%, transparent 70%);
             animation: fogMove 12s ease-in-out infinite;
         }
         .fog-layer:nth-child(2) { animation-delay: -6s; opacity: 0.7; }
@@ -112,6 +112,11 @@
         .game-row:nth-child(25) { animation-delay: 1.25s; } .game-row:nth-child(26) { animation-delay: 1.30s; }
         .game-row:nth-child(27) { animation-delay: 1.35s; } .game-row:nth-child(28) { animation-delay: 1.40s; }
         .game-row:nth-child(29) { animation-delay: 1.45s; } .game-row:nth-child(30) { animation-delay: 1.50s; }
+        .game-row:nth-child(31) { animation-delay: 1.55s; } .game-row:nth-child(32) { animation-delay: 1.60s; }
+        .game-row:nth-child(33) { animation-delay: 1.65s; } .game-row:nth-child(34) { animation-delay: 1.70s; }
+        .game-row:nth-child(35) { animation-delay: 1.75s; } .game-row:nth-child(36) { animation-delay: 1.80s; }
+        .game-row:nth-child(37) { animation-delay: 1.85s; } .game-row:nth-child(38) { animation-delay: 1.90s; }
+        .game-row:nth-child(39) { animation-delay: 1.95s; } .game-row:nth-child(40) { animation-delay: 2.00s; }
         @keyframes rowReveal { to { opacity: 1; transform: translateY(0); } }
         .game-row:hover { background: rgba(0,170,255,0.12); border-color: #4af; transform: translateY(-3px) scale(1.02); box-shadow: 0 0 35px rgba(0,170,255,0.3); color: #fff; }
         .game-row .emoji { font-size: clamp(18px, 3vw, 24px); margin-right: 8px; filter: drop-shadow(0 0 6px rgba(0,170,255,0.6)); }
@@ -148,19 +153,30 @@
         .copilot-header { padding: 15px; border-bottom: 1px solid rgba(0,170,255,0.3); display: flex; justify-content: space-between; align-items: center; }
         .copilot-title { font-weight: 800; color: #0af; text-shadow: 0 0 10px #0af; letter-spacing: 2px; }
         .copilot-close { background: none; border: none; color: #f55; font-size: 22px; cursor: pointer; }
-        .mode-buttons { display: flex; gap: 8px; padding: 10px 15px; border-bottom: 1px solid rgba(0,170,255,0.1); }
-        .mode-btn { flex: 1; padding: 8px 6px; border: 1px solid rgba(0,170,255,0.3); border-radius: 12px; background: transparent; color: #0af; cursor: pointer; font-size: 11px; font-weight: 600; transition: all 0.3s; text-align: center; }
-        .mode-btn.active { background: rgba(0,170,255,0.2); border-color: #4af; box-shadow: 0 0 15px rgba(0,170,255,0.4); }
-        .copilot-messages { flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 10px; }
-        .copilot-msg { max-width: 90%; padding: 10px 14px; border-radius: 16px; font-size: 13px; line-height: 1.5; animation: msgIn 0.25s ease; }
-        @keyframes msgIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-        .copilot-msg.bot { background: rgba(0,170,255,0.08); border: 1px solid rgba(0,170,255,0.25); color: #bcd; align-self: flex-start; }
-        .copilot-msg.user { background: rgba(0,170,255,0.15); border: 1px solid rgba(0,170,255,0.4); color: #fff; align-self: flex-end; }
-        .copilot-input-area { display: flex; padding: 10px; gap: 8px; border-top: 1px solid rgba(0,170,255,0.2); }
-        .copilot-input { flex: 1; padding: 12px; background: #000; border: 1px solid rgba(0,170,255,0.4); border-radius: 25px; color: #fff; outline: none; font-size: 13px; }
-        .copilot-send { padding: 10px 16px; background: #0af; border: none; border-radius: 25px; color: #000; font-weight: 700; cursor: pointer; transition: 0.3s; }
-        .copilot-send:hover { box-shadow: 0 0 20px #0af; }
-        @media (max-width: 480px) { .copilot-window { right: 4px; bottom: 100px; width: 96vw; } .copilot-trigger { right: 8px; bottom: 80px; width: 54px; height: 54px; } }
+        .copilot-soon { text-align: center; padding: 40px 20px; color: #aaa; font-size: 16px; }
+        .copilot-soon .big-icon { font-size: 48px; display: block; margin-bottom: 15px; }
+        .support-trigger { position: fixed; left: 18px; bottom: 100px; z-index: 999; width: 56px; height: 56px; border-radius: 50%; background: rgba(0,170,255,0.1); border: 2px solid #0af; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 25px rgba(0,170,255,0.4); transition: all 0.3s ease; animation: float 2.5s ease-in-out infinite; }
+        .support-trigger:hover { box-shadow: 0 0 45px rgba(0,170,255,0.8); transform: scale(1.08); }
+        .support-trigger .icon { font-size: 22px; filter: drop-shadow(0 0 6px #0af); }
+        .support-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90vw; max-width: 420px; background: rgba(0,0,0,0.95); backdrop-filter: blur(20px); border: 1px solid #0af; border-radius: 20px; z-index: 1001; display: none; padding: 25px; box-shadow: 0 0 60px rgba(0,170,255,0.4); animation: modalIn 0.3s ease; }
+        .support-modal.show { display: block; }
+        @keyframes modalIn { from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+        .support-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; display: none; }
+        .support-overlay.show { display: block; }
+        .support-title { font-size: 18px; font-weight: 800; color: #0af; text-shadow: 0 0 15px #0af; margin-bottom: 15px; text-align: center; letter-spacing: 2px; }
+        .support-rules { color: #ccc; font-size: 13px; line-height: 1.6; margin-bottom: 20px; max-height: 200px; overflow-y: auto; padding-right: 5px; }
+        .support-rules strong { color: #0af; text-shadow: 0 0 5px #0af; }
+        .checkbox-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; cursor: pointer; padding: 10px; border-radius: 12px; transition: 0.2s; border: 1px solid transparent; }
+        .checkbox-row:hover { background: rgba(0,170,255,0.05); }
+        .checkbox-circle { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #0af; display: flex; align-items: center; justify-content: center; transition: 0.2s; flex-shrink: 0; box-shadow: 0 0 8px rgba(0,170,255,0.3); }
+        .checkbox-circle.checked { background: #0af; border-color: #0af; box-shadow: 0 0 15px #0af; }
+        .checkbox-circle.checked::after { content: '✓'; color: #000; font-weight: bold; font-size: 14px; }
+        .checkbox-label { font-size: 13px; color: #ccc; user-select: none; }
+        .support-btn { display: block; width: 100%; padding: 14px; background: #0af; border: none; border-radius: 50px; color: #000; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 0 25px #0af; margin-top: 15px; text-decoration: none; text-align: center; }
+        .support-btn.disabled { background: transparent; border: 2px solid rgba(0,170,255,0.2); color: rgba(0,170,255,0.3); box-shadow: none; cursor: not-allowed; pointer-events: none; }
+        .support-btn:not(.disabled):hover { box-shadow: 0 0 50px #0af; transform: scale(1.03); }
+        .support-close { position: absolute; top: 10px; right: 15px; background: none; border: none; color: #f55; font-size: 22px; cursor: pointer; }
+        @media (max-width: 480px) { .copilot-window { right: 4px; bottom: 100px; width: 96vw; } .copilot-trigger { right: 8px; bottom: 80px; width: 54px; height: 54px; } .support-trigger { left: 8px; bottom: 80px; width: 48px; height: 48px; } }
     </style>
 </head>
 <body>
@@ -171,17 +187,51 @@
     <div id="homePage" class="page-section active"><h2>🎮 ВЫБЕРИТЕ ПЛЕЙС:</h2><div class="game-grid" id="gameGrid"></div></div>
     <div id="pagesContainer"></div>
 </div>
-<div class="copilot-trigger" id="copilotTrigger"><span class="icon">💬</span><span class="copilot-label">AI copilot (NEW)</span></div>
+
+<!-- COPILOT (BETA SOON) -->
+<div class="copilot-trigger" id="copilotTrigger">
+    <span class="icon">💬</span>
+    <span class="copilot-label">AI Copilot (Soon)</span>
+</div>
 <div class="copilot-window" id="copilotWindow">
     <div class="copilot-header"><span class="copilot-title">🤖 Z1NTY Copilot</span><button class="copilot-close" id="copilotClose">✕</button></div>
-    <div class="mode-buttons">
-        <button class="mode-btn active" id="modeHelper" onclick="switchMode('helper')">🧠 AI Helper</button>
-        <button class="mode-btn" id="modeBypass" onclick="switchMode('bypass')">🔑 Bypass KEY (NEW!)</button>
+    <div class="copilot-soon">
+        <span class="big-icon">🚧</span>
+        <span>AI Copilot находится в разработке.<br>Скоро появится!</span>
     </div>
-    <div class="copilot-messages" id="copilotMessages"><div class="copilot-msg bot">Привет! Я Z1NTY Copilot. Выбери режим и задай вопрос. 🚀</div></div>
-    <div class="copilot-input-area"><input type="text" class="copilot-input" id="copilotInput" placeholder="Введи вопрос или ссылку..."><button class="copilot-send" id="copilotSend">➤</button></div>
 </div>
+
+<!-- ТЕХПОДДЕРЖКА -->
+<div class="support-trigger" id="supportTrigger"><span class="icon">🛟</span></div>
+<div class="support-overlay" id="supportOverlay"></div>
+<div class="support-modal" id="supportModal">
+    <button class="support-close" id="supportClose">✕</button>
+    <div class="support-title">🛟 ТЕХНИЧЕСКАЯ ПОДДЕРЖКА</div>
+    <div class="support-rules">
+        <strong>‼️ПРАВИЛА ОБЩЕНИЯ С АДМИНИСТРАЦИЕЙ‼️</strong><br><br>
+        <strong>Запрещено:</strong><br>
+        1. Писать не по делу.<br>
+        2. Писать всякую чушь.<br>
+        3. Спамить, засорять поддержку.<br>
+        4. Оскорблять администрацию.<br>
+        5. Кидать разные 18+ материалы что совмещает за собой и 1 пункт.<br>
+        6. Опрашивать администрацию про личную жизнь и прочее.<br><br>
+        Тех поддержка создана только чтобы сообщать об багах или неработающих функциях, писать "когда будут скрипты?" разрешается, за все выше перечисленные пункты вам карается блокировка в тех поддержке навсегда без права на обжалования.<br><br>
+        <strong>Нажимая на кнопку "Написать в тех поддержку" вы автоматически соглашаетесь со всеми условиями и правилами нашей команды Z1NTY, если вы нарушили пункт, обжалование невозможно.</strong>
+    </div>
+    <div class="checkbox-row" id="checkboxAccept" onclick="toggleCheckbox('accept')">
+        <div class="checkbox-circle" id="circleAccept"></div>
+        <span class="checkbox-label">Я принимаю условия указанные выше</span>
+    </div>
+    <div class="checkbox-row" id="checkboxDecline" onclick="toggleCheckbox('decline')">
+        <div class="checkbox-circle checked" id="circleDecline"></div>
+        <span class="checkbox-label">Я не принимаю условия указанные выше</span>
+    </div>
+    <a href="https://t.me/Z1NTY_SupportBot" target="_blank" class="support-btn disabled" id="supportLink">🔧 Написать в тех поддержку</a>
+</div>
+
 <script>
+// ====== ДАННЫЕ ПЛЕЙСОВ ======
 const games = [
     { id:"doors", emoji:"🚪", name:"DOORS", desc:"Популярная хоррор-игра. Проходи комнаты, избегай монстров, разгадывай головоломки.", scripts:[
         {title:"OP Doors script", code:'getgenv().SCRIPT_KEY = "KEYLESS"\nloadstring(game:HttpGet("https://api.jnkie.com/api/v1/luascripts/public/abd3cc54d2dc7de4a091fb19c8f4ea9e15e939e7ecc88b475e6956e8af94ad6f/download"))()', verified:true, key:false},
@@ -199,7 +249,8 @@ const games = [
         {title:"Ringta Ink Game", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/wefwef127382/inkgames.github.io/refs/heads/main/ringta.lua"))()', verified:false, key:false},
         {title:"Frostware Ink", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/Actualmrp/FWInkGame/refs/heads/main/FrostwareInkGameSource.txt"))()', verified:false, key:false},
         {title:"Artas01 Loader", code:"loadstring(game:HttpGet('https://raw.githubusercontent.com/artas01/robscript/refs/heads/main/loader.lua'))()", verified:false, key:true},
-        {title:"RAW Evade+", code:'loadstring(game:HttpGet"https://rawscripts.net/raw/Evade-Auto-farms-Speed-bypass-fly-troll-others-and-26-Features-53926")()', verified:false, key:false}
+        {title:"RAW Evade+", code:'loadstring(game:HttpGet"https://rawscripts.net/raw/Evade-Auto-farms-Speed-bypass-fly-troll-others-and-26-Features-53926")()', verified:false, key:false},
+        {title:"PITY Ink Game", code:"loadstring(game:HttpGet('https://raw.githubusercontent.com/hexebbejonasson/PITY-Ink-Game/main/main.lua'))()", verified:false, key:false}
     ]},
     { id:"tsb", emoji:"💥", name:"The Strongest Battlegrounds", desc:"PvP-файтинг, вдохновлённый вселенной One Punch Man.", scripts:[
         {title:"Pxntxrez NULL", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/Pxntxrez/NULL/refs/heads/main/obfuscated_script-1753991814596.lua"))()', verified:false, key:false},
@@ -215,13 +266,19 @@ const games = [
         {title:"Moon V1", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/littl3prince/Moon/main/Moon_V1"))()', verified:false, key:false},
         {title:"Lunn Hub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/LunnHubX99/MurderMystery2/refs/heads/main/lua"))()', verified:false, key:false},
         {title:"Azure Hub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/Aura-56/MurderMystery2/refs/heads/main/AzureHub.lua", true))()', verified:false, key:false},
-        {title:"Artas01 Loader", code:"loadstring(game:HttpGet('https://raw.githubusercontent.com/artas01/robscript/refs/heads/main/loader.lua'))()", verified:false, key:true}
+        {title:"Artas01 Loader", code:"loadstring(game:HttpGet('https://raw.githubusercontent.com/artas01/robscript/refs/heads/main/loader.lua'))()", verified:false, key:true},
+        {title:"LoaderXyu", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/GandonX/YouTube/refs/heads/main/LoaderXyu.txt"))()', verified:false, key:false},
+        {title:"Spark Hub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/ultimatep568/Spark-Hub/refs/heads/main/SparkHub_Loader.lua"))()', verified:false, key:false},
+        {title:"TravHub", code:"loadstring(game:HttpGet('https://raw.githubusercontent.com/mm2scripthub/TravHub/refs/heads/main/MurderMystery2'))()", verified:false, key:false}
     ]},
     { id:"99nights", emoji:"🌲", name:"99 Night in the forest", desc:"Выживи 99 ночей в лесу, спасая пропавших детей.", scripts:[
         {title:"VapeVoidware", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/VapeVoidware/VW-Add/main/nightsintheforest.lua", true))()', verified:false, key:false},
         {title:"Bring Items", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/Bac0nHck/Scripts/refs/heads/main/bringitems.lua"))()', verified:false, key:false},
         {title:"Iceware Loader", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/Iceware-RBLX/Roblox/refs/heads/main/loader.lua",true))()', verified:false, key:true},
-        {title:"Project Infinity X", code:"loadstring(game:HttpGet('https://raw.githubusercontent.com/Muhammad6196/Project-Infinity-X/refs/heads/main/main.lua'))()", verified:false, key:false}
+        {title:"Project Infinity X", code:"loadstring(game:HttpGet('https://raw.githubusercontent.com/Muhammad6196/Project-Infinity-X/refs/heads/main/main.lua'))()", verified:false, key:false},
+        {title:"Darkone GUI", code:"loadstring(game:HttpGet('https://raw.githubusercontent.com/TheDarkoneMarcillisePex/Other-Scripts/refs/heads/main/99%20Nights%20In%20The%20Forest%20GUI'))()", verified:false, key:false},
+        {title:"LazyDevs Loader", code:'loadstring(game:HttpGet("https://loader.lazydevs.lol"))()', verified:false, key:false},
+        {title:"H4xScripts", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/H4xScripts/Loader/refs/heads/main/loader2.lua", true))()', verified:false, key:false}
     ]},
     { id:"thanos", emoji:"👊", name:"Thanos Gauntlet Simulator", desc:"Стань Таносом и собери Камни Бесконечности.", scripts:[
         {title:"Script Adit", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/erafonexyz1-dot/script-adit/refs/heads/main/file_80.txt"))()', verified:false, key:false},
@@ -241,7 +298,7 @@ const games = [
         {title:"Sterling", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/Zayn31214/name/refs/heads/main/SterlingNew"))()', verified:false, key:false},
         {title:"Omgshit Scripts", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/Omgshit/Scripts/main/MainLoader.lua"))()', verified:false, key:false}
     ]},
-    { id:"deadrails_old", emoji:"🛤️", name:"Dead Rails", desc:"Приключенческий вестерн на поезде. Отбивайся от врагов.", scripts:[
+    { id:"deadrails", emoji:"🛤️", name:"Dead Rails", desc:"Приключенческий вестерн на поезде. Отбивайся от врагов.", scripts:[
         {title:"DP HUB", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/COOLXPLO/DP-HUB-coolxplo/refs/heads/main/Deadrails.lua"))()', verified:false, key:false},
         {title:"Pastebin", code:'loadstring(game:HttpGet("https://pastebin.com/raw/f9zj41Gi"))()', verified:false, key:false},
         {title:"Luarmor", code:'loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/5132beca3ac02bb7f0536fa934905520.lua"))()', verified:false, key:false},
@@ -251,7 +308,8 @@ const games = [
     { id:"brainrot", emoji:"🧠", name:"Steal a Brainrot", desc:"Кради брейнроты у других игроков и зарабатывай.", scripts:[
         {title:"Luarmor", code:'loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/55468c3903178b13cf5dbf49dc21394d.lua"))()', verified:false, key:false},
         {title:"Pastefy", code:'loadstring(game:HttpGet("https://pastefy.app/4J8q1GQk/raw"))()', verified:false, key:false},
-        {title:"Solvex GUI", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/Solvexxxx/Scripts/refs/heads/main/SolvexGUI_SAB.lua"))()', verified:false, key:true}
+        {title:"Solvex GUI", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/Solvexxxx/Scripts/refs/heads/main/SolvexGUI_SAB.lua"))()', verified:false, key:true},
+        {title:"Supabase", code:'loadstring(game:HttpGet("https://msuelcjkfclhrnwuywte.supabase.co/functions/v1/get-paste?id=c70f6ff5-565f-4e38-b658-bba9a2523cbc"))()', verified:false, key:false}
     ]},
     { id:"spider", emoji:"🕷️", name:"Spider", desc:"Хоррор: выживи от гигантского паука или стань им.", scripts:[
         {title:"Abre.ai Spider", code:'loadstring(game:HttpGet("https://abre.ai/spider-lua"))()', verified:false, key:false},
@@ -262,7 +320,8 @@ const games = [
         {title:"Wydird Scripts", code:'loadstring(game:HttpGet("https://gist.githubusercontent.com/wydirdscripts/9eca68020f16e51d6ad9ab736e793019/raw/f06aca535da16f8c8e5795d0532fa4df1ac0e97e/obfuscated_script-1770322002434.lua"))()', verified:false, key:false},
         {title:"NoFear Scripts", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/nofearscripts/b4st/main/loader.lua"))()', verified:false, key:true},
         {title:"VSS", code:'loadstring(game:HttpGet("https://vss.pandadevelopment.net/virtual/file/dd916fdc1dc44a6a"))()', verified:false, key:false},
-        {title:"Twistedk1d", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/twistedk1d/BloxStrike/refs/heads/main/Source/script.lua"))()', verified:false, key:false}
+        {title:"Twistedk1d", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/twistedk1d/BloxStrike/refs/heads/main/Source/script.lua"))()', verified:false, key:false},
+        {title:"Pastebin", code:'loadstring(game:HttpGet("https://pastebin.com/raw/s5fRD9tL"))()', verified:false, key:false}
     ]},
     { id:"muscle", emoji:"💪", name:"Muscle Legends", desc:"Симулятор прироста силы. Тренируйся и становись сильнейшим.", scripts:[
         {title:"FourHub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/jokerbiel13/FourHub/refs/heads/main/Muscle%20LegendsFH.lua",true))()', verified:false, key:false},
@@ -283,14 +342,21 @@ const games = [
         {title:"ANCH-Hax", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/ayamnubchh/Violence-District-Roblox-Script/main/ANCH-Hax.lua"))()', verified:false, key:false},
         {title:"RawScripts", code:'loadstring(game:HttpGet("https://rawscripts.net/raw/Violence-District-Open-Source-fully-auto-generator-script-with-working-ESP-65319"))()', verified:false, key:false},
         {title:"Askr Hub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/Netshh/askr-hub/main/loader.lua"))()', verified:false, key:false},
-        {title:"VSS", code:'loadstring(game:HttpGet("https://vss.pandadevelopment.net/virtual/file/6168f557bb3f42c8"))()', verified:false, key:false}
+        {title:"VSS", code:'loadstring(game:HttpGet("https://vss.pandadevelopment.net/virtual/file/6168f557bb3f42c8"))()', verified:false, key:false},
+        {title:"SixSense", code:'loadstring(game:HttpGet("https://sixsense.vercel.app/api/script/bf10d3b960442ff45c53ce9a2aa618b5"))()', verified:false, key:false}
     ]},
     { id:"bloxfruits", emoji:"🍑", name:"Blox Fruits", desc:"RPG по мотивам One Piece. Сражайся, исследуй моря, собирай дьявольские фрукты.", scripts:[
         {title:"Cats Scripts", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/CatsScripts/CatsRobloxScripts/refs/heads/main/loader.luau"))()', verified:false, key:false},
         {title:"QuantumOnyx", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/flazhy/QuantumOnyx/refs/heads/main/QuantumOnyx.lua"))()', verified:false, key:false},
         {title:"Styxz Hub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/ToshyWare/StyxzHub/main/Styxz.lua"))()', verified:false, key:false},
         {title:"RO-HUB", code:'_G.settings = {\n    autoLoadConfig = false,\n    joinTeam = "Pirates"\n}\nloadstring(game:HttpGet("https://raw.githubusercontent.com/RO-HUB-CODEX/RO-HUB/refs/heads/main/bloxfruits.lua"))()', verified:false, key:false},
-        {title:"NYX8HUB", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/NYX8HUB/premium/refs/heads/main/script"))()', verified:false, key:false}
+        {title:"NYX8HUB", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/NYX8HUB/premium/refs/heads/main/script"))()', verified:false, key:false},
+        {title:"Void Hub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/VoidDeveloper67/Void-Hub/refs/heads/main/VoidHub.lua", true))()', verified:false, key:false},
+        {title:"Luarmor Loader", code:'loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/5946add9ab91f1e04cb005346a8b1968.lua"))()', verified:false, key:false},
+        {title:"Redz Hub", code:'local Settings = {\n  JoinTeam = "Pirates";\n  Translator = true;\n}\nloadstring(game:HttpGet("https://raw.githubusercontent.com/PlockScripts/newredz/refs/heads/main/Main.luau"))(Settings)', verified:false, key:false},
+        {title:"4479 Hub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/4479cantcode/4479Hub/refs/heads/main/Script.lua"))()', verified:false, key:false},
+        {title:"Gravity Hub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/Dev-GravityHub/BloxFruit/refs/heads/main/Main.lua"))()', verified:false, key:false},
+        {title:"Void", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/VoidDeveloper67/VoidHub/refs/heads/main/Void"))()', verified:false, key:false}
     ]},
     { id:"ubg", emoji:"🥊", name:"Untitled Boxing Game", desc:"Боксёрские поединки против других игроков и боссов.", scripts:[
         {title:"Luarmor Loader", code:'loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/e84aac149960efeddc83453e4a856d9d.lua"))()', verified:false, key:false},
@@ -312,165 +378,198 @@ const games = [
         {title:"ApelHub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/ApelsinkaFr/ApelHub/refs/heads/main/ApelHub"))()', verified:false, key:false}
     ]},
     { id:"forsaken", emoji:"🔪", name:"Forsaken", desc:"Мрачный экшен-платформер: проходи испытания, избегай ловушек, сражайся с боссами.", scripts:[
-        {title:"Forsaken Plus", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/NaikoScript/Forsaken-Plus/main/Script"))()', verified:false, key:false}
+        {title:"Forsaken Plus", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/NaikoScript/Forsaken-Plus/main/Script"))()', verified:false, key:false},
+        {title:"Luarmor Loader", code:'loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/d6eded51e52af6e97e3ee10fd4843043.lua"))()', verified:false, key:false}
     ]},
     { id:"grow_garden", emoji:"🌶️", name:"Grow a Garden", desc:"Классический симулятор сада: расти, продавай, расширяй участок.", scripts:[
         {title:"LoadUB", code:'loadstring(game:HttpGet("https://gitlab.com/r_soft/main/-/raw/main/LoadUB.lua"))()', verified:false, key:false}
     ]},
     { id:"babft", emoji:"🚢", name:"Build A Boat For Treasure", desc:"Строй лодку, плыви к сокровищам, улучшай конструкцию.", scripts:[
-        {title:"Unrexl BABFT", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/unrexl/Scripts/refs/heads/main/BABFT"))()', verified:false, key:false}
+        {title:"Unrexl BABFT", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/unrexl/Scripts/refs/heads/main/BABFT"))()', verified:false, key:false},
+        {title:"Ultimte B3BFT", code:'loadstring(game:HttpGet("https://rawscripts.net/raw/Build-A-Boat-For-Treasure-Ultimte-B3BFT-Script-28601"))()', verified:false, key:false}
     ]},
     { id:"fish", emoji:"🐟", name:"Fish", desc:"Рыбалка-симулятор: лови рыбу, улучшай удочки, открывай новые локации.", scripts:[
-        {title:"717exe Fish It", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/arcadeisreal/717exe---Fish-It/refs/heads/main/free.lua"))()', verified:false, key:false}
+        {title:"717exe Fish It", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/arcadeisreal/717exe---Fish-It/refs/heads/main/free.lua"))()', verified:false, key:false},
+        {title:"NiCH", code:'loadstring(game:HttpGet("https://lua.cloudlabx.online/scripts/103.NiCH"))()', verified:false, key:false},
+        {title:"Luarmor Loader", code:'loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/d6eded51e52af6e97e3ee10fd4843043.lua"))()', verified:false, key:false}
     ]},
     { id:"nftbattle", emoji:"⌛️", name:"NFT Battle", desc:"Пошаговые битвы с NFT-персонажами: собирай коллекцию, улучшай навыки.", scripts:[
         {title:"NFT Battle Script", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/Hujibuji/NFT-Battle-roblox-script/refs/heads/main/testik"))()', verified:false, key:false}
     ]},
     { id:"beeswarm", emoji:"🐝", name:"Bee Swarm Simulator", desc:"Собирай мёд, качай улей, выполняй квесты медведей.", scripts:[
-        {title:"Kron Hub", code:"loadstring(game:HttpGet('https://raw.githubusercontent.com/DevKron/Kron_Hub/refs/heads/main/version_1.0'))()", verified:false, key:false}
+        {title:"Kron Hub", code:"loadstring(game:HttpGet('https://raw.githubusercontent.com/DevKron/Kron_Hub/refs/heads/main/version_1.0'))()", verified:false, key:false},
+        {title:"Verbal Hub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/VerbalHubz/Verbal-Hub/refs/heads/main/Bee%20Swarm%20Sim.Lua",true))()', verified:false, key:false}
     ]},
     { id:"fling", emoji:"🔥", name:"Fling Things and People", desc:"Физический симулятор: хватай и швыряй всё подряд.", scripts:[
-        {title:"Fling Script", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/example-prog/FLING-THINGS-AND-PEOPLE/refs/heads/main/Flingthingsandpeoplescript"))()', verified:false, key:false}
+        {title:"Fling Script", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/example-prog/FLING-THINGS-AND-PEOPLE/refs/heads/main/Flingthingsandpeoplescript"))()', verified:false, key:false},
+        {title:"NameHub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/NameHubScript/_/refs/heads/main/f"))()', verified:false, key:false}
     ]},
     { id:"brookhaven", emoji:"🏡", name:"Brookhaven RP", desc:"Ролевая игра: живи в городе, покупай дома, машины, общайся.", scripts:[
-        {title:"SP Hub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/as6cd0/SP_Hub/refs/heads/main/Brookhaven"))()', verified:false, key:false}
+        {title:"SP Hub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/as6cd0/SP_Hub/refs/heads/main/Brookhaven"))()', verified:false, key:false},
+        {title:"Meow Apex", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/meowmeow9910/meow/refs/heads/main/apex/apex.lua"))()', verified:false, key:false}
     ]},
     { id:"funkinfriday", emoji:"🎵", name:"Funkin Friday", desc:"Ритм-игра FNF с OP Autoplay — автоматическое прохождение.", scripts:[
         {title:"Fire Hub (OP Autoplay)", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/InfernusScripts/Fire-Hub/main/Loader"))()', verified:true, key:false}
+    ]},
+    { id:"dandysworld", emoji:"🌸", name:"Dandy's World", desc:"Исследуй мир Денди, выполняй квесты и сражайся с врагами.", scripts:[
+        {title:"Gyozaz Hub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/homertco/gyozazhub/refs/heads/main/It",true))()', verified:false, key:false},
+        {title:"Kodamo Loader", code:'loadstring(game:HttpGet("https://api.kodamo.net/loader/fxbpontv5v9fy82ycrd9"))()', verified:false, key:false},
+        {title:"EpicHub", code:"loadstring(game:HttpGet(('https://raw.githubusercontent.com/VanPotent/EpicHub/refs/heads/main/v2loader.lua'),true))()", verified:false, key:false}
+    ]},
+    { id:"bladeball", emoji:"🏐", name:"Blade Ball", desc:"Отбивай мяч-клинок и сражайся с другими игроками на арене.", scripts:[
+        {title:"Azzyy Blade Ball", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/azzyy1/bladeball-script/main/main.lua"))()', verified:false, key:false},
+        {title:"DP HUB Blade Ball", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/COOLXPLO/DP-HUB-coolxplo/refs/heads/main/bladeball.lua"))()', verified:false, key:false}
+    ]},
+    { id:"buildaringfarm", emoji:"🌾", name:"Build A Ring Farm", desc:"Строй кольцевую ферму, собирай ресурсы и расширяй владения.", scripts:[
+        {title:"Build-A-Ring Farm", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/femmehomme90-web/scripts/refs/heads/main/Build-A-Ring-Farm"))()', verified:false, key:false}
+    ]},
+    { id:"yourbizarreadventure", emoji:"☄️", name:"Your Bizarre Adventure", desc:"Получи стенд, сражайся с другими игроками и исследуй мир JoJo.", scripts:[
+        {title:"IdiotBot", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/induchSandWitch/IdiotBot/refs/heads/main/ByMethion"))()', verified:false, key:false}
+    ]},
+    { id:"scp3008", emoji:"🔥", name:"SCP 3008", desc:"Выживи в бесконечном IKEA, избегая сотрудников SCP.", scripts:[
+        {title:"ZZINSHUB", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/ZZINS077/3008/refs/heads/main/ZZINSHUB"))()', verified:false, key:false}
+    ]},
+    { id:"plsdonate", emoji:"🤑", name:"Pls Donate", desc:"Зарабатывай Robux, создавая свои стенды и получая пожертвования.", scripts:[
+        {title:"CHX PLSDONATE", code:'loadstring(game:HttpGet("https://gist.githubusercontent.com/cheswer/20eeac704b4d1fc09eb7f30972e619e7/raw/CHX-PLSDONATE"))()', verified:false, key:false}
+    ]},
+    { id:"ninjalegends", emoji:"🥷", name:"Ninja Legends", desc:"Стань ниндзя, тренируйся, открывай новые способности и сражайся.", scripts:[
+        {title:"Josh Scripts", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/skullsh52-spec/Josh-Scripts/refs/heads/main/Ninja%20Legends.txt"))()', verified:false, key:false}
+    ]},
+    { id:"gardenhorizons", emoji:"🌱", name:"Garden Horizons", desc:"Создай свой сад, выращивай растения и исследуй новые горизонты.", scripts:[
+        {title:"Luarmor Loader", code:'loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/3678bf74476a3ec0cc1471cbab867839.lua"))()', verified:false, key:false}
+    ]},
+    { id:"prisonlife", emoji:"⚡️", name:"Prison Life", desc:"Симулятор тюрьмы: сбегай, устраивай бунты или охраняй порядок.", scripts:[
+        {title:"Prison Life Beta", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/YourRealjohn/RobloxScript/refs/heads/main/PrisonLife-Beta"))()', verified:false, key:false}
+    ]},
+    { id:"arsenal", emoji:"⚔️", name:"Arsenal", desc:"Шутер от первого лица: сражайся с другими игроками на различных картах.", scripts:[
+        {title:"Felipe Hub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/FELIPEHUB1/Felipehub-scripts/refs/heads/main/Arsenal"))()', verified:false, key:false}
+    ]},
+    { id:"thelostfront", emoji:"🔪", name:"The Lost Front", desc:"Тактический шутер: сражайся на передовой и выполняй боевые задачи.", scripts:[
+        {title:"Pear Bootstrapper", code:'loadstring(game:HttpGet("https://pear-enthusiasts.lol/pear_bootstrapper.php"))()', verified:false, key:false}
+    ]},
+    { id:"theforge", emoji:"⚒️", name:"The Forge [BETA]", desc:"Кузнечный симулятор: создавай оружие и броню, улучшай свои навыки.", scripts:[
+        {title:"Luasec", code:'loadstring(game:HttpGet("https://ads.luasec.cc/init?script=w6VhSHJEFfYhx3LW7cA4"))()', verified:false, key:false}
+    ]},
+    { id:"escapetsunami", emoji:"🧠", name:"Escape Tsunami for Brainrot", desc:"Убегай от цунами, решай головоломки и выживай.", scripts:[
+        {title:"Nuarex Hub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/nuarexsc/nuarexsc-HUB/refs/heads/main/loader"))()', verified:false, key:true}
+    ]},
+    { id:"solohunters", emoji:"🔫", name:"Solo Hunters", desc:"Охотничий симулятор: выслеживай добычу и улучшай снаряжение.", scripts:[
+        {title:"Wings", code:'loadstring(game:HttpGet("https://wings.ac/loader"))()', verified:false, key:false}
     ]}
 ];
-const grid=document.getElementById('gameGrid'),pagesContainer=document.getElementById('pagesContainer'),searchInput=document.getElementById('searchInput'),homePage=document.getElementById('homePage');
-let currentPage='home';
-games.forEach((game,index)=>{
-    const row=document.createElement('a');row.href=`#${game.id}`;row.className='game-row';row.dataset.game=game.id;
-    row.innerHTML=`<span><span class="emoji">${game.emoji}</span>${game.name}</span><span class="arrow">→</span>`;grid.appendChild(row);
-    const page=document.createElement('div');page.id=`${game.id}-page`;page.className='page-section';
-    let sHTML='';game.scripts.forEach((s,si)=>{
-        const vHTML=s.verified?'<span class="verified-badge">✅ Верифицирован владельцем сайта</span>':'';
-        const kHTML=s.key?'<span class="key-badge">🔑 Key System</span>':'<span class="no-key-badge">✅ No Key</span>';
-        sHTML+=`<div class="script-card"><div class="script-header"><span class="script-name">${s.title}</span><div style="display:flex;gap:6px;flex-wrap:wrap;">${vHTML}${kHTML}</div></div><pre id="script-${game.id}-${si}">${s.code.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</pre><button class="copy-btn" onclick="copyCode('script-${game.id}-${si}', this)">📋 Copy Script</button><div class="date-tag">23 June 2026</div></div>`;
+
+// ====== ПОСТРОЕНИЕ СЕТКИ ======
+const grid = document.getElementById('gameGrid');
+const pagesContainer = document.getElementById('pagesContainer');
+const searchInput = document.getElementById('searchInput');
+const homePage = document.getElementById('homePage');
+let currentPage = 'home';
+
+games.forEach((game, index) => {
+    const row = document.createElement('a');
+    row.href = `#${game.id}`;
+    row.className = 'game-row';
+    row.dataset.game = game.id;
+    row.innerHTML = `<span><span class="emoji">${game.emoji}</span>${game.name}</span><span class="arrow">→</span>`;
+    grid.appendChild(row);
+
+    const page = document.createElement('div');
+    page.id = `${game.id}-page`;
+    page.className = 'page-section';
+    let sHTML = '';
+    game.scripts.forEach((s, si) => {
+        const vHTML = s.verified ? '<span class="verified-badge">✅ Верифицирован владельцем сайта</span>' : '';
+        const kHTML = s.key ? '<span class="key-badge">🔑 Key System</span>' : '<span class="no-key-badge">✅ No Key</span>';
+        sHTML += `<div class="script-card"><div class="script-header"><span class="script-name">${s.title}</span><div style="display:flex;gap:6px;flex-wrap:wrap;">${vHTML}${kHTML}</div></div><pre id="script-${game.id}-${si}">${s.code.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</pre><button class="copy-btn" onclick="copyCode('script-${game.id}-${si}', this)">📋 Copy Script</button><div class="date-tag">24 June 2026</div></div>`;
     });
-    page.innerHTML=`<a href="#" class="back-link" onclick="showHome()">← На главную</a><h2>${game.emoji} ${game.name}</h2><div class="game-desc">${game.desc}</div>${sHTML}`;
+    page.innerHTML = `<a href="#" class="back-link" onclick="showHome()">← На главную</a><h2>${game.emoji} ${game.name}</h2><div class="game-desc">${game.desc}</div>${sHTML}`;
     pagesContainer.appendChild(page);
 });
-function showHome(){document.querySelectorAll('.page-section').forEach(p=>p.classList.remove('active'));homePage.classList.add('active');currentPage='home';window.location.hash='';if(searchInput)searchInput.value='';}
-function showGame(id){document.querySelectorAll('.page-section').forEach(p=>p.classList.remove('active'));homePage.classList.remove('active');const t=document.getElementById(`${id}-page`);if(t){t.classList.add('active');currentPage=id;}window.location.hash=id;if(searchInput)searchInput.value='';}
-document.querySelectorAll('[data-game]').forEach(row=>{row.addEventListener('click',function(e){e.preventDefault();showGame(this.dataset.game);});});
-window.addEventListener('load',()=>{const hash=window.location.hash.slice(1);if(hash&&document.getElementById(`${hash}-page`))showGame(hash);else showHome();});
-window.addEventListener('hashchange',()=>{const hash=window.location.hash.slice(1);if(hash&&document.getElementById(`${hash}-page`))showGame(hash);else showHome();});
-if(searchInput){searchInput.addEventListener('input',function(){if(currentPage!=='home')return;const val=this.value.toLowerCase();document.querySelectorAll('[data-game]').forEach(row=>{row.style.display=row.innerText.toLowerCase().includes(val)?'flex':'none';});});}
-function copyCode(blockId,btn){const text=document.getElementById(blockId).innerText;navigator.clipboard.writeText(text).then(()=>{btn.innerText='✅ Скопировано!';btn.classList.add('copied');setTimeout(()=>{btn.innerText='📋 Copy Script';btn.classList.remove('copied');},2000);}).catch(()=>alert('Ошибка копирования'));}
 
-// ====== COPILOT (Оффлайн-AI + Прямой Bypass + Публичный CORS-прокси) ======
-let copilotMode = 'helper';
-const trigger = document.getElementById('copilotTrigger');
-const window_el = document.getElementById('copilotWindow');
-const closeBtn = document.getElementById('copilotClose');
-const messagesDiv = document.getElementById('copilotMessages');
-const inputEl = document.getElementById('copilotInput');
-const sendBtn = document.getElementById('copilotSend');
-const modeHelper = document.getElementById('modeHelper');
-const modeBypass = document.getElementById('modeBypass');
-
-trigger.addEventListener('click', () => window_el.classList.toggle('open'));
-closeBtn.addEventListener('click', () => window_el.classList.remove('open'));
-
-function switchMode(mode) {
-    copilotMode = mode;
-    modeHelper.classList.toggle('active', mode === 'helper');
-    modeBypass.classList.toggle('active', mode === 'bypass');
-    messagesDiv.innerHTML = '';
-    addMessage(copilotMode === 'helper' 
-        ? '🧠 AI Helper готов. Задай любой вопрос о сайте или скриптах.' 
-        : '🔑 Bypass KEY готов. Отправь ссылку для обхода.', 'bot');
+function showHome() {
+    document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
+    homePage.classList.add('active');
+    currentPage = 'home';
+    window.location.hash = '';
+    if (searchInput) searchInput.value = '';
+}
+function showGame(id) {
+    document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
+    homePage.classList.remove('active');
+    const target = document.getElementById(`${id}-page`);
+    if (target) { target.classList.add('active'); currentPage = id; }
+    window.location.hash = id;
+    if (searchInput) searchInput.value = '';
+}
+document.querySelectorAll('[data-game]').forEach(row => {
+    row.addEventListener('click', function(e) { e.preventDefault(); showGame(this.dataset.game); });
+});
+window.addEventListener('load', () => {
+    const hash = window.location.hash.slice(1);
+    if (hash && document.getElementById(`${hash}-page`)) showGame(hash);
+    else showHome();
+});
+window.addEventListener('hashchange', () => {
+    const hash = window.location.hash.slice(1);
+    if (hash && document.getElementById(`${hash}-page`)) showGame(hash);
+    else showHome();
+});
+if (searchInput) {
+    searchInput.addEventListener('input', function() {
+        if (currentPage !== 'home') return;
+        const val = this.value.toLowerCase();
+        document.querySelectorAll('[data-game]').forEach(row => {
+            row.style.display = row.innerText.toLowerCase().includes(val) ? 'flex' : 'none';
+        });
+    });
+}
+function copyCode(blockId, btn) {
+    const text = document.getElementById(blockId).innerText;
+    navigator.clipboard.writeText(text).then(() => {
+        btn.innerText = '✅ Скопировано!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.innerText = '📋 Copy Script'; btn.classList.remove('copied'); }, 2000);
+    }).catch(() => alert('Ошибка копирования'));
 }
 
-function addMessage(text, type) {
-    const msg = document.createElement('div');
-    msg.className = `copilot-msg ${type}`;
-    msg.innerText = text;
-    messagesDiv.appendChild(msg);
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
-}
+// ====== COPILOT (BETA SOON) ======
+const copilotTrigger = document.getElementById('copilotTrigger');
+const copilotWindow = document.getElementById('copilotWindow');
+const copilotClose = document.getElementById('copilotClose');
+copilotTrigger.addEventListener('click', () => copilotWindow.classList.toggle('open'));
+copilotClose.addEventListener('click', () => copilotWindow.classList.remove('open'));
 
-async function sendMessage() {
-    const text = inputEl.value.trim();
-    if (!text) return;
-    addMessage(text, 'user');
-    inputEl.value = '';
+// ====== ТЕХПОДДЕРЖКА ======
+const supportTrigger = document.getElementById('supportTrigger');
+const supportModal = document.getElementById('supportModal');
+const supportOverlay = document.getElementById('supportOverlay');
+const supportClose = document.getElementById('supportClose');
+const circleAccept = document.getElementById('circleAccept');
+const circleDecline = document.getElementById('circleDecline');
+const supportLink = document.getElementById('supportLink');
+let userAccepts = false;
 
-    if (copilotMode === 'bypass') {
-        addMessage('⏳ Обхожу ссылку...', 'bot');
-        const loadingMsg = messagesDiv.lastChild;
+function openSupport() { supportModal.classList.add('show'); supportOverlay.classList.add('show'); }
+function closeSupport() { supportModal.classList.remove('show'); supportOverlay.classList.remove('show'); }
+supportTrigger.addEventListener('click', openSupport);
+supportClose.addEventListener('click', closeSupport);
+supportOverlay.addEventListener('click', closeSupport);
 
-        try {
-            const proxyUrl = 'https://api.allorigins.win/raw?url=';
-            const bypassApi = `https://bypass.tools/api/bypass?url=${encodeURIComponent(text)}`;
-            
-            const res = await fetch(proxyUrl + encodeURIComponent(bypassApi));
-            const data = await res.json();
-            
-            loadingMsg.remove();
-            
-            if (data && data.key) {
-                addMessage(`✅ Ключ успешно получен:\n\n🔑 ${data.key}\n\nСкопируй его и используй!`, 'bot');
-            } else if (data && data.error) {
-                addMessage(`❌ Ошибка обхода: ${data.error}`, 'bot');
-            } else {
-                addMessage('❌ Не удалось обойти ссылку. Возможно, она недействительна.', 'bot');
-            }
-        } catch (e) {
-            loadingMsg.remove();
-            const bypassUrl = `https://bypass.tools/?url=${encodeURIComponent(text)}`;
-            addMessage(`⚠️ Автообход не сработал.\n🔗 Открываю сайт для ручного обхода...`, 'bot');
-            window.open(bypassUrl, '_blank');
-        }
+function toggleCheckbox(type) {
+    if (type === 'accept') {
+        userAccepts = true;
+        circleAccept.classList.add('checked');
+        circleDecline.classList.remove('checked');
+        supportLink.classList.remove('disabled');
     } else {
-        // Оффлайн AI Helper
-        addMessage('⏳ Думаю...', 'bot');
-        const loadingMsg = messagesDiv.lastChild;
-        
-        const q = text.toLowerCase();
-        let reply = '';
-        
-        if (q.includes('привет') || q.includes('здравств') || q.includes('ку') || q.includes('хелло')) {
-            reply = '👋 Привет! Я Z1NTY Copilot. Я могу:\n- Рассказать о любом плейсе (DOORS, MM2, Rivals, Blox Fruits...)\n- Объяснить, как скопировать скрипт\n- Обойти ключ (в режиме Bypass KEY)\n\nЧто тебя интересует?';
-        } else if (q.includes('помощь') || q.includes('что ты умеешь') || q.includes('help')) {
-            reply = '🤖 Я Z1NTY Copilot. Вот что я умею:\n📋 Рассказывать о плейсах и скриптах\n🔑 Обходить ключи (режим Bypass KEY)\n❓ Отвечать на вопросы о сайте\n\nПросто спроси о конкретном плейсе!';
-        } else if (q.includes('doors') || q.includes('дорс')) {
-            reply = '🚪 **DOORS** — популярная хоррор-игра. Проходи комнаты и избегай монстров.\n\nУ нас есть 5 скриптов:\n✅ OP Doors script (верифицированный, без ключа)\n- Moon V1\n- Soluna Doors\n- RAW Scripts Doors\n- OrangeHub Rehax\n\nВсе скрипты находятся на странице плейса DOORS. Нажми на него в главном меню и скопируй нужный скрипт кнопкой Copy Script.';
-        } else if (q.includes('rivals') || q.includes('ривалс')) {
-            reply = '⚔️ **Rivals** — соревновательный PvP-шутер. Цель — выиграть 5 раундов первым.\n\nУ нас есть 3 скрипта:\n- Kurona Hub v3.5\n- Vylera Rivals\n- Breadz Rivals\n\nВсе скрипты без ключа (No Key).';
-        } else if (q.includes('mm2') || q.includes('murder mystery') || q.includes('мёрдер')) {
-            reply = '🔪 **Murder Mystery 2** — динамичный хоррор с ролями Невиновный, Шериф и Убийца.\n\nУ нас есть 5 скриптов:\n✅ OP MM2 Script (верифицированный, без ключа)\n- Moon V1\n- Lunn Hub\n- Azure Hub\n- Artas01 Loader (с ключом)\n\nВерифицированный скрипт самый надёжный!';
-        } else if (q.includes('blox fruit') || q.includes('блокс фрут')) {
-            reply = '🍑 **Blox Fruits** — RPG по мотивам One Piece. Сражайся, исследуй моря, собирай дьявольские фрукты.\n\nУ нас есть 5 скриптов:\n- Cats Scripts\n- QuantumOnyx\n- Styxz Hub\n- RO-HUB (без ключа)\n- NYX8HUB\n\nВсе скрипты на странице плейса!';
-        } else if (q.includes('forsaken') || q.includes('форсакен')) {
-            reply = '🔪 **Forsaken** — мрачный экшен-платформер. Проходи испытания, избегай ловушек, сражайся с боссами.\n\nУ нас есть скрипт:\n- Forsaken Plus\n\nБез ключа (No Key).';
-        } else if (q.includes('bee') || q.includes('би') || q.includes('пчел')) {
-            reply = '🐝 **Bee Swarm Simulator** — собирай мёд, качай улей, выполняй квесты медведей.\n\nУ нас есть скрипт:\n- Kron Hub\n\nБез ключа (No Key).';
-        } else if (q.includes('brookhaven') || q.includes('брукхейвен')) {
-            reply = '🏡 **Brookhaven RP** — ролевая игра: живи в городе, покупай дома, машины, общайся.\n\nУ нас есть скрипт:\n- SP Hub\n\nБез ключа (No Key).';
-        } else if (q.includes('funkin') || q.includes('фанкин') || q.includes('fnf')) {
-            reply = '🎵 **Funkin Friday** — ритм-игра с OP Autoplay (автоматическое прохождение).\n\nУ нас есть скрипт:\n✅ Fire Hub (OP Autoplay) — верифицированный, без ключа!\n\nЭто один из лучших скриптов на сайте.';
-        } else if (q.includes('верифиц') || q.includes('проверен') || q.includes('галочка')) {
-            reply = '✅ **Верифицированные скрипты** — это скрипты, проверенные лично владельцем сайта. Они отмечены зелёной галочкой и подписью "Верифицирован владельцем сайта".\n\nСейчас на сайте 3 верифицированных скрипта:\n- OP Doors script (DOORS)\n- OP MM2 Script (MM2)\n- Fire Hub (Funkin Friday)\n\nВсе они без ключа (No Key) и самые надёжные!';
-        } else if (q.includes('скопировать') || q.includes('copy') || q.includes('скрипт')) {
-            reply = '📋 **Как скопировать скрипт:**\n1. На главной странице выбери нужный плейс (DOORS, MM2, Rivals...)\n2. Прокрути вниз до скрипта\n3. Нажми кнопку **Copy Script**\n4. Скрипт скопируется в буфер обмена!\n\nВсё просто!';
-        } else if (q.includes('поиск') || q.includes('найти') || q.includes('search')) {
-            reply = '🔍 **Поиск по сайту:**\nНа главной странице вверху есть поле поиска. Просто начни вводить название плейса — и сайт покажет только подходящие варианты.\n\nПопробуй прямо сейчас!';
-        } else {
-            reply = '🤔 Я не совсем понял вопрос. Попробуй спросить о конкретном плейсе (например, "DOORS", "MM2", "Rivals", "Blox Fruits") или о том, как скопировать скрипт.\n\nТакже ты можешь переключиться в режим Bypass KEY для обхода ключей.';
-        }
-        
-        setTimeout(() => {
-            loadingMsg.remove();
-            addMessage(reply, 'bot');
-        }, 600);
+        userAccepts = false;
+        circleDecline.classList.add('checked');
+        circleAccept.classList.remove('checked');
+        supportLink.classList.add('disabled');
     }
 }
 
-sendBtn.addEventListener('click', sendMessage);
-inputEl.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
-
-console.log('✅ Z1NTY Scripts Hub загружен! Copilot готов.');
+console.log('✅ Z1NTY Scripts Hub загружен!');
+</script>
+</body>
+    </html>
