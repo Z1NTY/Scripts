@@ -195,7 +195,7 @@
     <div id="pagesContainer"></div>
 </div>
 
-<!-- COPILOT (OpenRouter - бесплатный доступ к Gemini) -->
+<!-- COPILOT (Встроенная нейросеть) -->
 <div class="copilot-trigger" id="copilotTrigger">
     <span class="icon">💬</span>
     <span class="copilot-label">AI Copilot</span>
@@ -206,7 +206,7 @@
         <button class="copilot-close" id="copilotClose">✕</button>
     </div>
     <div class="copilot-messages" id="copilotMessages">
-        <div class="copilot-msg bot">Привет! Я Z1NTY Copilot с настоящим ИИ. Спроси меня о любом скрипте или плейсе. 🚀</div>
+        <div class="copilot-msg bot">Привет! Я Z1NTY Copilot. Я знаю всё об этом сайте. Спроси меня о любом скрипте или плейсе. 🚀</div>
     </div>
     <div class="copilot-input-area">
         <input type="text" class="copilot-input" id="copilotInput" placeholder="Спроси о скриптах...">
@@ -234,46 +234,41 @@
         messagesDiv.scrollTop = messagesDiv.scrollHeight;
     }
 
-    async function sendMessage() {
+    function getReply(q) {
+        q = q.toLowerCase();
+        if (q.includes('привет') || q.includes('здравств') || q.includes('ку') || q.includes('хелло')) return '👋 Привет! Я Z1NTY Copilot. Спроси меня о любом плейсе или скрипте.';
+        if (q.includes('сколько плейсов') || q.includes('сколько игр')) return '🎮 На сайте **более 40 плейсов** Roblox. Вот некоторые: DOORS, Rivals, MM2, Blox Fruits, Arsenal, Prison Life, Dandy\'s World, Blade Ball, Forsaken, Brookhaven и многие другие.';
+        if (q.includes('doors') || q.includes('дорс')) return '🚪 **DOORS** — хоррор. 5 скриптов, включая верифицированный OP Doors script (без ключа).';
+        if (q.includes('rivals') || q.includes('ривалс')) return '⚔️ **Rivals** — PvP-шутер. 3 скрипта, все без ключа.';
+        if (q.includes('mm2') || q.includes('murder')) return '🔪 **Murder Mystery 2** — хоррор с ролями. 8 скриптов, включая верифицированный OP MM2 Script.';
+        if (q.includes('blox fruit') || q.includes('блокс фрут')) return '🍑 **Blox Fruits** — RPG по One Piece. 11 скриптов! Самая большая коллекция.';
+        if (q.includes('arsenal') || q.includes('арсенал')) return '⚔️ **Arsenal** — шутер. 1 скрипт Felipe Hub (без ключа).';
+        if (q.includes('prison life') || q.includes('тюрьм')) return '⚡️ **Prison Life** — симулятор тюрьмы. 1 скрипт Prison Life Beta (без ключа).';
+        if (q.includes('forsaken') || q.includes('форсакен')) return '🔪 **Forsaken** — экшен-платформер. 2 скрипта без ключа.';
+        if (q.includes('dandy') || q.includes('денди')) return '🌸 **Dandy\'s World** — мир Денди. 3 скрипта без ключа.';
+        if (q.includes('blade ball') || q.includes('блейд')) return '🏐 **Blade Ball** — арена с мячом. 2 скрипта без ключа.';
+        if (q.includes('brookhaven') || q.includes('брукхейвен')) return '🏡 **Brookhaven RP** — ролевая игра. 2 скрипта без ключа.';
+        if (q.includes('funkin') || q.includes('фнф')) return '🎵 **Funkin Friday** — ритм-игра. Верифицированный скрипт Fire Hub (без ключа).';
+        if (q.includes('верифиц') || q.includes('галочка')) return '✅ Верифицированные скрипты: OP Doors, OP MM2, Fire Hub. Все без ключа.';
+        if (q.includes('скопировать') || q.includes('copy')) return '📋 Выбери плейс → прокрути до скрипта → нажми Copy Script.';
+        if (q.includes('поиск')) return '🔍 Поле поиска вверху страницы. Введи название плейса.';
+        if (q.includes('дельта') || q.includes('delta')) return '💉 Дельта — инжектор для Roblox. Скачать можно с Menu-сайта Z1NTY.';
+        if (q.includes('байпасс') || q.includes('bypass') || q.includes('обход')) return '🔑 Для обхода ключей есть сайт Z1NTY Key Bypass. Ссылка в канале.';
+        if (q.includes('поддержка') || q.includes('помощь')) return '🛟 Техподдержка — кнопка слева внизу. Ведёт в бота @Z1NTY_SupportBot.';
+        return '🤔 Я не совсем понял. Спроси о конкретном плейсе (DOORS, MM2, Blox Fruits...) или о том, как скопировать скрипт. Я знаю все 40+ плейсов!';
+    }
+
+    function sendMessage() {
         const text = inputEl.value.trim();
         if (!text) return;
         addMessage(text, 'user');
         inputEl.value = '';
         addMessage('⏳ Думаю...', 'bot');
         const loadingMsg = messagesDiv.lastChild;
-
-        try {
-            // OpenRouter - бесплатный доступ к Google Gemini 2.0 Flash
-            const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'HTTP-Referer': 'https://z1nty.github.io',
-                    'X-Title': 'Z1NTY Scripts Hub'
-                },
-                body: JSON.stringify({
-                    model: 'google/gemini-2.0-flash-001',
-                    messages: [
-                        {
-                            role: 'system',
-                            content: `Ты — Z1NTY Copilot на сайте Z1NTY Scripts Hub. Твоя задача — отвечать на вопросы пользователей о сайте, скриптах, плейсах, дельте и всём, что связано с сайтом. Отвечай кратко, дружелюбно и по делу. Если вопрос не по теме сайта — вежливо откажи и предложи задать вопрос о сайте.\n\nВот полная информация о сайте:\n\nСайт Z1NTY Scripts Hub содержит более 40 плейсов Roblox:\n- DOORS\n- Rivals\n- Ink Game\n- The Strongest Battlegrounds\n- Piggy\n- Murder Mystery 2\n- 99 Night in the forest\n- Thanos Gauntlet Simulator\n- Regretevator\n- Emergency Hamburg\n- Volleyball Legends\n- Dead Rails\n- Steal a Brainrot\n- Spider\n- BloxStrike\n- Muscle Legends\n- Evade\n- Be a Lucky Block\n- Violence District\n- Blox Fruits\n- Untitled Boxing Game\n- Jailbreak\n- Slap Battles\n- Grow a Garden 2\n- Forsaken\n- Grow a Garden\n- Build A Boat For Treasure\n- Fish\n- NFT Battle\n- Bee Swarm Simulator\n- Fling Things and People\n- Brookhaven RP\n- Funkin Friday\n- Dandy's World\n- Blade Ball\n- Build A Ring Farm\n- Your Bizarre Adventure\n- SCP 3008\n- Pls Donate\n- Ninja Legends\n- Garden Horizons\n- Prison Life\n- Arsenal\n- The Lost Front\n- The Forge\n- Escape Tsunami for Brainrot\n- Solo Hunters\n\nВ каждом плейсе есть несколько скриптов. Верифицированные скрипты отмечены зелёной галочкой и подписью "Верифицирован владельцем сайта". Все верифицированные скрипты без ключа (No Key).\n\nВерифицированные скрипты:\n- OP Doors script (для DOORS)\n- OP MM2 Script (для Murder Mystery 2)\n- Fire Hub / OP Autoplay (для Funkin Friday)\n\nЧтобы скопировать скрипт:\n1. На главной странице выбери нужный плейс\n2. Прокрути вниз до скрипта\n3. Нажми кнопку "Copy Script"\n4. Скрипт скопируется в буфер обмена\n\nНа сайте есть:\n- Поиск по плейсам (вверху страницы)\n- Техподдержка (кнопка слева внизу, ведёт в бот @Z1NTY_SupportBot)\n- Key Bypass (отдельный сайт для обхода ключей)\n- Главное меню с кнопками "Скачать Дельту", "Как установить", "Скрипты на режимы"\n\nДельта (Delta) — это инжектор для Roblox, который можно скачать с Menu-сайта Z1NTY.\n\nОтвечай на вопросы о сайте, скриптах, плейсах, дельте и всём, что связано с сайтом. Если вопрос не по теме — вежливо откажи.`
-                        },
-                        {
-                            role: 'user',
-                            content: text
-                        }
-                    ],
-                    max_tokens: 300
-                })
-            });
-            const data = await response.json();
-            const reply = data?.choices?.[0]?.message?.content || 'Извини, не смог ответить. Попробуй переформулировать вопрос.';
+        setTimeout(() => {
             loadingMsg.remove();
-            addMessage(reply, 'bot');
-        } catch (e) {
-            loadingMsg.remove();
-            addMessage('⚠️ Не удалось связаться с ИИ. Попробуй позже.', 'bot');
-        }
+            addMessage(getReply(text), 'bot');
+        }, 500);
     }
 
     sendBtn.addEventListener('click', sendMessage);
