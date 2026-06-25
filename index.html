@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Z1NTY Scripts — скрипты для Roblox</title>
-    <!-- Шрифты -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet"/>
     <style>
         /* ===== БАЗА ===== */
@@ -23,7 +22,7 @@
         }
 
         a {
-            color: #b388ff;
+            color: #4fc3f7;
             text-decoration: none;
         }
 
@@ -40,7 +39,7 @@
             flex-wrap: wrap;
             gap: 20px;
             padding: 24px 0 20px;
-            border-bottom: 1px solid #242831;
+            border-bottom: 1px solid #1a2a3a;
             margin-bottom: 40px;
         }
 
@@ -48,7 +47,7 @@
             font-size: 30px;
             font-weight: 700;
             letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #b388ff, #7c4dff);
+            background: linear-gradient(135deg, #4fc3f7, #1e88e5);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -69,33 +68,33 @@
         .header-links a {
             padding: 8px 18px;
             border-radius: 30px;
-            background: #1a1d26;
-            color: #c8d0d9;
+            background: #121a24;
+            color: #b0c4d9;
             font-size: 14px;
             font-weight: 500;
-            transition: background 0.2s;
+            transition: background 0.2s, border 0.2s;
             border: 1px solid transparent;
         }
 
         .header-links a:hover {
-            background: #282d3a;
-            border-color: #7c4dff;
+            background: #1a2a3a;
+            border-color: #1e88e5;
         }
 
         .header-links .telegram-link {
-            background: #7c4dff;
+            background: #1e88e5;
             color: #fff;
             border: none;
         }
 
         .header-links .telegram-link:hover {
-            background: #6a3de0;
+            background: #1565c0;
         }
 
         /* ===== ГЕРОЙ ===== */
         .hero {
-            background: linear-gradient(145deg, #12161e, #0b0d12);
-            border: 1px solid #242831;
+            background: linear-gradient(145deg, #0f1923, #0b0d12);
+            border: 1px solid #1a2a3a;
             border-radius: 24px;
             padding: 40px 36px;
             margin-bottom: 50px;
@@ -112,13 +111,13 @@
         }
 
         .hero p {
-            color: #8e96a3;
+            color: #8aa4b8;
             font-size: 16px;
             max-width: 500px;
         }
 
         .hero .btn-primary {
-            background: #7c4dff;
+            background: #1e88e5;
             border: none;
             padding: 12px 32px;
             border-radius: 40px;
@@ -130,20 +129,20 @@
         }
 
         .hero .btn-primary:hover {
-            background: #6a3de0;
+            background: #1565c0;
             transform: scale(1.02);
         }
 
-        /* ===== НАВИГАЦИЯ (вкладки) ===== */
+        /* ===== ВКЛАДКИ ===== */
         .tabs {
             display: flex;
             gap: 6px;
             flex-wrap: wrap;
             margin-bottom: 30px;
-            background: #12161e;
+            background: #0f1923;
             padding: 6px;
             border-radius: 16px;
-            border: 1px solid #242831;
+            border: 1px solid #1a2a3a;
         }
 
         .tab {
@@ -152,7 +151,7 @@
             font-weight: 500;
             font-size: 14px;
             background: transparent;
-            color: #8e96a3;
+            color: #8aa4b8;
             border: none;
             cursor: pointer;
             transition: background 0.2s, color 0.2s;
@@ -160,11 +159,11 @@
 
         .tab:hover {
             color: #eef2f6;
-            background: #1e222d;
+            background: #1a2a3a;
         }
 
         .tab.active {
-            background: #7c4dff;
+            background: #1e88e5;
             color: #fff;
         }
 
@@ -173,8 +172,8 @@
             font-size: 22px;
             font-weight: 600;
             margin-bottom: 20px;
-            color: #c8d0d9;
-            border-left: 4px solid #7c4dff;
+            color: #b0c4d9;
+            border-left: 4px solid #1e88e5;
             padding-left: 16px;
         }
 
@@ -186,18 +185,18 @@
         }
 
         .script-card {
-            background: #14181f;
+            background: #0f1923;
             border-radius: 18px;
             padding: 22px 20px;
-            border: 1px solid #282e38;
+            border: 1px solid #1a2a3a;
             transition: border 0.2s, box-shadow 0.2s, transform 0.15s;
             display: flex;
             flex-direction: column;
         }
 
         .script-card:hover {
-            border-color: #7c4dff;
-            box-shadow: 0 8px 30px rgba(124, 77, 255, 0.07);
+            border-color: #1e88e5;
+            box-shadow: 0 8px 30px rgba(30, 136, 229, 0.07);
             transform: translateY(-2px);
         }
 
@@ -209,7 +208,7 @@
 
         .script-game {
             font-size: 13px;
-            color: #7a8392;
+            color: #6a8aa0;
             margin-bottom: 10px;
         }
 
@@ -225,12 +224,12 @@
             border-radius: 30px;
             font-size: 12px;
             font-weight: 500;
-            background: #222832;
-            color: #b0b8c5;
+            background: #1a2a3a;
+            color: #8aa4b8;
         }
 
         .badge-key {
-            background: #2e7d32;
+            background: #1b5e20;
             color: #a5d6a7;
         }
 
@@ -245,16 +244,16 @@
             border-radius: 12px;
             font-family: 'JetBrains Mono', 'Fira Code', monospace;
             font-size: 13px;
-            color: #c8d0d9;
+            color: #b0c4d9;
             overflow-x: auto;
             white-space: pre-wrap;
             word-break: break-all;
-            border: 1px solid #282e38;
+            border: 1px solid #1a2a3a;
             margin: 8px 0 14px;
         }
 
         .copy-btn {
-            background: #282e38;
+            background: #1a2a3a;
             border: none;
             padding: 8px 20px;
             border-radius: 30px;
@@ -267,16 +266,47 @@
         }
 
         .copy-btn:hover {
-            background: #3a404e;
+            background: #2a4055;
+        }
+
+        /* ===== ВСЕ ИГРЫ ===== */
+        .games-section {
+            background: #0f1923;
+            border: 1px solid #1a2a3a;
+            border-radius: 24px;
+            padding: 32px 36px;
+            margin-top: 20px;
+        }
+
+        .games-section h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #b0c4d9;
+        }
+
+        .games-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .game-tag {
+            background: #121a24;
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 14px;
+            color: #8aa4b8;
+            border: 1px solid #1a2a3a;
         }
 
         /* ===== ПОДДЕРЖКА ===== */
         .support-section {
-            background: #12161e;
-            border: 1px solid #242831;
+            background: #0f1923;
+            border: 1px solid #1a2a3a;
             border-radius: 24px;
             padding: 32px 36px;
-            margin-top: 20px;
+            margin-top: 30px;
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
@@ -290,12 +320,12 @@
         }
 
         .support-section p {
-            color: #8e96a3;
+            color: #8aa4b8;
             max-width: 500px;
         }
 
         .support-section .btn {
-            background: #282e38;
+            background: #1a2a3a;
             border: none;
             padding: 10px 28px;
             border-radius: 40px;
@@ -307,25 +337,46 @@
         }
 
         .support-section .btn:hover {
-            background: #3a404e;
+            background: #2a4055;
+        }
+
+        .support-channels {
+            margin-top: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .support-channels a {
+            background: #121a24;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            color: #b0c4d9;
+            border: 1px solid #1a2a3a;
+            transition: border 0.2s;
+        }
+
+        .support-channels a:hover {
+            border-color: #1e88e5;
         }
 
         /* ===== ПОДВАЛ ===== */
         .footer {
             text-align: center;
-            color: #4e5664;
+            color: #4a6a80;
             font-size: 14px;
-            border-top: 1px solid #242831;
+            border-top: 1px solid #1a2a3a;
             padding-top: 30px;
             margin-top: 50px;
         }
 
-        /* ===== КОПИЛОТ (плавающий) ===== */
+        /* ===== КОПИЛОТ ===== */
         .copilot-btn {
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background: #7c4dff;
+            background: #1e88e5;
             color: #fff;
             width: 64px;
             height: 64px;
@@ -333,7 +384,7 @@
             border: none;
             font-size: 28px;
             cursor: pointer;
-            box-shadow: 0 8px 30px rgba(124, 77, 255, 0.35);
+            box-shadow: 0 8px 30px rgba(30, 136, 229, 0.35);
             transition: transform 0.2s, background 0.2s;
             display: flex;
             align-items: center;
@@ -342,7 +393,7 @@
         }
 
         .copilot-btn:hover {
-            background: #6a3de0;
+            background: #1565c0;
             transform: scale(1.05);
         }
 
@@ -352,15 +403,14 @@
             right: 30px;
             width: 400px;
             max-width: calc(100% - 40px);
-            background: #14181f;
-            border: 1px solid #282e38;
+            background: #0f1923;
+            border: 1px solid #1a2a3a;
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
             display: none;
             flex-direction: column;
             z-index: 1001;
             overflow: hidden;
-            backdrop-filter: blur(6px);
         }
 
         .copilot-window.open {
@@ -369,8 +419,8 @@
 
         .copilot-header {
             padding: 16px 20px;
-            background: #1a1e28;
-            border-bottom: 1px solid #282e38;
+            background: #121a24;
+            border-bottom: 1px solid #1a2a3a;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -379,12 +429,13 @@
         .copilot-header h3 {
             font-size: 16px;
             font-weight: 600;
+            color: #b0c4d9;
         }
 
         .copilot-close {
             background: none;
             border: none;
-            color: #8e96a3;
+            color: #6a8aa0;
             font-size: 20px;
             cursor: pointer;
         }
@@ -403,11 +454,11 @@
         }
 
         .q-btn {
-            background: #1a1e28;
-            border: 1px solid #282e38;
+            background: #121a24;
+            border: 1px solid #1a2a3a;
             border-radius: 30px;
             padding: 10px 16px;
-            color: #c8d0d9;
+            color: #b0c4d9;
             font-size: 14px;
             text-align: left;
             cursor: pointer;
@@ -415,8 +466,8 @@
         }
 
         .q-btn:hover {
-            background: #242a36;
-            border-color: #7c4dff;
+            background: #1a2a3a;
+            border-color: #1e88e5;
         }
 
         .copilot-answer {
@@ -425,7 +476,7 @@
             padding: 14px 16px;
             font-size: 14px;
             color: #eef2f6;
-            border-left: 3px solid #7c4dff;
+            border-left: 3px solid #1e88e5;
             margin-top: 8px;
             display: none;
         }
@@ -435,12 +486,7 @@
         }
 
         .copilot-answer a {
-            color: #b388ff;
-            text-decoration: none;
-        }
-
-        .copilot-answer a:hover {
-            text-decoration: underline;
+            color: #4fc3f7;
         }
 
         /* ===== АДАПТАЦИЯ ===== */
@@ -469,6 +515,14 @@
                 width: calc(100% - 20px);
                 bottom: 100px;
             }
+
+            .games-section {
+                padding: 20px;
+            }
+
+            .support-section {
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -490,7 +544,7 @@
         <section class="hero">
             <div>
                 <h1>Скрипты для Roblox</h1>
-                <p>Бесплатные, рабочие, без ключей (кроме одного). Копируй и вставляй в свой исполнитель.</p>
+                <p>Бесплатные, рабочие, с ключами и без. Копируй и вставляй в свой исполнитель.</p>
             </div>
             <button class="btn-primary" id="scrollToScripts">⬇ Смотреть скрипты</button>
         </section>
@@ -502,19 +556,38 @@
             <button class="tab" data-tab="nokey">🔓 Без ключа</button>
         </div>
 
-        <!-- ===== СЕТКА СКРИПТОВ ===== -->
+        <!-- ===== СКРИПТЫ ===== -->
         <h2 class="section-title" id="scriptsTitle">📦 Все скрипты</h2>
         <div class="scripts-grid" id="scriptsContainer"></div>
+
+        <!-- ===== ВСЕ ИГРЫ ===== -->
+        <section class="games-section" id="gamesSection">
+            <h3>🎮 Поддерживаемые игры</h3>
+            <div class="games-grid" id="gamesGrid">
+                <span class="game-tag">Escape Tsunami</span>
+                <span class="game-tag">Rivals</span>
+                <span class="game-tag">Delta Project</span>
+                <span class="game-tag">Brookhaven RP</span>
+                <span class="game-tag">Evade</span>
+                <span class="game-tag">99 ночей</span>
+                <span class="game-tag">Dandy's World</span>
+                <span class="game-tag">Fling (универсальный)</span>
+                <span class="game-tag">и другие</span>
+            </div>
+        </section>
 
         <!-- ===== ПОДДЕРЖКА ===== -->
         <section class="support-section" id="supportSection">
             <div>
-                <h3>🛟 Нужна помощь?</h3>
-                <p>Не получается установить скрипт? Есть вопросы по ключам? Напиши нам — поможем.</p>
+                <h3>🛟 Поддержка</h3>
+                <p>Если скрипт не работает, ты не можешь его установить или есть вопросы — пиши, поможем.</p>
+                <div class="support-channels">
+                    <a href="https://t.me/z1ntyscripts" target="_blank">💬 Telegram</a>
+                    <a href="#" id="faqBtn">❓ Частые вопросы</a>
+                </div>
             </div>
-            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-                <a href="https://t.me/z1ntyscripts" target="_blank" class="btn">💬 Написать в Telegram</a>
-                <button class="btn" id="faqBtn">❓ Частые вопросы</button>
+            <div>
+                <button class="btn" id="openCopilotSupport">🤖 Спросить копилота</button>
             </div>
         </section>
 
@@ -544,6 +617,8 @@
                 <button class="q-btn" data-question="update">Как часто обновляются?</button>
                 <button class="q-btn" data-question="load">Что такое нагрузка?</button>
                 <button class="q-btn" data-question="games">Какие игры поддерживаются?</button>
+                <button class="q-btn" data-question="support">Куда писать в поддержку?</button>
+                <button class="q-btn" data-question="installer">Какой исполнитель лучше?</button>
             </div>
             <div class="copilot-answer" id="copilotAnswer"></div>
         </div>
@@ -585,7 +660,7 @@
             }
 
             if (filtered.length === 0) {
-                container.innerHTML = `<p style="color:#8e96a3; grid-column:1/-1;">Скриптов в этой категории пока нет.</p>`;
+                container.innerHTML = `<p style="color:#6a8aa0; grid-column:1/-1;">Скриптов в этой категории пока нет.</p>`;
                 return;
             }
 
@@ -608,11 +683,9 @@
                 container.appendChild(card);
             });
 
-            // Обработчики копирования
             document.querySelectorAll('.copy-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const idx = parseInt(this.dataset.index);
-                    // ищем скрипт в отфильтрованном массиве
                     let targetScript;
                     if (filter === 'key') targetScript = scripts.filter(s => s.key === true)[idx];
                     else if (filter === 'nokey') targetScript = scripts.filter(s => s.key === false)[idx];
@@ -646,23 +719,41 @@
         });
 
         // ============================================================
-        // ПРОКРУТКА К СКРИПТАМ
+        // ПРОКРУТКА
         // ============================================================
         document.getElementById('scrollToScripts').addEventListener('click', function() {
             document.getElementById('scriptsContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
 
+        document.getElementById('allGamesLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('gamesSection').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        document.getElementById('supportLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('supportSection').scrollIntoView({ behavior: 'smooth' });
+        });
+
         // ============================================================
-        // ПОДДЕРЖКА — кнопка FAQ
+        // ПОДДЕРЖКА + КОПИЛОТ
         // ============================================================
-        document.getElementById('faqBtn').addEventListener('click', function() {
+        document.getElementById('faqBtn').addEventListener('click', function(e) {
+            e.preventDefault();
             const win = document.getElementById('copilotWindow');
-            if (!win.classList.contains('open')) {
-                win.classList.add('open');
-            }
+            if (!win.classList.contains('open')) win.classList.add('open');
             const ans = document.getElementById('copilotAnswer');
             ans.innerHTML = 'Частые вопросы уже есть в копилоте 👆 Нажми на нужный вопрос выше.';
             ans.classList.add('show');
+        });
+
+        document.getElementById('openCopilotSupport').addEventListener('click', function() {
+            const win = document.getElementById('copilotWindow');
+            win.classList.toggle('open');
+            if (!win.classList.contains('open')) {
+                document.getElementById('copilotAnswer').classList.remove('show');
+                document.getElementById('copilotAnswer').textContent = '';
+            }
         });
 
         // ============================================================
@@ -689,16 +780,18 @@
 
         const answers = {
             delta: 'Дельту можно установить в телеграм канале 👉 <a href="https://t.me/z1ntyscripts" target="_blank">https://t.me/z1ntyscripts</a>',
-            script: 'Чтобы установить скрипт: скопируй код → открой исполнитель (Synapse X, Krnl, Delta и др.) → вставь → нажми Execute. Готово!',
+            script: 'Чтобы установить скрипт: скопируй код → открой исполнитель (Synapse X, Krnl, Delta и др.) → вставь → нажми Execute.',
             key: 'Ключ для ETFB можно найти в канале. Иногда ключ меняется, следи за обновлениями.',
             rivals: 'Да, Rivals скрипт рабочий. Без ключа. Вставляй и запускай.',
             fling: 'Fling things and people позволяет кидать игроков и предметы. Работает в большинстве игр с физикой.',
-            brookhaven: 'Brookhaven скрипт работает, добавляет админку, телепорты, спавн вещей и другие фишки.',
-            phone: 'Некоторые скрипты работают на телефоне через Delta, Arceus X или другие мобильные исполнители. Но не все.',
-            free: 'Да, все скрипты полностью бесплатны. Никаких скрытых платежей.',
-            update: 'Скрипты обновляются по мере появления новых версий. Следи за каналом и сайтом.',
-            load: 'loadstring — функция, которая загружает и выполняет скрипт из интернета. Это стандартный способ запуска скриптов в Roblox.',
-            games: 'Поддерживаются: Escape Tsunami, Rivals, Delta Project, Brookhaven RP, Evade, 99 ночей, Dandy\'s World. А также универсальные скрипты.'
+            brookhaven: 'Brookhaven скрипт работает, добавляет админку, телепорты, спавн вещей.',
+            phone: 'Некоторые скрипты работают на телефоне через Delta, Arceus X или другие мобильные исполнители.',
+            free: 'Да, все скрипты полностью бесплатны.',
+            update: 'Скрипты обновляются по мере появления новых версий.',
+            load: 'loadstring — функция, которая загружает и выполняет скрипт из интернета.',
+            games: 'Поддерживаются: Escape Tsunami, Rivals, Delta Project, Brookhaven RP, Evade, 99 ночей, Dandy\'s World, универсальные.',
+            support: 'Пиши в Telegram: <a href="https://t.me/z1ntyscripts" target="_blank">@z1ntyscripts</a>',
+            installer: 'Лучшие: Synapse X (платный), Krnl (бесплатный), Delta (бесплатный), Arceus X (для мобилок).'
         };
 
         document.querySelectorAll('.q-btn').forEach(btn => {
@@ -710,7 +803,6 @@
             });
         });
 
-        // Закрыть по клику вне
         document.addEventListener('click', function(e) {
             const isCopilot = windowEl.contains(e.target) || toggleBtn.contains(e.target);
             if (!isCopilot && windowEl.classList.contains('open')) {
@@ -721,26 +813,9 @@
         });
 
         // ============================================================
-        // ДОП. НАВИГАЦИЯ: ссылки "Все игры" и "Поддержка"
-        // ============================================================
-        document.getElementById('allGamesLink').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('scriptsContainer').scrollIntoView({ behavior: 'smooth' });
-            // активируем вкладку "Все"
-            tabs.forEach(t => t.classList.remove('active'));
-            document.querySelector('.tab[data-tab="all"]').classList.add('active');
-            renderScripts('all');
-        });
-
-        document.getElementById('supportLink').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('supportSection').scrollIntoView({ behavior: 'smooth' });
-        });
-
-        // ============================================================
         // СТАРТ
         // ============================================================
         renderScripts('all');
     </script>
 </body>
-    </html>
+                                                                </html>
