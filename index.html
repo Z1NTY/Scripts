@@ -14,183 +14,175 @@
             overflow-x: hidden;
             position: relative;
         }
-        .fog-container {
+        /* МНОГОСЛОЙНЫЙ ФОН */
+        .bg-layer {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            z-index: 0;
             pointer-events: none;
+            z-index: 0;
         }
-        .fog-layer {
+        .bg-fog {
             position: absolute;
-            top: 0; left: 0;
             width: 100%; height: 100%;
-            background: radial-gradient(ellipse at 20% 50%, rgba(0,120,255,0.1) 0%, transparent 50%),
-                        radial-gradient(ellipse at 80% 50%, rgba(0,150,255,0.12) 0%, transparent 50%),
-                        radial-gradient(ellipse at 50% 50%, rgba(0,100,255,0.08) 0%, transparent 70%);
-            animation: fogMove 12s ease-in-out infinite;
+            background: 
+                radial-gradient(ellipse at 15% 50%, rgba(0,140,255,0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 85% 50%, rgba(0,160,255,0.14) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 40%, rgba(0,100,220,0.1) 0%, transparent 60%),
+                radial-gradient(ellipse at 50% 80%, rgba(0,80,200,0.08) 0%, transparent 50%);
+            animation: fogBreath 10s ease-in-out infinite;
         }
-        .fog-layer:nth-child(2) { animation-delay: -6s; opacity: 0.7; }
-        @keyframes fogMove {
-            0%, 100% { transform: scale(1) translateY(0); }
-            25% { transform: scale(1.05) translateY(-1vh); }
-            50% { transform: scale(1.02) translateY(1vh); }
-            75% { transform: scale(1.04) translateY(-0.5vh); }
+        .bg-fog:nth-child(2) { animation-delay: -5s; opacity: 0.7; }
+        @keyframes fogBreath {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.06); opacity: 1; }
         }
+        .bg-particles {
+            position: absolute;
+            width: 100%; height: 100%;
+        }
+        .particle {
+            position: absolute;
+            border: 1.5px solid rgba(0,170,255,0.4);
+            background: rgba(0,170,255,0.06);
+            border-radius: 3px;
+            animation: particleFloat linear infinite;
+        }
+        @keyframes particleFloat {
+            0% { transform: translateY(105vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+        /* КОНТЕЙНЕР */
         .main-container {
             position: relative;
             z-index: 10;
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto;
             padding: 20px;
         }
+        /* ЗАГОЛОВОК */
         .title-wrapper {
             text-align: center;
             padding: 50px 20px 30px;
             opacity: 0;
-            animation: titleReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: titleReveal 1.2s cubic-bezier(0.16,1,0.3,1) forwards;
         }
         @keyframes titleReveal {
             0% { opacity: 0; transform: translateY(-30px); filter: blur(10px); }
             100% { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
         .main-title {
-            font-size: clamp(28px, 5vw, 42px);
+            font-size: clamp(30px,5vw,46px);
             font-weight: 900;
-            letter-spacing: 5px;
+            letter-spacing: 6px;
             color: #0af;
-            text-shadow: 0 0 20px #0af, 0 0 40px #0af, 0 0 60px #08c;
+            text-shadow: 0 0 25px #0af, 0 0 50px #0af, 0 0 80px #08c, 0 0 120px #046;
             margin-bottom: 5px;
+            animation: titleGlow 2s ease-in-out infinite;
+        }
+        @keyframes titleGlow {
+            0%,100% { text-shadow: 0 0 25px #0af, 0 0 50px #0af, 0 0 80px #08c; }
+            50% { text-shadow: 0 0 40px #0af, 0 0 80px #0af, 0 0 120px #0af, 0 0 160px #08c; }
         }
         .sub-title {
-            font-size: clamp(12px, 2vw, 16px);
-            color: #0af;
-            opacity: 0.8;
-            letter-spacing: 6px;
-            text-shadow: 0 0 10px #0af;
+            font-size: clamp(12px,2vw,16px);
+            color: rgba(0,170,255,0.8);
+            letter-spacing: 8px;
+            text-shadow: 0 0 12px rgba(0,170,255,0.5);
         }
+        /* ПОИСК */
         .search-box {
             width: 100%;
-            padding: 15px 20px;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(10px);
-            border: 2px solid #0af;
+            padding: 16px 24px;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(0,170,255,0.5);
             border-radius: 50px;
             color: #0af;
             font-size: 16px;
             margin: 20px 0;
-            box-shadow: 0 0 20px rgba(0,170,255,0.2), inset 0 0 15px rgba(0,170,255,0.1);
+            box-shadow: 0 0 25px rgba(0,170,255,0.25), inset 0 0 20px rgba(0,170,255,0.1);
             outline: none;
-            transition: all 0.3s ease;
+            transition: all 0.35s ease;
             text-align: center;
+            letter-spacing: 2px;
         }
-        .search-box:focus { box-shadow: 0 0 40px rgba(0,170,255,0.5), inset 0 0 20px rgba(0,170,255,0.2); border-color: #4af; }
-        .search-box::placeholder { color: rgba(0,170,255,0.4); letter-spacing: 2px; }
-        .game-grid { display: flex; flex-direction: column; gap: 12px; margin-bottom: 40px; }
+        .search-box:focus { box-shadow: 0 0 50px rgba(0,170,255,0.6), inset 0 0 30px rgba(0,170,255,0.2); border-color: #4af; transform: scale(1.02); }
+        .search-box::placeholder { color: rgba(0,170,255,0.35); letter-spacing: 3px; }
+        /* СЕТКА ПЛЕЙСОВ */
+        .game-grid { display: flex; flex-direction: column; gap: 14px; margin-bottom: 40px; }
         .game-row {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 18px 24px; border: 1px solid rgba(0,170,255,0.4); border-radius: 20px;
-            background: rgba(0,170,255,0.03); backdrop-filter: blur(5px); text-decoration: none;
-            color: #0af; font-size: clamp(15px, 2.5vw, 18px); font-weight: 600; letter-spacing: 1px;
-            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 0 15px rgba(0,170,255,0.1);
+            padding: 20px 26px; border: 1px solid rgba(0,170,255,0.4); border-radius: 22px;
+            background: rgba(0,170,255,0.04); backdrop-filter: blur(8px); text-decoration: none;
+            color: #0af; font-size: clamp(15px,2.5vw,19px); font-weight: 600; letter-spacing: 1.5px;
+            transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
+            box-shadow: 0 0 18px rgba(0,170,255,0.1);
             opacity: 0; transform: translateY(20px);
             animation: rowReveal 0.5s ease forwards;
         }
-        .game-row:nth-child(1) { animation-delay: 0.05s; } .game-row:nth-child(2) { animation-delay: 0.10s; }
-        .game-row:nth-child(3) { animation-delay: 0.15s; } .game-row:nth-child(4) { animation-delay: 0.20s; }
-        .game-row:nth-child(5) { animation-delay: 0.25s; } .game-row:nth-child(6) { animation-delay: 0.30s; }
-        .game-row:nth-child(7) { animation-delay: 0.35s; } .game-row:nth-child(8) { animation-delay: 0.40s; }
-        .game-row:nth-child(9) { animation-delay: 0.45s; } .game-row:nth-child(10) { animation-delay: 0.50s; }
-        .game-row:nth-child(11) { animation-delay: 0.55s; } .game-row:nth-child(12) { animation-delay: 0.60s; }
-        .game-row:nth-child(13) { animation-delay: 0.65s; } .game-row:nth-child(14) { animation-delay: 0.70s; }
-        .game-row:nth-child(15) { animation-delay: 0.75s; } .game-row:nth-child(16) { animation-delay: 0.80s; }
-        .game-row:nth-child(17) { animation-delay: 0.85s; } .game-row:nth-child(18) { animation-delay: 0.90s; }
-        .game-row:nth-child(19) { animation-delay: 0.95s; } .game-row:nth-child(20) { animation-delay: 1.00s; }
-        .game-row:nth-child(21) { animation-delay: 1.05s; } .game-row:nth-child(22) { animation-delay: 1.10s; }
-        .game-row:nth-child(23) { animation-delay: 1.15s; } .game-row:nth-child(24) { animation-delay: 1.20s; }
-        .game-row:nth-child(25) { animation-delay: 1.25s; } .game-row:nth-child(26) { animation-delay: 1.30s; }
-        .game-row:nth-child(27) { animation-delay: 1.35s; } .game-row:nth-child(28) { animation-delay: 1.40s; }
-        .game-row:nth-child(29) { animation-delay: 1.45s; } .game-row:nth-child(30) { animation-delay: 1.50s; }
-        .game-row:nth-child(31) { animation-delay: 1.55s; } .game-row:nth-child(32) { animation-delay: 1.60s; }
-        .game-row:nth-child(33) { animation-delay: 1.65s; } .game-row:nth-child(34) { animation-delay: 1.70s; }
-        .game-row:nth-child(35) { animation-delay: 1.75s; } .game-row:nth-child(36) { animation-delay: 1.80s; }
-        .game-row:nth-child(37) { animation-delay: 1.85s; } .game-row:nth-child(38) { animation-delay: 1.90s; }
-        .game-row:nth-child(39) { animation-delay: 1.95s; } .game-row:nth-child(40) { animation-delay: 2.00s; }
+        .game-row:nth-child(1){animation-delay:0.04s}.game-row:nth-child(2){animation-delay:0.08s}.game-row:nth-child(3){animation-delay:0.12s}
+        .game-row:nth-child(4){animation-delay:0.16s}.game-row:nth-child(5){animation-delay:0.20s}.game-row:nth-child(6){animation-delay:0.24s}
+        .game-row:nth-child(7){animation-delay:0.28s}.game-row:nth-child(8){animation-delay:0.32s}.game-row:nth-child(9){animation-delay:0.36s}
+        .game-row:nth-child(10){animation-delay:0.40s}.game-row:nth-child(11){animation-delay:0.44s}.game-row:nth-child(12){animation-delay:0.48s}
+        .game-row:nth-child(13){animation-delay:0.52s}.game-row:nth-child(14){animation-delay:0.56s}.game-row:nth-child(15){animation-delay:0.60s}
+        .game-row:nth-child(16){animation-delay:0.64s}.game-row:nth-child(17){animation-delay:0.68s}.game-row:nth-child(18){animation-delay:0.72s}
+        .game-row:nth-child(19){animation-delay:0.76s}.game-row:nth-child(20){animation-delay:0.80s}.game-row:nth-child(21){animation-delay:0.84s}
+        .game-row:nth-child(22){animation-delay:0.88s}.game-row:nth-child(23){animation-delay:0.92s}.game-row:nth-child(24){animation-delay:0.96s}
+        .game-row:nth-child(25){animation-delay:1.00s}.game-row:nth-child(26){animation-delay:1.04s}.game-row:nth-child(27){animation-delay:1.08s}
+        .game-row:nth-child(28){animation-delay:1.12s}.game-row:nth-child(29){animation-delay:1.16s}.game-row:nth-child(30){animation-delay:1.20s}
+        .game-row:nth-child(31){animation-delay:1.24s}.game-row:nth-child(32){animation-delay:1.28s}.game-row:nth-child(33){animation-delay:1.32s}
+        .game-row:nth-child(34){animation-delay:1.36s}.game-row:nth-child(35){animation-delay:1.40s}.game-row:nth-child(36){animation-delay:1.44s}
+        .game-row:nth-child(37){animation-delay:1.48s}.game-row:nth-child(38){animation-delay:1.52s}.game-row:nth-child(39){animation-delay:1.56s}
+        .game-row:nth-child(40){animation-delay:1.60s}.game-row:nth-child(41){animation-delay:1.64s}.game-row:nth-child(42){animation-delay:1.68s}
         @keyframes rowReveal { to { opacity: 1; transform: translateY(0); } }
-        .game-row:hover { background: rgba(0,170,255,0.12); border-color: #4af; transform: translateY(-3px) scale(1.02); box-shadow: 0 0 35px rgba(0,170,255,0.3); color: #fff; }
-        .game-row .emoji { font-size: clamp(18px, 3vw, 24px); margin-right: 8px; filter: drop-shadow(0 0 6px rgba(0,170,255,0.6)); }
-        .game-row .arrow { opacity: 0.6; transition: all 0.3s; }
-        .game-row:hover .arrow { opacity: 1; transform: translateX(3px); }
+        .game-row:hover { background: rgba(0,170,255,0.14); border-color: #4af; transform: translateY(-4px) scale(1.03); box-shadow: 0 0 40px rgba(0,170,255,0.35); color: #fff; }
+        .game-icon {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 36px; height: 36px; margin-right: 12px;
+            border: 2px solid #0af; border-radius: 10px;
+            background: rgba(0,170,255,0.08);
+            box-shadow: 0 0 15px rgba(0,170,255,0.3);
+            font-size: 20px;
+            color: transparent;
+            -webkit-text-stroke: 1.5px #0af;
+            text-stroke: 1.5px #0af;
+            text-shadow: 0 0 10px #0af;
+            transition: all 0.3s;
+        }
+        .game-row:hover .game-icon { background: rgba(0,170,255,0.2); box-shadow: 0 0 30px rgba(0,170,255,0.6); }
+        .game-arrow { opacity: 0.5; transition: all 0.3s; font-size: 18px; }
+        .game-row:hover .game-arrow { opacity: 1; transform: translateX(4px); }
+        /* СЕКЦИИ */
         .page-section { display: none; animation: sectionIn 0.5s ease; }
         .page-section.active { display: block; }
-        @keyframes sectionIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        h2 { font-size: clamp(22px, 4vw, 30px); text-shadow: 0 0 15px #0af, 0 0 30px #0af; margin: 25px 0 15px; border-left: 4px solid #0af; padding-left: 16px; box-shadow: -10px 0 25px rgba(0,170,255,0.2); animation: glowPulse 2s infinite alternate; }
-        @keyframes glowPulse { from { border-left-color: #0af; text-shadow: 0 0 10px #0af; } to { border-left-color: #4af; text-shadow: 0 0 20px #0af, 0 0 40px #0af; } }
-        .game-desc { background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); border: 1px solid rgba(0,170,255,0.3); border-radius: 20px; padding: 20px; margin-bottom: 25px; color: #bcd; line-height: 1.6; box-shadow: 0 0 20px rgba(0,170,255,0.1); font-size: 15px; }
-        .script-card { background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); border: 1px solid rgba(0,170,255,0.35); border-radius: 20px; padding: 22px; margin-bottom: 20px; box-shadow: 0 0 20px rgba(0,170,255,0.15); transition: all 0.3s ease; }
-        .script-card:hover { border-color: #4af; box-shadow: 0 0 35px rgba(0,170,255,0.3); transform: translateY(-2px); }
-        .script-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
-        .script-name { font-weight: 700; font-size: clamp(16px, 2.5vw, 19px); color: #0af; text-shadow: 0 0 8px rgba(0,170,255,0.5); }
-        .verified-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(0,255,100,0.1); border: 1px solid rgba(0,255,100,0.4); color: #0f7; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; text-shadow: 0 0 8px rgba(0,255,100,0.6); box-shadow: 0 0 12px rgba(0,255,100,0.2); }
-        .no-key-badge { display: inline-flex; align-items: center; gap: 4px; background: rgba(0,255,100,0.08); border: 1px solid rgba(0,255,100,0.3); color: #0f7; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; text-shadow: 0 0 6px rgba(0,255,100,0.5); }
-        .key-badge { display: inline-flex; align-items: center; gap: 4px; background: rgba(255,60,60,0.1); border: 1px solid rgba(255,60,60,0.4); color: #f55; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; text-shadow: 0 0 6px rgba(255,60,60,0.5); }
-        pre { background: #000; border: 1px solid rgba(0,170,255,0.3); border-radius: 14px; padding: 16px; overflow-x: auto; color: #ddd; font-size: 12px; margin-bottom: 14px; white-space: pre-wrap; word-break: break-all; line-height: 1.5; }
-        .copy-btn { display: block; width: 100%; padding: 14px; background: transparent; border: 2px solid #0af; border-radius: 50px; color: #0af; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 0 18px rgba(0,170,255,0.2); text-shadow: 0 0 8px rgba(0,170,255,0.6); }
-        .copy-btn:hover { background: #0af; color: #000; box-shadow: 0 0 35px #0af; }
+        @keyframes sectionIn { from{opacity:0;transform:translateY(15px)} to{opacity:1;transform:translateY(0)} }
+        h2 { font-size: clamp(24px,4vw,32px); text-shadow: 0 0 20px #0af,0 0 40px #0af; margin: 30px 0 18px; border-left: 5px solid #0af; padding-left: 18px; box-shadow: -12px 0 30px rgba(0,170,255,0.2); animation: glowPulse 2s infinite alternate; }
+        @keyframes glowPulse { from{border-left-color:#0af;text-shadow:0 0 15px #0af} to{border-left-color:#4af;text-shadow:0 0 30px #0af,0 0 60px #0af} }
+        .game-desc { background: rgba(0,0,0,0.55); backdrop-filter: blur(12px); border: 1px solid rgba(0,170,255,0.3); border-radius: 22px; padding: 22px; margin-bottom: 28px; color: #bcd; line-height: 1.7; box-shadow: 0 0 25px rgba(0,170,255,0.12); font-size: 15px; }
+        .script-card { background: rgba(0,0,0,0.65); backdrop-filter: blur(12px); border: 1px solid rgba(0,170,255,0.35); border-radius: 22px; padding: 24px; margin-bottom: 22px; box-shadow: 0 0 22px rgba(0,170,255,0.15); transition: all 0.3s ease; }
+        .script-card:hover { border-color: #4af; box-shadow: 0 0 40px rgba(0,170,255,0.35); transform: translateY(-3px); }
+        .script-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
+        .script-name { font-weight: 700; font-size: clamp(17px,2.5vw,20px); color: #0af; text-shadow: 0 0 10px rgba(0,170,255,0.6); }
+        .verified-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(0,255,100,0.12); border: 1px solid rgba(0,255,100,0.45); color: #0f7; padding: 5px 14px; border-radius: 22px; font-size: 12px; font-weight: 700; text-shadow: 0 0 10px rgba(0,255,100,0.6); box-shadow: 0 0 15px rgba(0,255,100,0.2); }
+        .no-key-badge { display: inline-flex; align-items: center; gap: 5px; background: rgba(0,255,100,0.08); border: 1px solid rgba(0,255,100,0.3); color: #0f7; padding: 5px 12px; border-radius: 22px; font-size: 11px; font-weight: 600; text-shadow: 0 0 6px rgba(0,255,100,0.5); }
+        .key-badge { display: inline-flex; align-items: center; gap: 5px; background: rgba(255,60,60,0.1); border: 1px solid rgba(255,60,60,0.4); color: #f55; padding: 5px 12px; border-radius: 22px; font-size: 11px; font-weight: 600; text-shadow: 0 0 6px rgba(255,60,60,0.5); }
+        pre { background: #000; border: 1px solid rgba(0,170,255,0.3); border-radius: 16px; padding: 18px; overflow-x: auto; color: #ddd; font-size: 12px; margin-bottom: 16px; white-space: pre-wrap; word-break: break-all; line-height: 1.6; }
+        .copy-btn { display: block; width: 100%; padding: 15px; background: transparent; border: 2px solid #0af; border-radius: 50px; color: #0af; font-size: 17px; font-weight: 700; text-transform: uppercase; letter-spacing: 4px; cursor: pointer; transition: all 0.35s ease; box-shadow: 0 0 20px rgba(0,170,255,0.25); text-shadow: 0 0 10px rgba(0,170,255,0.7); position: relative; overflow: hidden; }
+        .copy-btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg,transparent,rgba(0,170,255,0.5),transparent); transition: left 0.5s; }
+        .copy-btn:hover { background: #0af; color: #000; box-shadow: 0 0 40px #0af; transform: scale(1.03); }
+        .copy-btn:hover::before { left: 100%; }
         .copy-btn.copied { background: #0f7; border-color: #0f7; color: #000; }
-        .date-tag { text-align: right; color: rgba(255,80,80,0.7); font-size: 11px; margin-top: 6px; }
-        .back-link { display: inline-block; padding: 10px 22px; border: 1px solid #0af; border-radius: 30px; color: #0af; text-decoration: none; font-size: 14px; transition: all 0.3s; margin-bottom: 15px; text-shadow: 0 0 6px #0af; }
-        .back-link:hover { background: #0af; color: #000; box-shadow: 0 0 25px #0af; }
-        .copilot-trigger { position: fixed; right: 18px; bottom: 100px; z-index: 999; width: 62px; height: 62px; border-radius: 50%; background: rgba(0,170,255,0.1); border: 2px solid #0af; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 0 25px rgba(0,170,255,0.4), 0 0 50px rgba(0,170,255,0.15); transition: all 0.3s ease; animation: float 2.5s ease-in-out infinite; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-        .copilot-trigger:hover { box-shadow: 0 0 45px rgba(0,170,255,0.8); transform: scale(1.08); }
-        .copilot-trigger .icon { font-size: 24px; filter: drop-shadow(0 0 6px #0af); }
-        .copilot-label { font-size: 10px; color: #0af; margin-top: -2px; text-shadow: 0 0 6px #0af; font-weight: 700; letter-spacing: 1px; }
-        .copilot-window { position: fixed; right: 18px; bottom: 110px; width: 95vw; max-width: 380px; height: 500px; max-height: 70vh; background: rgba(0,0,0,0.92); backdrop-filter: blur(15px); border: 1px solid #0af; border-radius: 20px; z-index: 1000; display: none; flex-direction: column; box-shadow: 0 0 50px rgba(0,170,255,0.35); animation: windowIn 0.3s ease; }
-        @keyframes windowIn { from { opacity: 0; transform: translateY(20px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
-        .copilot-window.open { display: flex; }
-        .copilot-header { padding: 15px; border-bottom: 1px solid rgba(0,170,255,0.3); display: flex; justify-content: space-between; align-items: center; }
-        .copilot-title { font-weight: 800; color: #0af; text-shadow: 0 0 10px #0af; letter-spacing: 2px; }
-        .copilot-close { background: none; border: none; color: #f55; font-size: 22px; cursor: pointer; }
-        .copilot-messages { flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 10px; }
-        .copilot-msg { max-width: 90%; padding: 10px 14px; border-radius: 16px; font-size: 13px; line-height: 1.5; animation: msgIn 0.25s ease; }
-        @keyframes msgIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-        .copilot-msg.bot { background: rgba(0,170,255,0.08); border: 1px solid rgba(0,170,255,0.25); color: #bcd; align-self: flex-start; }
-        .copilot-msg.user { background: rgba(0,170,255,0.15); border: 1px solid rgba(0,170,255,0.4); color: #fff; align-self: flex-end; }
-        .copilot-input-area { display: flex; padding: 10px; gap: 8px; border-top: 1px solid rgba(0,170,255,0.2); }
-        .copilot-input { flex: 1; padding: 12px; background: #000; border: 1px solid rgba(0,170,255,0.4); border-radius: 25px; color: #fff; outline: none; font-size: 13px; }
-        .copilot-send { padding: 10px 16px; background: #0af; border: none; border-radius: 25px; color: #000; font-weight: 700; cursor: pointer; transition: 0.3s; }
-        .copilot-send:hover { box-shadow: 0 0 20px #0af; }
-        .copilot-suggestions { display: flex; flex-wrap: wrap; gap: 6px; padding: 8px 10px; border-top: 1px solid rgba(0,170,255,0.1); }
-        .copilot-suggestion { padding: 6px 12px; background: rgba(0,170,255,0.08); border: 1px solid rgba(0,170,255,0.25); border-radius: 15px; color: #0af; font-size: 11px; cursor: pointer; transition: 0.2s; white-space: nowrap; }
-        .copilot-suggestion:hover { background: rgba(0,170,255,0.2); border-color: #4af; }
-        .support-trigger { position: fixed; left: 18px; bottom: 100px; z-index: 999; width: 56px; height: 56px; border-radius: 50%; background: rgba(0,170,255,0.1); border: 2px solid #0af; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 25px rgba(0,170,255,0.4); transition: all 0.3s ease; animation: float 2.5s ease-in-out infinite; }
-        .support-trigger:hover { box-shadow: 0 0 45px rgba(0,170,255,0.8); transform: scale(1.08); }
-        .support-trigger .icon { font-size: 22px; filter: drop-shadow(0 0 6px #0af); }
-        .support-modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90vw; max-width: 420px; background: rgba(0,0,0,0.95); backdrop-filter: blur(20px); border: 1px solid #0af; border-radius: 20px; z-index: 1001; display: none; padding: 25px; box-shadow: 0 0 60px rgba(0,170,255,0.4); animation: modalIn 0.3s ease; }
-        .support-modal.show { display: block; }
-        @keyframes modalIn { from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
-        .support-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; display: none; }
-        .support-overlay.show { display: block; }
-        .support-title { font-size: 18px; font-weight: 800; color: #0af; text-shadow: 0 0 15px #0af; margin-bottom: 15px; text-align: center; letter-spacing: 2px; }
-        .support-rules { color: #ccc; font-size: 13px; line-height: 1.6; margin-bottom: 20px; max-height: 200px; overflow-y: auto; padding-right: 5px; }
-        .support-rules strong { color: #0af; text-shadow: 0 0 5px #0af; }
-        .checkbox-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; cursor: pointer; padding: 10px; border-radius: 12px; transition: 0.2s; border: 1px solid transparent; }
-        .checkbox-row:hover { background: rgba(0,170,255,0.05); }
-        .checkbox-circle { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #0af; display: flex; align-items: center; justify-content: center; transition: 0.2s; flex-shrink: 0; box-shadow: 0 0 8px rgba(0,170,255,0.3); }
-        .checkbox-circle.checked { background: #0af; border-color: #0af; box-shadow: 0 0 15px #0af; }
-        .checkbox-circle.checked::after { content: '✓'; color: #000; font-weight: bold; font-size: 14px; }
-        .checkbox-label { font-size: 13px; color: #ccc; user-select: none; }
-        .support-btn { display: block; width: 100%; padding: 14px; background: #0af; border: none; border-radius: 50px; color: #000; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 0 25px #0af; margin-top: 15px; text-decoration: none; text-align: center; }
-        .support-btn.disabled { background: transparent; border: 2px solid rgba(0,170,255,0.2); color: rgba(0,170,255,0.3); box-shadow: none; cursor: not-allowed; pointer-events: none; }
-        .support-btn:not(.disabled):hover { box-shadow: 0 0 50px #0af; transform: scale(1.03); }
-        .support-close { position: absolute; top: 10px; right: 15px; background: none; border: none; color: #f55; font-size: 22px; cursor: pointer; }
-        @media (max-width: 480px) { .copilot-window { right: 4px; bottom: 100px; width: 96vw; } .copilot-trigger { right: 8px; bottom: 80px; width: 54px; height: 54px; } .support-trigger { left: 8px; bottom: 80px; width: 48px; height: 48px; } }
+        .date-tag { text-align: right; color: rgba(255,80,80,0.7); font-size: 11px; margin-top: 8px; }
+        .back-link { display: inline-block; padding: 12px 24px; border: 1px solid #0af; border-radius: 30px; color: #0af; text-decoration: none; font-size: 14px; transition: all 0.3s; margin-bottom: 18px; text-shadow: 0 0 8px #0af; }
+        .back-link:hover { background: #0af; color: #000; box-shadow: 0 0 30px #0af; }
+        @media (max-width: 480px) { .game-row { padding: 16px 18px; } .game-icon { width: 28px; height: 28px; font-size: 16px; } }
     </style>
 </head>
 <body>
-<div class="fog-container"><div class="fog-layer"></div><div class="fog-layer"></div></div>
+<div class="bg-layer"><div class="bg-fog"></div><div class="bg-fog"></div><div class="bg-particles" id="particles"></div></div>
 <div class="main-container">
     <div class="title-wrapper"><div class="main-title">Z1NTY Project || Edition</div><div class="sub-title">SCRIPTS HUB</div></div>
     <input type="text" class="search-box" id="searchInput" placeholder="🔍 Введите название плейса...">
@@ -198,109 +190,62 @@
     <div id="pagesContainer"></div>
 </div>
 
-<!-- COPILOT -->
-<div class="copilot-trigger" id="copilotTrigger">
-    <span class="icon">💬</span>
-    <span class="copilot-label">AI Copilot</span>
-</div>
-<div class="copilot-window" id="copilotWindow">
-    <div class="copilot-header">
-        <span class="copilot-title">🤖 Z1NTY Copilot</span>
-        <button class="copilot-close" id="copilotClose">✕</button>
-    </div>
-    <div class="copilot-messages" id="copilotMessages">
-        <div class="copilot-msg bot">Привет! Я Z1NTY Copilot. Я знаю всё об этом сайте. Спроси меня о любом скрипте или плейсе. 🚀</div>
-    </div>
-    <div class="copilot-suggestions" id="copilotSuggestions">
-        <span class="copilot-suggestion" onclick="sendSuggestion('Какие есть верифицированные скрипты?')">✅ Верифицированные скрипты</span>
-        <span class="copilot-suggestion" onclick="sendSuggestion('Как скачать Дельту?')">💉 Как скачать Дельту?</span>
-        <span class="copilot-suggestion" onclick="sendSuggestion('Скрипты на Blox Fruits')">🍑 Blox Fruits</span>
-        <span class="copilot-suggestion" onclick="sendSuggestion('Скрипты на DOORS')">🚪 DOORS</span>
-        <span class="copilot-suggestion" onclick="sendSuggestion('Скрипты на MM2')">🔪 Murder Mystery 2</span>
-        <span class="copilot-suggestion" onclick="sendSuggestion('Скрипты на Rivals')">⚔️ Rivals</span>
-        <span class="copilot-suggestion" onclick="sendSuggestion('Скрипты на Arsenal')">⚔️ Arsenal</span>
-        <span class="copilot-suggestion" onclick="sendSuggestion('Скрипты на Brookhaven RP')">🏡 Brookhaven RP</span>
-        <span class="copilot-suggestion" onclick="sendSuggestion('Как скопировать скрипт?')">📋 Как скопировать?</span>
-        <span class="copilot-suggestion" onclick="sendSuggestion('Как работает Bypass?')">🔑 Обход ключей</span>
-    </div>
-    <div class="copilot-input-area">
-        <input type="text" class="copilot-input" id="copilotInput" placeholder="Спроси о скриптах или вставь ссылку...">
-        <button class="copilot-send" id="copilotSend">➤</button>
-    </div>
-</div>
-
-<!-- ТЕХПОДДЕРЖКА -->
-<div class="support-trigger" id="supportTrigger"><span class="icon">🛟</span></div>
-<div class="support-overlay" id="supportOverlay"></div>
-<div class="support-modal" id="supportModal">
-    <button class="support-close" id="supportClose">✕</button>
-    <div class="support-title">🛟 ТЕХНИЧЕСКАЯ ПОДДЕРЖКА</div>
-    <div class="support-rules">
-        <strong>‼️ПРАВИЛА ОБЩЕНИЯ С АДМИНИСТРАЦИЕЙ‼️</strong><br><br>
-        <strong>Запрещено:</strong><br>
-        1. Писать не по делу.<br>
-        2. Писать всякую чушь.<br>
-        3. Спамить, засорять поддержку.<br>
-        4. Оскорблять администрацию.<br>
-        5. Кидать разные 18+ материалы что совмещает за собой и 1 пункт.<br>
-        6. Опрашивать администрацию про личную жизнь и прочее.<br><br>
-        Тех поддержка создана только чтобы сообщать об багах или неработающих функциях, писать "когда будут скрипты?" разрешается, за все выше перечисленные пункты вам карается блокировка в тех поддержке навсегда без права на обжалования.<br><br>
-        <strong>Нажимая на кнопку "Написать в тех поддержку" вы автоматически соглашаетесь со всеми условиями и правилами нашей команды Z1NTY, если вы нарушили пункт, обжалование невозможно.</strong>
-    </div>
-    <div class="checkbox-row" id="checkboxAccept" onclick="toggleCheckbox('accept')">
-        <div class="checkbox-circle" id="circleAccept"></div>
-        <span class="checkbox-label">Я принимаю условия указанные выше</span>
-    </div>
-    <div class="checkbox-row" id="checkboxDecline" onclick="toggleCheckbox('decline')">
-        <div class="checkbox-circle checked" id="circleDecline"></div>
-        <span class="checkbox-label">Я не принимаю условия указанные выше</span>
-    </div>
-    <a href="https://t.me/Z1NTY_SupportBot" target="_blank" class="support-btn disabled" id="supportLink">🔧 Написать в тех поддержку</a>
-</div>
-
 <script>
+// ====== ФОНОВЫЕ ЧАСТИЦЫ ======
+const particlesContainer = document.getElementById('particles');
+for (let i = 0; i < 25; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 95 + '%';
+    const size = Math.random() * 20 + 10;
+    p.style.width = size + 'px';
+    p.style.height = size + 'px';
+    p.style.animationDuration = Math.random() * 15 + 12 + 's';
+    p.style.animationDelay = Math.random() * 10 + 's';
+    particlesContainer.appendChild(p);
+}
+
 // ====== ДАННЫЕ ПЛЕЙСОВ ======
 const games = [
-    { id:"doors", emoji:"🚪", name:"DOORS", desc:"Популярная хоррор-игра. Проходи комнаты, избегай монстров, разгадывай головоломки.", scripts:[
+    { id:"doors", icon:"🚪", name:"DOORS", desc:"Популярная хоррор-игра. Проходи комнаты, избегай монстров, разгадывай головоломки.", scripts:[
         {title:"OP Doors script", code:'getgenv().SCRIPT_KEY = "KEYLESS"\nloadstring(game:HttpGet("https://api.jnkie.com/api/v1/luascripts/public/abd3cc54d2dc7de4a091fb19c8f4ea9e15e939e7ecc88b475e6956e8af94ad6f/download"))()', verified:true, key:false},
         {title:"Moon V1", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/littl3prince/Moon/main/Moon_V1"))()', verified:false, key:false},
         {title:"Soluna Doors", code:'loadstring(game:HttpGet("https://soluna-script.vercel.app/doors.lua"))()', verified:false, key:false},
         {title:"RAW Scripts Doors", code:'loadstring(game:HttpGet("https://rawscripts.net/raw/DOORS-Free-Script-ESP-Auto-Pick-Loot-Full-Bright-Speed-Boost-33177"))()', verified:false, key:false},
         {title:"OrangeHub Rehax", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/TheHunterSolo1/OrangeHub/refs/heads/main/Rehax.luau"))()', verified:false, key:false}
     ]},
-    { id:"rivals", emoji:"⚔️", name:"Rivals", desc:"Соревновательный PvP-шутер от первого лица. Цель — первым выиграть 5 раундов.", scripts:[
+    { id:"rivals", icon:"⚔️", name:"Rivals", desc:"Соревновательный PvP-шутер от первого лица. Цель — первым выиграть 5 раундов.", scripts:[
         {title:"Kurona Hub v3.5", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/ditanio97/Kurona-hub-v3.5...../refs/heads/main/Kurona%20hub%20v3.5%2050%25%24%25%5E!"))()', verified:false, key:false},
         {title:"Vylera Rivals", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/vylerascripts/vylera-scripts/main/vylerarivals.lua"))()', verified:false, key:false},
         {title:"Breadz Rivals", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/breadz919/bread/main/main2.lua"))()', verified:false, key:false},
         {title:"Pastebin Rivals", code:'loadstring(game:HttpGet("https://pastebin.com/raw/6XbL7cx0"))()', verified:false, key:false}
     ]},
-    { id:"inkgame", emoji:"🖋️", name:"Ink Game", desc:"Игра по мотивам сериала «Игра в кальмара». Участвуй в смертельных мини-играх.", scripts:[
+    { id:"inkgame", icon:"🖋️", name:"Ink Game", desc:"Игра по мотивам сериала «Игра в кальмара». Участвуй в смертельных мини-играх.", scripts:[
         {title:"Ringta Ink Game", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/wefwef127382/inkgames.github.io/refs/heads/main/ringta.lua"))()', verified:false, key:false},
         {title:"Frostware Ink", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/Actualmrp/FWInkGame/refs/heads/main/FrostwareInkGameSource.txt"))()', verified:false, key:false},
         {title:"Artas01 Loader", code:"loadstring(game:HttpGet('https://raw.githubusercontent.com/artas01/robscript/refs/heads/main/loader.lua'))()", verified:false, key:true},
         {title:"RAW Evade+", code:'loadstring(game:HttpGet"https://rawscripts.net/raw/Evade-Auto-farms-Speed-bypass-fly-troll-others-and-26-Features-53926")()', verified:false, key:false},
         {title:"PITY Ink Game", code:"loadstring(game:HttpGet('https://raw.githubusercontent.com/hexebbejonasson/PITY-Ink-Game/main/main.lua'))()", verified:false, key:false}
     ]},
-    { id:"tsb", emoji:"💥", name:"The Strongest Battlegrounds", desc:"PvP-файтинг, вдохновлённый вселенной One Punch Man.", scripts:[
+    { id:"tsb", icon:"💥", name:"The Strongest Battlegrounds", desc:"PvP-файтинг, вдохновлённый вселенной One Punch Man.", scripts:[
         {title:"Pxntxrez NULL", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/Pxntxrez/NULL/refs/heads/main/obfuscated_script-1753991814596.lua"))()', verified:false, key:false},
         {title:"ZeOrbit v4", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/xploitforceofficial-stack/ZeOrbitv4Main/refs/heads/main/zeorbitv4.lua"))()', verified:false, key:false},
         {title:"Trashcan TSB", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/academicsep2021-bit/trashcan-tsb-saitama/refs/heads/main/Tsb", true))()', verified:false, key:false}
     ]},
-    { id:"piggy", emoji:"🐷", name:"Piggy", desc:"Хоррор-игра на выживание, вдохновлённая стилистикой Peppa Pig.", scripts:[
+    { id:"piggy", icon:"🐷", name:"Piggy", desc:"Хоррор-игра на выживание, вдохновлённая стилистикой Peppa Pig.", scripts:[
         {title:"StarHack Hub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/StarHackScripts/StarHack-Hub-Deepstar-Hub/refs/heads/main/StarHack%20Hub%20-%20Piggy%20Pro%20Hub.txt"))()', verified:false, key:false},
         {title:"Pastebin Piggy", code:'loadstring(game:HttpGet("https://pastebin.com/raw/vNYaRykx"))()', verified:false, key:false}
     ]},
-    { id:"mm2", emoji:"🔪", name:"Murder Mystery 2", desc:"Динамичная хоррор-игра с ролями Невиновный, Шериф и Убийца.", scripts:[
+    { id:"mm2", icon:"🔪", name:"Murder Mystery 2", desc:"Динамичная хоррор-игра с ролями Невиновный, Шериф и Убийца.", scripts:[
         {title:"OP MM2 Script", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/xv3gasx/Murder-Mystery-2/refs/heads/main/Release.lua"))()', verified:true, key:false},
         {title:"Moon V1", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/littl3prince/Moon/main/Moon_V1"))()', verified:false, key:false},
         {title:"Lunn Hub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/LunnHubX99/MurderMystery2/refs/heads/main/lua"))()', verified:false, key:false},
         {title:"Azure Hub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/Aura-56/MurderMystery2/refs/heads/main/AzureHub.lua", true))()', verified:false, key:false},
-        {title:"Artas01 Loader", code:"loadstring(game:HttpGet('https://raw.githubusercontent.com/artas01/robscript/refs/heads/main/loader.lua'))()", verified:false, key:true},
         {title:"LoaderXyu", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/GandonX/YouTube/refs/heads/main/LoaderXyu.txt"))()', verified:false, key:false},
         {title:"Spark Hub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/ultimatep568/Spark-Hub/refs/heads/main/SparkHub_Loader.lua"))()', verified:false, key:false},
         {title:"TravHub", code:"loadstring(game:HttpGet('https://raw.githubusercontent.com/mm2scripthub/TravHub/refs/heads/main/MurderMystery2'))()", verified:false, key:false}
     ]},
-    { id:"99nights", emoji:"🌲", name:"99 Night in the forest", desc:"Выживи 99 ночей в лесу, спасая пропавших детей.", scripts:[
+    { id:"99nights", icon:"🌲", name:"99 Night in the forest", desc:"Выживи 99 ночей в лесу, спасая пропавших детей.", scripts:[
         {title:"VapeVoidware", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/VapeVoidware/VW-Add/main/nightsintheforest.lua", true))()', verified:false, key:false},
         {title:"Bring Items", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/Bac0nHck/Scripts/refs/heads/main/bringitems.lua"))()', verified:false, key:false},
         {title:"Iceware Loader", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/Iceware-RBLX/Roblox/refs/heads/main/loader.lua",true))()', verified:false, key:true},
@@ -310,73 +255,72 @@ const games = [
         {title:"H4xScripts", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/H4xScripts/Loader/refs/heads/main/loader2.lua", true))()', verified:false, key:false},
         {title:"Asthex.cc Loader", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/YouRetard/Asthex.cc/refs/heads/main/Loader.lua"))()', verified:false, key:false}
     ]},
-    { id:"thanos", emoji:"👊", name:"Thanos Gauntlet Simulator", desc:"Стань Таносом и собери Камни Бесконечности.", scripts:[
+    { id:"thanos", icon:"👊", name:"Thanos Gauntlet Simulator", desc:"Стань Таносом и собери Камни Бесконечности.", scripts:[
         {title:"Script Adit", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/erafonexyz1-dot/script-adit/refs/heads/main/file_80.txt"))()', verified:false, key:false},
         {title:"Script Skamb", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/erafonexyz1-dot/script-skamb/refs/heads/main/file_19.txt"))()', verified:false, key:false}
     ]},
-    { id:"regretevator", emoji:"🛗", name:"Regretevator", desc:"Социальный рогалик в бесконечном лифте.", scripts:[
+    { id:"regretevator", icon:"🛗", name:"Regretevator", desc:"Социальный рогалик в бесконечном лифте.", scripts:[
         {title:"Rndmq Loader", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/rndmq/Serverlist/refs/heads/main/Loader"))()', verified:false, key:false},
         {title:"Luarmor Loader", code:"loadstring(game:HttpGet('https://api.luarmor.net/files/v3/loaders/49f02b0d8c1f60207c84ae76e12abc1e.lua'))()", verified:false, key:false}
     ]},
-    { id:"hamburg", emoji:"🚨", name:"Emergency Hamburg", desc:"Ролевая игра в службах экстренного реагирования Гамбурга.", scripts:[
+    { id:"hamburg", icon:"🚨", name:"Emergency Hamburg", desc:"Ролевая игра в службах экстренного реагирования Гамбурга.", scripts:[
         {title:"Beanzz Main", code:'loadstring(game:HttpGet("https://beanzz.wtf/Main.lua"))()', verified:false, key:false},
         {title:"Beanzz Autorob", code:'loadstring(game:HttpGet("https://beanzz.wtf/Autorob.lua"))()', verified:false, key:false},
         {title:"Moon Hub EMH", code:'loadstring(game:HttpGet("https://moon-hub.pages.dev/api/emh-main"))()', verified:false, key:false}
     ]},
-    { id:"volleyball", emoji:"🏐", name:"Volleyball Legends", desc:"Динамичные волейбольные матчи в стиле аниме Haikyuu!!.", scripts:[
+    { id:"volleyball", icon:"🏐", name:"Volleyball Legends", desc:"Динамичные волейбольные матчи в стиле аниме Haikyuu!!.", scripts:[
         {title:"Sigma Hub", code:"loadstring(game.HttpGet(game, 'https://raw.githubusercontent.com/Xm2iufas09ijmF/sigma-hub/refs/heads/main/temp.lua'))", verified:false, key:false},
         {title:"Sterling", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/Zayn31214/name/refs/heads/main/SterlingNew"))()', verified:false, key:false},
         {title:"Omgshit Scripts", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/Omgshit/Scripts/main/MainLoader.lua"))()', verified:false, key:false}
     ]},
-    { id:"deadrails", emoji:"🛤️", name:"Dead Rails", desc:"Приключенческий вестерн на поезде. Отбивайся от врагов.", scripts:[
+    { id:"deadrails", icon:"🛤️", name:"Dead Rails", desc:"Приключенческий вестерн на поезде. Отбивайся от врагов.", scripts:[
         {title:"DP HUB", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/COOLXPLO/DP-HUB-coolxplo/refs/heads/main/Deadrails.lua"))()', verified:false, key:false},
         {title:"Pastebin", code:'loadstring(game:HttpGet("https://pastebin.com/raw/f9zj41Gi"))()', verified:false, key:false},
         {title:"Luarmor", code:'loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/5132beca3ac02bb7f0536fa934905520.lua"))()', verified:false, key:false},
-        {title:"Artas01 Loader", code:"loadstring(game:HttpGet('https://raw.githubusercontent.com/artas01/robscript/refs/heads/main/loader.lua'))()", verified:false, key:true},
         {title:"Vylera Dead Rails", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/vylerascripts/vylera-scripts/main/vyleradeadrails.lua"))()', verified:false, key:false}
     ]},
-    { id:"brainrot", emoji:"🧠", name:"Steal a Brainrot", desc:"Кради брейнроты у других игроков и зарабатывай.", scripts:[
+    { id:"brainrot", icon:"🧠", name:"Steal a Brainrot", desc:"Кради брейнроты у других игроков и зарабатывай.", scripts:[
         {title:"Luarmor", code:'loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/55468c3903178b13cf5dbf49dc21394d.lua"))()', verified:false, key:false},
         {title:"Pastefy", code:'loadstring(game:HttpGet("https://pastefy.app/4J8q1GQk/raw"))()', verified:false, key:false},
         {title:"Solvex GUI", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/Solvexxxx/Scripts/refs/heads/main/SolvexGUI_SAB.lua"))()', verified:false, key:true},
         {title:"Supabase", code:'loadstring(game:HttpGet("https://msuelcjkfclhrnwuywte.supabase.co/functions/v1/get-paste?id=c70f6ff5-565f-4e38-b658-bba9a2523cbc"))()', verified:false, key:false}
     ]},
-    { id:"spider", emoji:"🕷️", name:"Spider", desc:"Хоррор: выживи от гигантского паука или стань им.", scripts:[
+    { id:"spider", icon:"🕷️", name:"Spider", desc:"Хоррор: выживи от гигантского паука или стань им.", scripts:[
         {title:"Abre.ai Spider", code:'loadstring(game:HttpGet("https://abre.ai/spider-lua"))()', verified:false, key:false},
         {title:"Pastes.io", code:'loadstring(game:HttpGet("https://pastes.io/raw/sss-83237"))()', verified:false, key:false},
         {title:"DarksHub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/DarksGitHub/Robox-Spider-Gui/main/Spider.lua", true))()', verified:false, key:false}
     ]},
-    { id:"bloxstrike", emoji:"🔫", name:"BloxStrike", desc:"Тактический шутер в стиле Counter-Strike.", scripts:[
+    { id:"bloxstrike", icon:"🔫", name:"BloxStrike", desc:"Тактический шутер в стиле Counter-Strike.", scripts:[
         {title:"Wydird Scripts", code:'loadstring(game:HttpGet("https://gist.githubusercontent.com/wydirdscripts/9eca68020f16e51d6ad9ab736e793019/raw/f06aca535da16f8c8e5795d0532fa4df1ac0e97e/obfuscated_script-1770322002434.lua"))()', verified:false, key:false},
         {title:"NoFear Scripts", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/nofearscripts/b4st/main/loader.lua"))()', verified:false, key:true},
         {title:"VSS", code:'loadstring(game:HttpGet("https://vss.pandadevelopment.net/virtual/file/dd916fdc1dc44a6a"))()', verified:false, key:false},
         {title:"Twistedk1d", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/twistedk1d/BloxStrike/refs/heads/main/Source/script.lua"))()', verified:false, key:false},
         {title:"Pastebin", code:'loadstring(game:HttpGet("https://pastebin.com/raw/s5fRD9tL"))()', verified:false, key:false}
     ]},
-    { id:"muscle", emoji:"💪", name:"Muscle Legends", desc:"Симулятор прироста силы. Тренируйся и становись сильнейшим.", scripts:[
+    { id:"muscle", icon:"💪", name:"Muscle Legends", desc:"Симулятор прироста силы. Тренируйся и становись сильнейшим.", scripts:[
         {title:"FourHub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/jokerbiel13/FourHub/refs/heads/main/Muscle%20LegendsFH.lua",true))()', verified:false, key:false},
         {title:"Rndmq Loader", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/rndmq/Serverlist/refs/heads/main/Loader"))()', verified:false, key:false},
         {title:"Pastebin", code:'loadstring(game:HttpGet("https://pastebin.com/raw/2Cuza2mr"))()', verified:false, key:false}
     ]},
-    { id:"evade", emoji:"🏃", name:"Evade", desc:"Survival-horror с паркуром. Убегай от некстботов.", scripts:[
+    { id:"evade", icon:"🏃", name:"Evade", desc:"Survival-horror с паркуром. Убегай от некстботов.", scripts:[
         {title:"Bagah Hub", code:'loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Bagah-Project/bagah-hub-public/refs/heads/main/mainloader.lua"))()', verified:false, key:false},
         {title:"Pastebin 1", code:'loadstring(game:HttpGet("https://pastebin.com/raw/2frh8A2j"))()', verified:false, key:false},
         {title:"Pastebin 2", code:'loadstring(game:HttpGet("https://pastebin.com/raw/1aPE2GAk"))()', verified:false, key:false},
         {title:"Scripthub Loader", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/Pnsdgsa/Script-kids/refs/heads/main/Scripthub/main-loader.lua"))()', verified:false, key:false}
     ]},
-    { id:"luckyblock", emoji:"🍀", name:"Be a Lucky Block", desc:"Игра-тайкун: играй за лаки-блок и собирай брейнротов.", scripts:[
+    { id:"luckyblock", icon:"🍀", name:"Be a Lucky Block", desc:"Игра-тайкун: играй за лаки-блок и собирай брейнротов.", scripts:[
         {title:"Wings", code:'loadstring(game:HttpGet("https://wings.ac/loader"))()', verified:false, key:false},
         {title:"Pastefy 1", code:'loadstring(game:HttpGet("https://pastefy.app/NpVKdJD7/raw"))()', verified:false, key:false},
         {title:"Pastefy 2", code:'loadstring(game:HttpGet("https://pastefy.app/K4N4YLZf/raw"))()', verified:false, key:false}
     ]},
-    { id:"violence", emoji:"🔪", name:"Violence District", desc:"Асимметричный хоррор: убийца против 5 выживших.", scripts:[
+    { id:"violence", icon:"🔪", name:"Violence District", desc:"Асимметричный хоррор: убийца против 5 выживших.", scripts:[
         {title:"ANCH-Hax", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/ayamnubchh/Violence-District-Roblox-Script/main/ANCH-Hax.lua"))()', verified:false, key:false},
         {title:"RawScripts", code:'loadstring(game:HttpGet("https://rawscripts.net/raw/Violence-District-Open-Source-fully-auto-generator-script-with-working-ESP-65319"))()', verified:false, key:false},
         {title:"Askr Hub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/Netshh/askr-hub/main/loader.lua"))()', verified:false, key:false},
         {title:"VSS", code:'loadstring(game:HttpGet("https://vss.pandadevelopment.net/virtual/file/6168f557bb3f42c8"))()', verified:false, key:false},
         {title:"SixSense", code:'loadstring(game:HttpGet("https://sixsense.vercel.app/api/script/bf10d3b960442ff45c53ce9a2aa618b5"))()', verified:false, key:false}
     ]},
-    { id:"bloxfruits", emoji:"🍑", name:"Blox Fruits", desc:"RPG по мотивам One Piece. Сражайся, исследуй моря, собирай дьявольские фрукты.", scripts:[
+    { id:"bloxfruits", icon:"🍑", name:"Blox Fruits", desc:"RPG по мотивам One Piece. Сражайся, исследуй моря, собирай дьявольские фрукты.", scripts:[
         {title:"Cats Scripts", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/CatsScripts/CatsRobloxScripts/refs/heads/main/loader.luau"))()', verified:false, key:false},
         {title:"QuantumOnyx", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/flazhy/QuantumOnyx/refs/heads/main/QuantumOnyx.lua"))()', verified:false, key:false},
         {title:"Styxz Hub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/ToshyWare/StyxzHub/main/Styxz.lua"))()', verified:false, key:false},
@@ -389,109 +333,109 @@ const games = [
         {title:"Gravity Hub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/Dev-GravityHub/BloxFruit/refs/heads/main/Main.lua"))()', verified:false, key:false},
         {title:"Void", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/VoidDeveloper67/VoidHub/refs/heads/main/Void"))()', verified:false, key:false}
     ]},
-    { id:"ubg", emoji:"🥊", name:"Untitled Boxing Game", desc:"Боксёрские поединки против других игроков и боссов.", scripts:[
+    { id:"ubg", icon:"🥊", name:"Untitled Boxing Game", desc:"Боксёрские поединки против других игроков и боссов.", scripts:[
         {title:"Luarmor Loader", code:'loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/e84aac149960efeddc83453e4a856d9d.lua"))()', verified:false, key:false},
         {title:"Luarmor Key", code:'loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/fda9babd071d6b536a745774b6bc681c.lua"))()', verified:false, key:true},
         {title:"BeanzHub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/pid4k/scripts/main/BeanzHub.lua", true))()', verified:false, key:true}
     ]},
-    { id:"jailbreak", emoji:"🚔", name:"Jailbreak", desc:"Копы и грабители: сбеги из тюрьмы или останови преступников.", scripts:[
+    { id:"jailbreak", icon:"🚔", name:"Jailbreak", desc:"Копы и грабители: сбеги из тюрьмы или останови преступников.", scripts:[
         {title:"Universal Farm", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/BlitzIsKing/UniversalFarm/main/Loader/Regular"))()', verified:false, key:false},
         {title:"Vylera", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/vylerascripts/vylera-scripts/main/VyleraJailBreak.lua"))()', verified:false, key:false},
         {title:"Allium Loader", code:'loadstring(game:HttpGet("https://lucii.space/AlliumLoader.lua"))()', verified:false, key:false}
     ]},
-    { id:"slap", emoji:"👋", name:"Slap Battles", desc:"Хаотичные сражения с пощёчинами и уникальными перчатками.", scripts:[
+    { id:"slap", icon:"👋", name:"Slap Battles", desc:"Хаотичные сражения с пощёчинами и уникальными перчатками.", scripts:[
         {title:"Vinq Develops", code:"loadstring(game:HttpGet('https://raw.githubusercontent.com/vinqDevelops/erwwefqweqewqwe/refs/heads/main/lol.txt'))()", verified:false, key:false},
         {title:"Cats Badge Gloves", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/CatsScripts/CatsRobloxScripts/main/AllBadgeGloves.luau"))()', verified:false, key:false},
         {title:"Lithium", code:'loadstring(game:HttpGet("https://gitlab.com/tejascerts/lithium/-/raw/main/lithium.lua",true))()', verified:false, key:false},
         {title:"Ultimate Badge Hub", code:"loadstring(game:HttpGet('https://raw.githubusercontent.com/Pro666Pro/UltimateBadgeHub/main/main.lua'))()", verified:false, key:false}
     ]},
-    { id:"grow_garden2", emoji:"🍇", name:"Grow a Garden 2", desc:"Симулятор садоводства: сажай, поливай, собирай урожай, открывай новые растения.", scripts:[
+    { id:"grow_garden2", icon:"🍇", name:"Grow a Garden 2", desc:"Симулятор садоводства: сажай, поливай, собирай урожай, открывай новые растения.", scripts:[
         {title:"ApelHub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/ApelsinkaFr/ApelHub/refs/heads/main/ApelHub"))()', verified:false, key:false}
     ]},
-    { id:"forsaken", emoji:"🔪", name:"Forsaken", desc:"Мрачный экшен-платформер: проходи испытания, избегай ловушек, сражайся с боссами.", scripts:[
+    { id:"forsaken", icon:"🔪", name:"Forsaken", desc:"Мрачный экшен-платформер: проходи испытания, избегай ловушек, сражайся с боссами.", scripts:[
         {title:"Forsaken Plus", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/NaikoScript/Forsaken-Plus/main/Script"))()', verified:false, key:false},
         {title:"Luarmor Loader", code:'loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/d6eded51e52af6e97e3ee10fd4843043.lua"))()', verified:false, key:false}
     ]},
-    { id:"grow_garden", emoji:"🌶️", name:"Grow a Garden", desc:"Классический симулятор сада: расти, продавай, расширяй участок.", scripts:[
+    { id:"grow_garden", icon:"🌶️", name:"Grow a Garden", desc:"Классический симулятор сада: расти, продавай, расширяй участок.", scripts:[
         {title:"LoadUB", code:'loadstring(game:HttpGet("https://gitlab.com/r_soft/main/-/raw/main/LoadUB.lua"))()', verified:false, key:false}
     ]},
-    { id:"babft", emoji:"🚢", name:"Build A Boat For Treasure", desc:"Строй лодку, плыви к сокровищам, улучшай конструкцию.", scripts:[
+    { id:"babft", icon:"🚢", name:"Build A Boat For Treasure", desc:"Строй лодку, плыви к сокровищам, улучшай конструкцию.", scripts:[
         {title:"Unrexl BABFT", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/unrexl/Scripts/refs/heads/main/BABFT"))()', verified:false, key:false},
         {title:"Ultimte B3BFT", code:'loadstring(game:HttpGet("https://rawscripts.net/raw/Build-A-Boat-For-Treasure-Ultimte-B3BFT-Script-28601"))()', verified:false, key:false}
     ]},
-    { id:"fish", emoji:"🐟", name:"Fish", desc:"Рыбалка-симулятор: лови рыбу, улучшай удочки, открывай новые локации.", scripts:[
+    { id:"fish", icon:"🐟", name:"Fish", desc:"Рыбалка-симулятор: лови рыбу, улучшай удочки, открывай новые локации.", scripts:[
         {title:"717exe Fish It", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/arcadeisreal/717exe---Fish-It/refs/heads/main/free.lua"))()', verified:false, key:false},
         {title:"NiCH", code:'loadstring(game:HttpGet("https://lua.cloudlabx.online/scripts/103.NiCH"))()', verified:false, key:false},
         {title:"Luarmor Loader", code:'loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/d6eded51e52af6e97e3ee10fd4843043.lua"))()', verified:false, key:false}
     ]},
-    { id:"nftbattle", emoji:"⌛️", name:"NFT Battle", desc:"Пошаговые битвы с NFT-персонажами: собирай коллекцию, улучшай навыки.", scripts:[
+    { id:"nftbattle", icon:"⌛️", name:"NFT Battle", desc:"Пошаговые битвы с NFT-персонажами: собирай коллекцию, улучшай навыки.", scripts:[
         {title:"NFT Battle Script", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/Hujibuji/NFT-Battle-roblox-script/refs/heads/main/testik"))()', verified:false, key:false}
     ]},
-    { id:"beeswarm", emoji:"🐝", name:"Bee Swarm Simulator", desc:"Собирай мёд, качай улей, выполняй квесты медведей.", scripts:[
+    { id:"beeswarm", icon:"🐝", name:"Bee Swarm Simulator", desc:"Собирай мёд, качай улей, выполняй квесты медведей.", scripts:[
         {title:"Kron Hub", code:"loadstring(game:HttpGet('https://raw.githubusercontent.com/DevKron/Kron_Hub/refs/heads/main/version_1.0'))()", verified:false, key:false},
         {title:"Verbal Hub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/VerbalHubz/Verbal-Hub/refs/heads/main/Bee%20Swarm%20Sim.Lua",true))()', verified:false, key:false}
     ]},
-    { id:"fling", emoji:"🔥", name:"Fling Things and People", desc:"Физический симулятор: хватай и швыряй всё подряд.", scripts:[
+    { id:"fling", icon:"🔥", name:"Fling Things and People", desc:"Физический симулятор: хватай и швыряй всё подряд.", scripts:[
         {title:"Fling Script", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/example-prog/FLING-THINGS-AND-PEOPLE/refs/heads/main/Flingthingsandpeoplescript"))()', verified:false, key:false},
         {title:"NameHub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/NameHubScript/_/refs/heads/main/f"))()', verified:false, key:false},
         {title:"VenomX", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/fratelevostru9999/src/refs/heads/main/VenomX%20Fling%20Things%20And%20People",true))()', verified:false, key:false}
     ]},
-    { id:"brookhaven", emoji:"🏡", name:"Brookhaven RP", desc:"Ролевая игра: живи в городе, покупай дома, машины, общайся.", scripts:[
+    { id:"brookhaven", icon:"🏡", name:"Brookhaven RP", desc:"Ролевая игра: живи в городе, покупай дома, машины, общайся.", scripts:[
         {title:"SP Hub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/as6cd0/SP_Hub/refs/heads/main/Brookhaven"))()', verified:false, key:false},
         {title:"Meow Apex", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/meowmeow9910/meow/refs/heads/main/apex/apex.lua"))()', verified:false, key:false},
         {title:"Panel.lua", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/kigredns/testUIDK/refs/heads/main/panel.lua"))()', verified:false, key:false}
     ]},
-    { id:"funkinfriday", emoji:"🎵", name:"Funkin Friday", desc:"Ритм-игра FNF с OP Autoplay — автоматическое прохождение.", scripts:[
+    { id:"funkinfriday", icon:"🎵", name:"Funkin Friday", desc:"Ритм-игра FNF с OP Autoplay — автоматическое прохождение.", scripts:[
         {title:"Fire Hub (OP Autoplay)", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/InfernusScripts/Fire-Hub/main/Loader"))()', verified:true, key:false}
     ]},
-    { id:"dandysworld", emoji:"🌸", name:"Dandy's World", desc:"Исследуй мир Денди, выполняй квесты и сражайся с врагами.", scripts:[
+    { id:"dandysworld", icon:"🌸", name:"Dandy's World", desc:"Исследуй мир Денди, выполняй квесты и сражайся с врагами.", scripts:[
         {title:"Gyozaz Hub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/homertco/gyozazhub/refs/heads/main/It",true))()', verified:false, key:false},
         {title:"Kodamo Loader", code:'loadstring(game:HttpGet("https://api.kodamo.net/loader/fxbpontv5v9fy82ycrd9"))()', verified:false, key:false},
         {title:"EpicHub", code:"loadstring(game:HttpGet(('https://raw.githubusercontent.com/VanPotent/EpicHub/refs/heads/main/v2loader.lua'),true))()", verified:false, key:false},
         {title:"RAW Scripts", code:'loadstring(game:HttpGet("https://rawscripts.net/raw/Dandy\'s-World-ALPHA-Dandys-World-50352"))()', verified:false, key:false}
     ]},
-    { id:"bladeball", emoji:"🏐", name:"Blade Ball", desc:"Отбивай мяч-клинок и сражайся с другими игроками на арене.", scripts:[
+    { id:"bladeball", icon:"🏐", name:"Blade Ball", desc:"Отбивай мяч-клинок и сражайся с другими игроками на арене.", scripts:[
         {title:"Azzyy Blade Ball", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/azzyy1/bladeball-script/main/main.lua"))()', verified:false, key:false},
         {title:"DP HUB Blade Ball", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/COOLXPLO/DP-HUB-coolxplo/refs/heads/main/bladeball.lua"))()', verified:false, key:false}
     ]},
-    { id:"buildaringfarm", emoji:"🌾", name:"Build A Ring Farm", desc:"Строй кольцевую ферму, собирай ресурсы и расширяй владения.", scripts:[
+    { id:"buildaringfarm", icon:"🌾", name:"Build A Ring Farm", desc:"Строй кольцевую ферму, собирай ресурсы и расширяй владения.", scripts:[
         {title:"Build-A-Ring Farm", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/femmehomme90-web/scripts/refs/heads/main/Build-A-Ring-Farm"))()', verified:false, key:false}
     ]},
-    { id:"yourbizarreadventure", emoji:"☄️", name:"Your Bizarre Adventure", desc:"Получи стенд, сражайся с другими игроками и исследуй мир JoJo.", scripts:[
+    { id:"yourbizarreadventure", icon:"☄️", name:"Your Bizarre Adventure", desc:"Получи стенд, сражайся с другими игроками и исследуй мир JoJo.", scripts:[
         {title:"IdiotBot", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/induchSandWitch/IdiotBot/refs/heads/main/ByMethion"))()', verified:false, key:false}
     ]},
-    { id:"scp3008", emoji:"🔥", name:"SCP 3008", desc:"Выживи в бесконечном IKEA, избегая сотрудников SCP.", scripts:[
+    { id:"scp3008", icon:"🔥", name:"SCP 3008", desc:"Выживи в бесконечном IKEA, избегая сотрудников SCP.", scripts:[
         {title:"ZZINSHUB", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/ZZINS077/3008/refs/heads/main/ZZINSHUB"))()', verified:false, key:false}
     ]},
-    { id:"plsdonate", emoji:"🤑", name:"Pls Donate", desc:"Зарабатывай Robux, создавая свои стенды и получая пожертвования.", scripts:[
+    { id:"plsdonate", icon:"🤑", name:"Pls Donate", desc:"Зарабатывай Robux, создавая свои стенды и получая пожертвования.", scripts:[
         {title:"CHX PLSDONATE", code:'loadstring(game:HttpGet("https://gist.githubusercontent.com/cheswer/20eeac704b4d1fc09eb7f30972e619e7/raw/CHX-PLSDONATE"))()', verified:false, key:false}
     ]},
-    { id:"ninjalegends", emoji:"🥷", name:"Ninja Legends", desc:"Стань ниндзя, тренируйся, открывай новые способности и сражайся.", scripts:[
+    { id:"ninjalegends", icon:"🥷", name:"Ninja Legends", desc:"Стань ниндзя, тренируйся, открывай новые способности и сражайся.", scripts:[
         {title:"Josh Scripts", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/skullsh52-spec/Josh-Scripts/refs/heads/main/Ninja%20Legends.txt"))()', verified:false, key:false}
     ]},
-    { id:"gardenhorizons", emoji:"🌱", name:"Garden Horizons", desc:"Создай свой сад, выращивай растения и исследуй новые горизонты.", scripts:[
+    { id:"gardenhorizons", icon:"🌱", name:"Garden Horizons", desc:"Создай свой сад, выращивай растения и исследуй новые горизонты.", scripts:[
         {title:"Luarmor Loader", code:'loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/3678bf74476a3ec0cc1471cbab867839.lua"))()', verified:false, key:false}
     ]},
-    { id:"prisonlife", emoji:"⚡️", name:"Prison Life", desc:"Симулятор тюрьмы: сбегай, устраивай бунты или охраняй порядок.", scripts:[
+    { id:"prisonlife", icon:"⚡️", name:"Prison Life", desc:"Симулятор тюрьмы: сбегай, устраивай бунты или охраняй порядок.", scripts:[
         {title:"Prison Life Beta", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/YourRealjohn/RobloxScript/refs/heads/main/PrisonLife-Beta"))()', verified:false, key:false}
     ]},
-    { id:"arsenal", emoji:"⚔️", name:"Arsenal", desc:"Шутер от первого лица: сражайся с другими игроками на различных картах.", scripts:[
+    { id:"arsenal", icon:"⚔️", name:"Arsenal", desc:"Шутер от первого лица: сражайся с другими игроками на различных картах.", scripts:[
         {title:"Felipe Hub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/FELIPEHUB1/Felipehub-scripts/refs/heads/main/Arsenal"))()', verified:false, key:false}
     ]},
-    { id:"thelostfront", emoji:"🔪", name:"The Lost Front", desc:"Тактический шутер: сражайся на передовой и выполняй боевые задачи.", scripts:[
+    { id:"thelostfront", icon:"🔪", name:"The Lost Front", desc:"Тактический шутер: сражайся на передовой и выполняй боевые задачи.", scripts:[
         {title:"Pear Bootstrapper", code:'loadstring(game:HttpGet("https://pear-enthusiasts.lol/pear_bootstrapper.php"))()', verified:false, key:false}
     ]},
-    { id:"theforge", emoji:"⚒️", name:"The Forge [BETA]", desc:"Кузнечный симулятор: создавай оружие и броню, улучшай свои навыки.", scripts:[
+    { id:"theforge", icon:"⚒️", name:"The Forge [BETA]", desc:"Кузнечный симулятор: создавай оружие и броню, улучшай свои навыки.", scripts:[
         {title:"Luasec", code:'loadstring(game:HttpGet("https://ads.luasec.cc/init?script=w6VhSHJEFfYhx3LW7cA4"))()', verified:false, key:false}
     ]},
-    { id:"escapetsunami", emoji:"🧠", name:"Escape Tsunami for Brainrot", desc:"Убегай от цунами, решай головоломки и выживай.", scripts:[
+    { id:"escapetsunami", icon:"🧠", name:"Escape Tsunami for Brainrot", desc:"Убегай от цунами, решай головоломки и выживай.", scripts:[
         {title:"Nuarex Hub", code:'loadstring(game:HttpGet("https://raw.githubusercontent.com/nuarexsc/nuarexsc-HUB/refs/heads/main/loader"))()', verified:false, key:true},
         {title:"Relz Hub", code:'loadstring(game:HttpGet("https://relzhub.farrelghibran.com/loader.lua"))()', verified:false, key:true}
     ]},
-    { id:"solohunters", emoji:"🔫", name:"Solo Hunters", desc:"Охотничий симулятор: выслеживай добычу и улучшай снаряжение.", scripts:[
+    { id:"solohunters", icon:"🔫", name:"Solo Hunters", desc:"Охотничий симулятор: выслеживай добычу и улучшай снаряжение.", scripts:[
         {title:"Wings", code:'loadstring(game:HttpGet("https://wings.ac/loader"))()', verified:false, key:false}
     ]},
-    { id:"deltaproject", emoji:"💉", name:"Delta Project", desc:"Инжектор Delta — инструмент для выполнения скриптов в Roblox.", scripts:[
+    { id:"deltaproject", icon:"💉", name:"Delta Project", desc:"Инжектор Delta — инструмент для выполнения скриптов в Roblox.", scripts:[
         {title:"Pastebin", code:'loadstring(game:HttpGet("https://pastebin.com/raw/wCNy3Hzu"))()', verified:false, key:false}
     ]}
 ];
@@ -508,7 +452,7 @@ games.forEach((game, index) => {
     row.href = `#${game.id}`;
     row.className = 'game-row';
     row.dataset.game = game.id;
-    row.innerHTML = `<span><span class="emoji">${game.emoji}</span>${game.name}</span><span class="arrow">→</span>`;
+    row.innerHTML = `<span style="display:flex;align-items:center;"><span class="game-icon">${game.icon}</span>${game.name}</span><span class="game-arrow">→</span>`;
     grid.appendChild(row);
 
     const page = document.createElement('div');
@@ -518,9 +462,9 @@ games.forEach((game, index) => {
     game.scripts.forEach((s, si) => {
         const vHTML = s.verified ? '<span class="verified-badge">✅ Верифицирован владельцем сайта</span>' : '';
         const kHTML = s.key ? '<span class="key-badge">🔑 Key System</span>' : '<span class="no-key-badge">✅ No Key</span>';
-        sHTML += `<div class="script-card"><div class="script-header"><span class="script-name">${s.title}</span><div style="display:flex;gap:6px;flex-wrap:wrap;">${vHTML}${kHTML}</div></div><pre id="script-${game.id}-${si}">${s.code.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</pre><button class="copy-btn" onclick="copyCode('script-${game.id}-${si}', this)">📋 Copy Script</button><div class="date-tag">25 June 2026</div></div>`;
+        sHTML += `<div class="script-card"><div class="script-header"><span class="script-name">${s.title}</span><div style="display:flex;gap:6px;flex-wrap:wrap;">${vHTML}${kHTML}</div></div><pre id="script-${game.id}-${si}">${s.code.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</pre><button class="copy-btn" onclick="copyCode('script-${game.id}-${si}', this)">📋 Copy Script</button><div class="date-tag">17 July 2025</div></div>`;
     });
-    page.innerHTML = `<a href="#" class="back-link" onclick="showHome()">← На главную</a><h2>${game.emoji} ${game.name}</h2><div class="game-desc">${game.desc}</div>${sHTML}`;
+    page.innerHTML = `<a href="#" class="back-link" onclick="showHome()">← На главную</a><h2><span class="game-icon" style="display:inline-flex;vertical-align:middle;margin-right:10px;">${game.icon}</span>${game.name}</h2><div class="game-desc">${game.desc}</div>${sHTML}`;
     pagesContainer.appendChild(page);
 });
 
@@ -570,108 +514,7 @@ function copyCode(blockId, btn) {
     }).catch(() => alert('Ошибка копирования'));
 }
 
-// ====== COPILOT ======
-(function() {
-    const trigger = document.getElementById('copilotTrigger');
-    const window_el = document.getElementById('copilotWindow');
-    const closeBtn = document.getElementById('copilotClose');
-    const messagesDiv = document.getElementById('copilotMessages');
-    const inputEl = document.getElementById('copilotInput');
-    const sendBtn = document.getElementById('copilotSend');
-
-    trigger.addEventListener('click', () => window_el.classList.toggle('open'));
-    closeBtn.addEventListener('click', () => window_el.classList.remove('open'));
-
-    function addMessage(text, type) {
-        const msg = document.createElement('div');
-        msg.className = 'copilot-msg ' + type;
-        msg.textContent = text;
-        messagesDiv.appendChild(msg);
-        messagesDiv.scrollTop = messagesDiv.scrollHeight;
-    }
-
-    function getReply(q) {
-        q = q.toLowerCase();
-        if (q.includes('привет') || q.includes('здравств') || q.includes('ку') || q.includes('хелло')) return '👋 Привет! Я Z1NTY Copilot. Спроси меня о любом плейсе или скрипте.';
-        if (q.includes('сколько плейсов') || q.includes('сколько игр')) return '🎮 На сайте **более 40 плейсов** Roblox. Вот некоторые: DOORS, Rivals, MM2, Blox Fruits, Arsenal, Prison Life, Dandy\'s World, Blade Ball, Forsaken, Brookhaven и многие другие.';
-        if (q.includes('верифиц') || q.includes('галочка')) return '✅ Верифицированные скрипты: OP Doors, OP MM2, Fire Hub. Все без ключа.';
-        if (q.includes('doors') || q.includes('дорс')) return '🚪 **DOORS** — хоррор. 5 скриптов, включая верифицированный OP Doors script (без ключа).';
-        if (q.includes('rivals') || q.includes('ривалс')) return '⚔️ **Rivals** — PvP-шутер. 4 скрипта, все без ключа.';
-        if (q.includes('mm2') || q.includes('murder')) return '🔪 **Murder Mystery 2** — хоррор с ролями. 8 скриптов, включая верифицированный OP MM2 Script.';
-        if (q.includes('blox fruit') || q.includes('блокс фрут')) return '🍑 **Blox Fruits** — RPG по One Piece. 11 скриптов! Самая большая коллекция.';
-        if (q.includes('arsenal') || q.includes('арсенал')) return '⚔️ **Arsenal** — шутер. 1 скрипт Felipe Hub (без ключа).';
-        if (q.includes('prison life') || q.includes('тюрьм')) return '⚡️ **Prison Life** — симулятор тюрьмы. 1 скрипт Prison Life Beta (без ключа).';
-        if (q.includes('forsaken') || q.includes('форсакен')) return '🔪 **Forsaken** — экшен-платформер. 2 скрипта без ключа.';
-        if (q.includes('dandy') || q.includes('денди')) return '🌸 **Dandy\'s World** — мир Денди. 4 скрипта без ключа.';
-        if (q.includes('blade ball') || q.includes('блейд')) return '🏐 **Blade Ball** — арена с мячом. 2 скрипта без ключа.';
-        if (q.includes('brookhaven') || q.includes('брукхейвен')) return '🏡 **Brookhaven RP** — ролевая игра. 3 скрипта без ключа.';
-        if (q.includes('funkin') || q.includes('фнф')) return '🎵 **Funkin Friday** — ритм-игра. Верифицированный скрипт Fire Hub (без ключа).';
-        if (q.includes('delta project') || q.includes('дельта проект')) return '💉 **Delta Project** — инжектор для Roblox. 1 скрипт на сайте (без ключа).';
-        if (q.includes('дельта') || q.includes('delta') || q.includes('как установить дельту') || q.includes('скачать дельту')) return '💉 **Дельту можно установить в телеграм канале:** https://t.me/z1ntyscripts';
-        if (q.includes('скопировать') || q.includes('copy')) return '📋 Выбери плейс → прокрути до скрипта → нажми Copy Script.';
-        if (q.includes('поиск')) return '🔍 Поле поиска вверху страницы. Введи название плейса.';
-        if (q.includes('байпасс') || q.includes('bypass') || q.includes('обход')) return '🔑 Для обхода ключей есть сайт Z1NTY Key Bypass. Ссылка в канале.';
-        if (q.includes('поддержка') || q.includes('помощь')) return '🛟 Техподдержка — кнопка слева внизу. Ведёт в бота @Z1NTY_SupportBot.';
-        if (q.includes('http') || q.includes('platorelay') || q.includes('linkvertise')) {
-            window.open('https://bypass.tools/?url=' + encodeURIComponent(q), '_blank');
-            return '🔑 Открываю bypass.tools для обхода твоей ссылки...';
-        }
-        return '🤔 Я не совсем понял. Спроси о конкретном плейсе (DOORS, MM2, Blox Fruits...) или о том, как скопировать скрипт. Я знаю все 40+ плейсов!';
-    }
-
-    function sendMessage() {
-        const text = inputEl.value.trim();
-        if (!text) return;
-        addMessage(text, 'user');
-        inputEl.value = '';
-        addMessage('⏳ Думаю...', 'bot');
-        const loadingMsg = messagesDiv.lastChild;
-        setTimeout(() => {
-            loadingMsg.remove();
-            addMessage(getReply(text), 'bot');
-        }, 500);
-    }
-
-    window.sendSuggestion = function(text) {
-        inputEl.value = text;
-        sendMessage();
-    };
-
-    sendBtn.addEventListener('click', sendMessage);
-    inputEl.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); });
-})();
-
-// ====== ТЕХПОДДЕРЖКА ======
-const supportTrigger = document.getElementById('supportTrigger');
-const supportModal = document.getElementById('supportModal');
-const supportOverlay = document.getElementById('supportOverlay');
-const supportClose = document.getElementById('supportClose');
-const circleAccept = document.getElementById('circleAccept');
-const circleDecline = document.getElementById('circleDecline');
-const supportLink = document.getElementById('supportLink');
-let userAccepts = false;
-
-function openSupport() { supportModal.classList.add('show'); supportOverlay.classList.add('show'); }
-function closeSupport() { supportModal.classList.remove('show'); supportOverlay.classList.remove('show'); }
-supportTrigger.addEventListener('click', openSupport);
-supportClose.addEventListener('click', closeSupport);
-supportOverlay.addEventListener('click', closeSupport);
-
-function toggleCheckbox(type) {
-    if (type === 'accept') {
-        userAccepts = true;
-        circleAccept.classList.add('checked');
-        circleDecline.classList.remove('checked');
-        supportLink.classList.remove('disabled');
-    } else {
-        userAccepts = false;
-        circleDecline.classList.add('checked');
-        circleAccept.classList.remove('checked');
-        supportLink.classList.add('disabled');
-    }
-}
-
-console.log('✅ Z1NTY Scripts Hub загружен! Copilot готов.');
+console.log('✅ Z1NTY Scripts Hub загружен! Дизайн обновлён.');
 </script>
 </body>
 </html>
